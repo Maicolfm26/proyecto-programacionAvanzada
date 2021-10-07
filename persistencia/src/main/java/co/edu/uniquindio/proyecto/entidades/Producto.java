@@ -44,6 +44,17 @@ public class Producto implements Serializable {
     //Se entiende que la columna por defecto puede es nullable = true
     private Integer descuento;
 
+    @ManyToOne
+    private Usuario vendedor;
+
+    @ManyToOne
+    private Ciudad ciudad;
+
+    @ManyToMany(mappedBy = "productos")
+    private List<Categoria> categorias;
+
     @ManyToMany
-    private List<Usuario> usuarios;
+    private List<Usuario> usuariosFavoritos;
+
+
 }

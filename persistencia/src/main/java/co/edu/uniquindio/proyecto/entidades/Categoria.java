@@ -8,7 +8,9 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,5 +26,8 @@ public class Categoria implements Serializable {
 
     @Column(nullable = false, length = 100)
     private String nombre;
+
+    @ManyToMany
+    private List<Producto> productos;
 }
 
