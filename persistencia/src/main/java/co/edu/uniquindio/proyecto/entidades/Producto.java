@@ -56,5 +56,9 @@ public class Producto implements Serializable {
     @ManyToMany
     private List<Usuario> usuariosFavoritos;
 
+    @OneToMany(mappedBy = "codigoProducto")
+    private List<DetalleCompra> detalleCompras;
 
+    @OneToMany(mappedBy = "codigoProductoChat")
+    private List<Chat> chats;
 }

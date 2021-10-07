@@ -1,13 +1,11 @@
 package co.edu.uniquindio.proyecto.entidades;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,4 +27,7 @@ public class Compra implements Serializable {
 
     @ManyToOne
     private Usuario usuario;
+
+    @OneToMany(mappedBy = "codigoCompra")
+    private List<DetalleCompra> detalleCompras;
 }
