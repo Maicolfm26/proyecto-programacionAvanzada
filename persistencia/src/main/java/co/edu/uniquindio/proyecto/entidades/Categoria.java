@@ -1,5 +1,5 @@
 
-package co.edu.uniquindio.proyecto.Entidades;
+package co.edu.uniquindio.proyecto.entidades;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
