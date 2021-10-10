@@ -11,7 +11,6 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-@ToString
 public class DetalleCompra implements Serializable {
 
     @Id
@@ -20,24 +19,24 @@ public class DetalleCompra implements Serializable {
     private Integer codigo;
 
     @ManyToOne
-    @JoinColumn (nullable = false)
-    private Compra codigoCompra;
+    @JoinColumn(nullable = false)
+    private Compra compra;
 
     @ManyToOne
-    @JoinColumn (nullable = false)
-    private Producto codigoProducto;
+    @JoinColumn(nullable = false)
+    private Producto producto;
 
     @Positive
     @Column(nullable = false)
     private Integer unidades;
 
+    @Positive
     @Column(nullable = false)
     private Double precio_producto;
 
-    public DetalleCompra(Integer codigo, Compra codigoCompra, Producto codigoProducto, Integer unidades, Double precio_producto) {
-        this.codigo = codigo;
-        this.codigoCompra = codigoCompra;
-        this.codigoProducto = codigoProducto;
+    public DetalleCompra(Compra compra, Producto producto, Integer unidades, Double precio_producto) {
+        this.compra = compra;
+        this.producto = producto;
         this.unidades = unidades;
         this.precio_producto = precio_producto;
     }

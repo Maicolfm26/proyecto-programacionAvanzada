@@ -1,4 +1,3 @@
-
 package co.edu.uniquindio.proyecto.entidades;
 
 import lombok.EqualsAndHashCode;
@@ -8,28 +7,28 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-public class Categoria implements Serializable {
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class Imagen implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Integer codigo;
 
-    @Column(nullable = false, length = 100)
-    private String nombre;
+    @Column(nullable = false)
+    private String ruta;
 
-    @ManyToMany
-    private List<Producto> productos;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Producto producto;
 
-    public Categoria(String nombre) {
-        this.nombre = nombre;
+    public Imagen(String ruta, Producto producto) {
+        this.ruta = ruta;
+        this.producto = producto;
     }
 }
-

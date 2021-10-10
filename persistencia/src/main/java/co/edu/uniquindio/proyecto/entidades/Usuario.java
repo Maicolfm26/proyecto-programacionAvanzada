@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyecto.entidades;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,27 +11,38 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Usuario extends Persona implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    private String codigo;
-
-    @ManyToMany(mappedBy = "usuariosFavoritos")
-    private List<Producto> favoritosUsuario;
-
     @OneToMany(mappedBy = "usuario")
-    private List<Compra> compras;
+    private List<Telefono> telefonos;
 
     @OneToMany(mappedBy = "vendedor")
     private List<Producto> listaProductos;
 
-    @OneToMany(mappedBy = "usuarioComprador")
+    @ManyToMany(mappedBy = "usuariosFavoritos")
+    private List<Producto> productosFavoritos;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Comentario> comentarios;
+
+    @OneToMany(mappedBy = "comprador")
     private List<Chat> chats;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Ciudad ciudad;
 
+    @OneToMany(mappedBy = "usuario")
+    private List<Compra> compras;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Subasta_Usuario> subastasUsuario;
+
+    public Usuario(String codigo, String nombre, String email, String password, List<Telefono> telefonos, Ciudad ciudad) {
+        super(codigo, nombre, email, password);
+        this.telefonos = telefonos;
+        this.ciudad = ciudad;
+    }
 }

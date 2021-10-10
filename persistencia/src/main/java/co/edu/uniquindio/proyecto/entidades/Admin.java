@@ -11,14 +11,9 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class Admin extends Persona implements Serializable {
-
-    @Id
-    @Column(nullable = false, length = 10)
-    @EqualsAndHashCode.Include
-    private String codigo;
-
-
-
+    public Admin(String codigo, String nombre, String email, String password) {
+        super(codigo, nombre, email, password);
+    }
 }

@@ -19,15 +19,22 @@ public class Compra implements Serializable {
     @EqualsAndHashCode.Include
     private Integer codigo;
 
-    @Column(nullable = false,columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(nullable = false)
     private LocalDate fechaCompra;
 
     @Column(nullable = false)
     private String medioPago;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "codigoCompra")
+    @OneToMany(mappedBy = "compra")
     private List<DetalleCompra> detalleCompras;
+
+    public Compra(LocalDate fechaCompra, String medioPago, Usuario usuario) {
+        this.fechaCompra = fechaCompra;
+        this.medioPago = medioPago;
+        this.usuario = usuario;
+    }
 }

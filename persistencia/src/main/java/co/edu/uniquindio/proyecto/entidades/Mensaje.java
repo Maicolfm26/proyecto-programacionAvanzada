@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-@ToString
 public class Mensaje implements Serializable {
 
     @Id
@@ -20,23 +19,23 @@ public class Mensaje implements Serializable {
     @EqualsAndHashCode.Include
     private Integer codigo;
 
-    @Column(length = 200,nullable = false)
+    @Column(length = 200, nullable = false)
     private String mensaje;
 
-    @Column(length = 200,nullable = false)
+    @Column(length = 200, nullable = false)
     private String emisor;
 
     @Column(nullable = false)
     private LocalDate fecha;
 
     @ManyToOne
-    private Chat codigoChat;
+    @JoinColumn(nullable = false)
+    private Chat chat;
 
-    public Mensaje(Integer codigo, String mensaje, String emisor, LocalDate fecha, Chat codigoChat) {
-        this.codigo = codigo;
+    public Mensaje(String mensaje, String emisor, LocalDate fecha, Chat chat) {
         this.mensaje = mensaje;
         this.emisor = emisor;
         this.fecha = fecha;
-        this.codigoChat = codigoChat;
+        this.chat = chat;
     }
 }

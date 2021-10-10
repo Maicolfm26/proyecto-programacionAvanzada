@@ -12,7 +12,6 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-@ToString
 public class Chat implements Serializable {
 
     @Id
@@ -20,21 +19,19 @@ public class Chat implements Serializable {
     @EqualsAndHashCode.Include
     private Integer codigo;
 
-    @JoinColumn (nullable = false)
     @ManyToOne
-    private Usuario usuarioComprador;
-
     @JoinColumn (nullable = false)
-    @ManyToOne
-    private Producto codigoProductoChat;
+    private Usuario comprador;
 
-    @OneToMany(mappedBy = "codigoChat")
+    @ManyToOne
+    @JoinColumn (nullable = false)
+    private Producto producto;
+
+    @OneToMany(mappedBy = "chat")
     private List<Mensaje> mensajes;
 
-    public Chat(Integer codigo, Usuario usuarioComprador, Producto codigoProductoChat, List<Mensaje> mensajes) {
-        this.codigo = codigo;
-        this.usuarioComprador = usuarioComprador;
-        this.codigoProductoChat = codigoProductoChat;
-        this.mensajes = mensajes;
+    public Chat(Usuario comprador, Producto producto) {
+        this.comprador = comprador;
+        this.producto = producto;
     }
 }
