@@ -1,9 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +10,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
 public class Imagen implements Serializable {
 
     @Id
