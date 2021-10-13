@@ -24,9 +24,9 @@ insert into Producto values(2, "Jean jogger", null, "2021-10-22", "Jogger", 3000
 insert into Producto values(3, "Tenis af1 blancos", null, "2021-12-22", "AF1", 130000, 3, "127", "13838543"  );
 
 --Se insertan algunas imagenes a la base de datos
-insert into Imagen values(1, "C:\Users\tavog\imagen1.jpg", 2);
-insert into Imagen values(2, "C:\Users\tavog\imagen2.jpg", 1);
-insert into Imagen values(3, "C:\Users\tavog\imagen3.jpg", 3);
+insert into Producto_imagenes values(1, "C:\Users\tavog\imagen1.jpg" );
+insert into Producto_imagenes values(2, "C:\Users\tavog\imagen2.jpg" );
+insert into Producto_imagenes values(3, "C:\Users\tavog\imagen3.jpg" );
 
 --Se insertan algunos comentarios como prueba
 insert into Comentario values(1, 4, "2021-10-12", "Muy buen producto", null, 1, "98765554" );

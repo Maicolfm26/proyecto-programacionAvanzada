@@ -4,7 +4,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Positive;
@@ -49,8 +48,8 @@ public class Producto implements Serializable {
     @ManyToMany(mappedBy = "productos")
     private List<Categoria> categorias;
 
-    @OneToMany(mappedBy = "producto")
-    private List<Imagen> imagenes;
+    @ElementCollection
+    private List<String> imagenes;
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -75,7 +74,7 @@ public class Producto implements Serializable {
     @OneToMany(mappedBy = "producto")
     private List<Chat> chats;
 
-    public Producto(String nombre, Integer unidades, String descripcion, Integer precio, LocalDate fechaLimite, List<Categoria> categorias, List<Imagen> imagenes, Usuario vendedor, Ciudad ciudad) {
+    public Producto(String nombre, Integer unidades, String descripcion, Integer precio, LocalDate fechaLimite, List<Categoria> categorias, List<String> imagenes, Usuario vendedor, Ciudad ciudad) {
         this.nombre = nombre;
         this.unidades = unidades;
         this.descripcion = descripcion;
@@ -87,7 +86,7 @@ public class Producto implements Serializable {
         this.ciudad = ciudad;
     }
 
-    public Producto(String nombre, Integer unidades, String descripcion, Integer precio, LocalDate fechaLimite, List<Categoria> categorias, List<Imagen> imagenes, Usuario vendedor, List<Subasta> subastas, Ciudad ciudad) {
+    public Producto(String nombre, Integer unidades, String descripcion, Integer precio, LocalDate fechaLimite, List<Categoria> categorias, List<String> imagenes, Usuario vendedor, List<Subasta> subastas, Ciudad ciudad) {
         this.nombre = nombre;
         this.unidades = unidades;
         this.descripcion = descripcion;
