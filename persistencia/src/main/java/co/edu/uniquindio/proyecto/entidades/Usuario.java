@@ -15,8 +15,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class Usuario extends Persona implements Serializable {
 
-    @OneToMany(mappedBy = "usuario")
-    private List<Telefono> telefonos;
+    @ElementCollection
+    private List<String> telefonos;
 
     @OneToMany(mappedBy = "vendedor")
     private List<Producto> listaProductos;
@@ -40,7 +40,7 @@ public class Usuario extends Persona implements Serializable {
     @OneToMany(mappedBy = "usuario")
     private List<Subasta_Usuario> subastasUsuario;
 
-    public Usuario(String codigo, String nombre, String email, String password, List<Telefono> telefonos, Ciudad ciudad) {
+    public Usuario(String codigo, String nombre, String email, String password, List<String> telefonos, Ciudad ciudad) {
         super(codigo, nombre, email, password);
         this.telefonos = telefonos;
         this.ciudad = ciudad;
