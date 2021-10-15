@@ -1,19 +1,3 @@
-insert into detalle_compra values (1,200_000,2,1,1)
-insert into detalle_compra values (2,500_000,5,2,2)
-insert into detalle_compra values (3,1_000_000,1,3,3)
-
-insert into chat values (1,"1",1)
-insert into chat values (2,"2",2)
-insert into chat values (3,"3",3)
-
-insert into admin values ("123","pedro@email.com","Pedro Sanchez","pedro123")
-insert into admin values ("456","maria@email.com","Maria Elena","maria123")
-insert into admin values ("789","david@email.com","David Lopez","david123")
-
-insert into mensaje values (1,"Juan","2021/10/06","Hola, esta disponible este producto?",1)
-insert into mensaje values (2,"Juan","2021/10/06","Me interesa el producto",1)
-insert into mensaje values (3,"Juan","2021/10/06","Espero su respuesta muchas gracias.",1)
-
 --Se crean las ciudades en la base de datos
 insert into Ciudad values("123","Armenia");
 insert into Ciudad values("124", "Pereira");
@@ -47,4 +31,36 @@ insert into Producto_imagenes values(3, "C:\Users\tavog\imagen3.jpg" );
 --Se insertan algunos comentarios como prueba
 insert into Comentario values(1, 4, "2021-10-12", "Muy buen producto", null, 1, "98765554" );
 insert into Comentario values(2, 5, "2021-10-11", "Excelente producto", null, 2, "3212345" );
+
+--Se crean algunos administradores como prueba en la base de datos
+insert into admin values ("123","pedro@email.com","Pedro Sanchez","pedro123");
+insert into admin values ("456","maria@email.com","Maria Elena","maria123");
+insert into admin values ("789","david@email.com","David Lopez","david123");
+
+--Se crea algunos chats como prueba en la base de datos
+insert into chat values (1,"100765489",1);
+insert into chat values (2,"42785998",2);
+insert into chat values (3,"13838543",3);
+
+--Se crea algunos mensajes como prueba para el chat en la base de datos
+insert into mensaje values (1,"Juan","2021/10/06","Hola, esta disponible este producto?",1);
+insert into mensaje values (2,"Juan","2021/10/06","Me interesa el producto",2);
+insert into mensaje values (3,"Juan","2021/10/06","Espero su respuesta muchas gracias.",3);
+
+--Se crean compras como prueba en la base de datos
+insert into compra values (1,"2021/10/06","Efectivo","100765489");
+insert into compra values (2,"2021/10/06","Efectivo","42785998");
+insert into compra values (3,"2021/10/06","Efectivo","13838543");
+
+--Se crean detalles de compras como prueba en la base de datos
+insert into detalle_compra values (1,200000.00,2,1,1);
+insert into detalle_compra values (2,500000.00,5,2,2);
+insert into detalle_compra values (3,800000.00,1,3,3);
+
+
+
+
+
+
+
 

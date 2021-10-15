@@ -1,9 +1,6 @@
 package co.edu.uniquindio.proyecto.test;
 
-import co.edu.uniquindio.proyecto.entidades.Chat;
-import co.edu.uniquindio.proyecto.entidades.Mensaje;
-import co.edu.uniquindio.proyecto.entidades.Producto;
-import co.edu.uniquindio.proyecto.entidades.Usuario;
+import co.edu.uniquindio.proyecto.entidades.*;
 import co.edu.uniquindio.proyecto.repositorios.ChatRepo;
 import co.edu.uniquindio.proyecto.repositorios.MensajeRepo;
 import co.edu.uniquindio.proyecto.repositorios.ProductoRepo;
@@ -26,27 +23,15 @@ public class ChatTest {
     private UsuarioRepo usuarioRepo;
 
     @Autowired
-    private ProductoRepo productoRepo;
-
-    @Autowired
-    private MensajeRepo mensajeRepo;
-
-    @Autowired
     private ChatRepo chatRepo;
 
     @Test
     @Sql("classpath:data.sql")
     public void registrarTest(){
 
-        Producto producto = productoRepo.findById(1).orElse(null);
-        Usuario usuario = usuarioRepo.findById("123").orElse(null);
-        List<Mensaje> listaMensajes =  mensajeRepo.findAll();
+        Chat chatBuscado = chatRepo.findById(1).orElse(null);
 
-        Chat chat = new Chat(usuario,producto,listaMensajes);
-
-        Chat chatGuardado = chatRepo.save(chat);
-        System.out.println(chatGuardado);
-        Assertions.assertNotNull(chatGuardado);
+        Assertions.assertNotNull(chatBuscado);
 
     }
 
@@ -65,7 +50,7 @@ public class ChatTest {
     public void actualizarTest()
     {
         Chat chatGuardado = chatRepo.findById(1).orElse(null);
-        Usuario comprador = usuarioRepo.findById("124").orElse(null);
+        Usuario comprador = usuarioRepo.findById("100765489").orElse(null);
         chatGuardado.setComprador(comprador);
 
         chatRepo.save(chatGuardado);

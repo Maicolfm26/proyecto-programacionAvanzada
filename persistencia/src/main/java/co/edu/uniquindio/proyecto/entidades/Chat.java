@@ -30,8 +30,9 @@ public class Chat implements Serializable {
     @OneToMany(mappedBy = "chat")
     private List<Mensaje> mensajes;
 
-    public Chat(Usuario comprador, Producto producto) {
+    public Chat(Usuario comprador, Producto producto, List<Mensaje> mensajes) {
         this.comprador = comprador;
         this.producto = producto;
+        this.mensajes = mensajes;
     }
 }

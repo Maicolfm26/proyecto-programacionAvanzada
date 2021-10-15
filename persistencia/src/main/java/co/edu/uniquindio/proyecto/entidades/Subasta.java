@@ -38,4 +38,6 @@ public class Subasta implements Serializable {
         this.fechaLimite = fechaLimite;
         this.producto = producto;
     }
+
+
 }
