@@ -10,6 +10,7 @@ insert into Categoria values(1, "Ropa");
 insert into Categoria values(2, "Tenis");
 insert into Categoria values(3, "Jeans");
 insert into Categoria values(4, "Carros");
+insert into Categoria values(5, "Alcohol");
 
 --Se crean algunos usuarios en la base de datos
 insert into Usuario values("100765489", "carlos@gmail.com", "Carlos Florez", "123", "123");
@@ -57,7 +58,10 @@ insert into detalle_compra values (1,200000.00,2,1,1);
 insert into detalle_compra values (2,500000.00,5,2,2);
 insert into detalle_compra values (3,800000.00,1,3,3);
 
-
+--Se crean favoritos como prueba en la base de datos
+insert into producto_usuarios_favoritos values("100765489",1);
+insert into producto_usuarios_favoritos values("100765489",2);
+insert into producto_usuarios_favoritos values("100765489",3);
 
 
 
