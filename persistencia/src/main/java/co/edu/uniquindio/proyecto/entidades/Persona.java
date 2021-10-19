@@ -13,7 +13,14 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS )
 @MappedSuperclass
+/*
+    Clase persona que se define como una entidad que tendra una tabla en la base de datos de mysql.
+ */
 public class Persona implements Serializable {
+
+    /*
+        Se declaran los atributos de la entidad.
+     */
 
     @Id
     @Column(length = 10)
