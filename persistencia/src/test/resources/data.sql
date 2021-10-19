@@ -59,9 +59,9 @@ insert into detalle_compra values (2,500000.00,5,2,2);
 insert into detalle_compra values (3,800000.00,1,3,3);
 
 --Se crean favoritos como prueba en la base de datos
-insert into producto_usuarios_favoritos values("100765489",1);
-insert into producto_usuarios_favoritos values("100765489",2);
-insert into producto_usuarios_favoritos values("100765489",3);
+insert into producto_usuarios_favoritos values(1,"100765489");
+insert into producto_usuarios_favoritos values(2,"100765489");
+insert into producto_usuarios_favoritos values(3,"100765489");
 
 
 

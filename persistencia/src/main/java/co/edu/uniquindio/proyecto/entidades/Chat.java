@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+/*Etiquetas para reducir las lineas de codigo*/
 @Entity
 @Getter
 @Setter
@@ -14,11 +15,13 @@ import java.util.List;
 @NoArgsConstructor
 public class Chat implements Serializable {
 
+    /*Atributos de la clase incluyendo su llave primaria*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Integer codigo;
 
+    /*Relaciones entre entidades en este caso Usuario, Producto y Mensaje*/
     @ManyToOne
     @JoinColumn (nullable = false)
     private Usuario comprador;
@@ -30,6 +33,7 @@ public class Chat implements Serializable {
     @OneToMany(mappedBy = "chat")
     private List<Mensaje> mensajes;
 
+    /*Constructor de la clase*/
     public Chat(Usuario comprador, Producto producto, List<Mensaje> mensajes) {
         this.comprador = comprador;
         this.producto = producto;
