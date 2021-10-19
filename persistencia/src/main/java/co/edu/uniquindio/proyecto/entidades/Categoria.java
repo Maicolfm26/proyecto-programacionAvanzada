@@ -13,7 +13,15 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @ToString
+
+/*
+    Clase de categoria que tendrá su tabla respectiva en mysql
+ */
 public class Categoria implements Serializable {
+
+    /*
+        Se declaran los atributos de la clase con sus respectivas restricciones.
+    */
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +31,15 @@ public class Categoria implements Serializable {
     @Column(nullable = false, length = 100)
     private String nombre;
 
+    /*
+        Se declaran las relaciones con las demas entidades
+     */
     @ManyToMany
     private List<Producto> productos;
 
+    /*
+        Se declara el constructor de la clase
+     */
     public Categoria(String nombre) {
         this.nombre = nombre;
     }

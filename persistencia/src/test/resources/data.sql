@@ -24,6 +24,13 @@ insert into Producto values(1, "Camiseta de tela fria", null, "2021-11-11", "Cam
 insert into Producto values(2, "Jean jogger", null, "2021-10-22", "Jogger", 30000, 15, "124", "42785998"  );
 insert into Producto values(3, "Tenis af1 blancos", null, "2021-12-22", "AF1", 130000, 3, "127", "13838543"  );
 
+--Se insertan algunos productos y categoria en la tabla categori_productos
+insert into Categoria_productos values(1, 1 );
+insert into Categoria_productos values(1, 2 );
+insert into Categoria_productos values(1, 3 );
+insert into Categoria_productos values(2, 3 );
+
+
 --Se insertan algunas imagenes a la base de datos
 insert into Producto_imagenes values(1, "C:\Users\tavog\imagen1.jpg" );
 insert into Producto_imagenes values(2, "C:\Users\tavog\imagen2.jpg" );
