@@ -1,7 +1,5 @@
 package co.edu.uniquindio.proyecto.test;
 
-
-import co.edu.uniquindio.proyecto.entidades.Admin;
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.CiudadRepo;
@@ -12,13 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
-
 import java.util.*;
 
+/*
+Esta clase permite la realización de pruebas sobre las funcionalidades CRUD establecidas
+para la entidad Usuario
+ */
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class UsuarioTest {
+
+    /*
+    Se declaran las variables que ayudarán a gestionar las funcionalidades crud a través del uso del
+    repositorio correspondiente a cada entidad.
+     */
 
     @Autowired
     private UsuarioRepo usuarioRepo;
@@ -26,6 +32,11 @@ public class UsuarioTest {
     @Autowired
     private CiudadRepo ciudadRepo;
 
+    /*
+   Método mediante el que se desarrolla el test de la realización de un registro para un usuario,
+   este método además de crear datos en su interior también extrae algunos de ellos del archivo
+   data.sql.
+    */
 
     @Test
     @Sql("classpath:data.sql")
@@ -47,6 +58,11 @@ public class UsuarioTest {
         Assertions.assertNotNull(usuarioGuardado);
     }
 
+    /*
+    Método mediante el que se desarrolla el test para la eliminación de un usuario, este método extrae
+    algunos datos del archivo data.sql y realiza consultas a la base de datos.
+     */
+
     @Test
     @Sql("classpath:data.sql")
     public void eliminarTest()
@@ -56,6 +72,11 @@ public class UsuarioTest {
         Assertions.assertNull(usuarioConsultado);
 
     }
+
+    /*
+    Método mediante el que se desarrolla el test para la actualización de la información de un usuario,
+    este método extrae algunos datos del archivo data.sql y realiza consultas a la base de datos.
+     */
 
     @Test
     @Sql("classpath:data.sql")
@@ -69,6 +90,12 @@ public class UsuarioTest {
         Usuario usuarioBuscado = usuarioRepo.findById("42785998").orElse(null);
         Assertions.assertEquals("Maria Fernanda Zapata",usuarioBuscado.getNombre());
     }
+
+    /*
+    Método mediante el que se desarrolla el test para la obtención de una lista que contenga todos los
+    usuarios registrados hasta el momento en la base de datos, este método extrae dichos datos del
+    archivo data.sql.
+     */
 
     @Test
     @Sql("classpath:data.sql")

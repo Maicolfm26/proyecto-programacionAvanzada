@@ -1,7 +1,5 @@
 package co.edu.uniquindio.proyecto.test;
 
-
-
 import co.edu.uniquindio.proyecto.entidades.Categoria;
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
 import co.edu.uniquindio.proyecto.entidades.Producto;
@@ -16,14 +14,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Esta clase permite la realización de pruebas sobre las funcionalidades CRUD establecidas
+para la entidad Producto
+*/
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+
 public class ProductoTest {
+
+    /*
+    Se declaran las variables que ayudarán a gestionar las funcionalidades crud a través del uso del
+    repositorio correspondiente a cada entidad.
+     */
+
     @Autowired
     private ProductoRepo productoRepo;
     @Autowired
@@ -33,22 +42,27 @@ public class ProductoTest {
     @Autowired
     private UsuarioRepo usuarioRepo;
 
+    /*
+    Método mediante el que se desarrolla el test de la realización de un registro para un producto,
+    este método además de crear datos en su interior también extrae algunos de ellos del archivo
+    data.sql.
+     */
 
     @Test
     @Sql("classpath:data.sql")
     public void registrarTest(){
 
-        List<Categoria> listaCategorias = new ArrayList<Categoria>();
+        List<Categoria> listaCategorias = new ArrayList<>();
         Categoria categoria = categoriaRepo.findById(5).orElse(null);
         listaCategorias.add(categoria);
 
         Ciudad ciudad = ciudadRepo.findById("123").orElse(null);
 
-        List<String> telefonosUsuario = new ArrayList<String>();
+        List<String> telefonosUsuario = new ArrayList<>();
         telefonosUsuario.add("3128280008");
         telefonosUsuario.add("3223631932");
 
-        List<String> listaImagenes= new ArrayList<String>();
+        List<String> listaImagenes= new ArrayList<>();
         listaImagenes.add("C:/Users/ALEJANDRA/OneDrive/Escritorio/Smirnoff.jpg");
 
         Usuario usuario = new Usuario("1010","Laura", "laura@email.com","123", telefonosUsuario, ciudad);
@@ -60,6 +74,11 @@ public class ProductoTest {
         Assertions.assertNotNull(productoGuardado);
     }
 
+    /*
+    Método mediante el que se desarrolla el test para la eliminación de un producto, este método extrae
+    algunos datos del archivo data.sql y realiza consultas a la base de datos.
+     */
+
     @Test
     @Sql("classpath:data.sql")
     public void eliminarTest()
@@ -69,6 +88,11 @@ public class ProductoTest {
         Assertions.assertNull(productoConsultado);
 
     }
+
+     /*
+    Método mediante el que se desarrolla el test para la actualización de la información de un producto,
+    este método extrae algunos datos del archivo data.sql y realiza consultas a la base de datos.
+     */
 
     @Test
     @Sql("classpath:data.sql")
@@ -83,6 +107,11 @@ public class ProductoTest {
         Assertions.assertEquals("Descripción actualizada",productoBuscado.getDescripcion());
     }
 
+      /*
+    Método mediante el que se desarrolla el test para la obtención de una lista que contenga todos los
+    productos registrados hasta el momento en la base de datos, este método extrae dichos datos del
+    archivo data.sql.
+     */
 
     @Test
     @Sql("classpath:data.sql")

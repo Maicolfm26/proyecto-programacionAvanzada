@@ -9,12 +9,25 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+/*
+Etiquetas para uso de métodos con el fin de acortar la cantidad de lineas de código
+ */
+
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
+
+/*
+Clase para la entidad producto la cual tendrá su tabla correspondiente en Mysql.
+ */
+
 public class Producto implements Serializable {
+
+    /*
+    Se declaran los atributos de la entidad con sus respectivas restricciones.
+     */
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,15 +52,18 @@ public class Producto implements Serializable {
     @Column(nullable = false)
     private LocalDate fechaLimite;
 
-    //Se entiende que la columna por defecto puede es nullable = true
     @Positive
     private Integer descuento;
 
-    @ManyToMany(mappedBy = "productos")
-    private List<Categoria> categorias;
-
     @ElementCollection
     private List<String> imagenes;
+
+     /*
+    Se declaran las relaciones con otras entidades acompañadas de su respectiva multiplicidad.
+     */
+
+    @ManyToMany(mappedBy = "productos")
+    private List<Categoria> categorias;
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -71,6 +87,10 @@ public class Producto implements Serializable {
 
     @OneToMany(mappedBy = "producto")
     private List<Chat> chats;
+
+    /*
+   Constructores de la entidad.
+    */
 
     public Producto(String nombre, Integer unidades, String descripcion, Integer precio, LocalDate fechaLimite, List<Categoria> categorias, List<String> imagenes, Usuario vendedor, Ciudad ciudad) {
         this.nombre = nombre;
