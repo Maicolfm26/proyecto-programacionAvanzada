@@ -42,16 +42,13 @@ public class UsuarioTest {
     @Sql("classpath:data.sql")
     public void registrarTest(){
 
-        Ciudad ciudad = new Ciudad("128","Ibague");
-        ciudadRepo.save(ciudad);
+        Ciudad ciudadGuardada = ciudadRepo.findById("123").orElse(null);
 
-        List<String> telefonosUsuario = new ArrayList<String>();
+        Set<String> telefonosUsuario = new HashSet<>();
         telefonosUsuario.add("3128280008");
         telefonosUsuario.add("3223631932");
 
-
-        Usuario usuario = new Usuario("1010","Laura", "laura@email.com","123", telefonosUsuario, ciudad);
-
+        Usuario usuario = new Usuario("1010","Laura", "laura@email.com","123", telefonosUsuario, ciudadGuardada);
 
         Usuario usuarioGuardado = usuarioRepo.save(usuario);
         System.out.println(usuarioGuardado);
@@ -101,6 +98,8 @@ public class UsuarioTest {
     @Sql("classpath:data.sql")
     public void listarTest(){
         List<Usuario> listaUsuarios =  usuarioRepo.findAll();
+        Assertions.assertEquals(5, listaUsuarios.size());
+
         listaUsuarios.forEach(u -> System.out.println(u));
     }
 }

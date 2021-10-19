@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
+import javax.swing.undo.CannotUndoException;
 import java.util.List;
 
 @DataJpaTest
@@ -19,12 +20,13 @@ public class CiudadTest {
     private CiudadRepo ciudadRepo;
 
     @Test
-    @Sql("classpath:data.sql")
     public void registrarCiudad(){
 
-        Ciudad ciudadBuscada = ciudadRepo.findById("123").orElse(null);
+        Ciudad ciudad = new Ciudad("123", "Armenia");
 
-        Assertions.assertNotNull(ciudadBuscada);
+        Ciudad ciudadGuardada = ciudadRepo.save(ciudad);
+
+        Assertions.assertNotNull(ciudadGuardada);
     }
     @Test
     @Sql("classpath:data.sql")

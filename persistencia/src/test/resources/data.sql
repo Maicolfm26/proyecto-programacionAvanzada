@@ -24,6 +24,13 @@ insert into Producto values(1, "Camiseta de tela fria", null, "2021-11-11", "Cam
 insert into Producto values(2, "Jean jogger", null, "2021-10-22", "Jogger", 30000, 15, "124", "42785998"  );
 insert into Producto values(3, "Tenis af1 blancos", null, "2021-12-22", "AF1", 130000, 3, "127", "13838543"  );
 
+--Se insertan algunos productos y categoria en la tabla categori_productos
+insert into Categoria_productos values(1, 1 );
+insert into Categoria_productos values(1, 2 );
+insert into Categoria_productos values(1, 3 );
+insert into Categoria_productos values(2, 3 );
+
+
 --Se insertan algunas imagenes a la base de datos
 insert into Producto_imagenes values(1, "C:\Users\tavog\imagen1.jpg" );
 insert into Producto_imagenes values(2, "C:\Users\tavog\imagen2.jpg" );
@@ -59,12 +66,16 @@ insert into detalle_compra values (2,500000.00,5,2,2);
 insert into detalle_compra values (3,800000.00,1,3,3);
 
 --Se crean favoritos como prueba en la base de datos
-insert into producto_usuarios_favoritos values("100765489",1);
-insert into producto_usuarios_favoritos values("100765489",2);
-insert into producto_usuarios_favoritos values("100765489",3);
+insert into producto_usuarios_favoritos values(1,"100765489");
+insert into producto_usuarios_favoritos values(2,"100765489");
+insert into producto_usuarios_favoritos values(3,"100765489");
 
+--Se crean subastas como prueba en la base de datos
+insert into subasta values(1, "2022/10/19", 1);
+insert into subasta values(2, "2022/10/19", 2);
+insert into subasta values(3, "2022/10/19", 3);
 
-
-
-
-
+--Se crean subastas_usuario como prueba en la base de datos
+insert into subasta_usuario values(1, "2021/10/19", 1000.0, 1, "100765489");
+insert into subasta_usuario values(2, "2021/10/19", 2000.0, 2, "42785998");
+insert into subasta_usuario values(3, "2021/10/19", 3000.0, 3, "42785998");

@@ -1,10 +1,10 @@
 package co.edu.uniquindio.proyecto.entidades;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /*
 Etiquetas para uso de métodos con el fin de acortar la cantidad de lineas de código
@@ -27,7 +27,8 @@ public class Usuario extends Persona implements Serializable {
      */
 
     @ElementCollection
-    private List<String> telefonos;
+    @Column(nullable = false)
+    private Set<String> telefonos;
 
      /*
     Se declaran las relaciones con otras entidades acompañadas de su respectiva multiplicidad.
@@ -59,7 +60,7 @@ public class Usuario extends Persona implements Serializable {
     Constructor de la entidad.
      */
 
-    public Usuario(String codigo, String nombre, String email, String password, List<String> telefonos, Ciudad ciudad) {
+    public Usuario(String codigo, String nombre, String email, String password, Set<String> telefonos, Ciudad ciudad) {
         super(codigo, nombre, email, password);
         this.telefonos = telefonos;
         this.ciudad = ciudad;

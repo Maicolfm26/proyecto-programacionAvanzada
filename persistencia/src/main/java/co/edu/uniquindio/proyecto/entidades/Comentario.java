@@ -11,12 +11,19 @@ import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+//Etiquetas para uso de métodos con el fin de acortar la cantidad de lineas de código
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+
+//Clase para la entidad comentario la cual tendrá su tabla correspondiente en Mysql.
+
 public class Comentario implements Serializable {
+
+    //Se declaran los atributos de la entidad con sus respectivas restricciones.
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +44,8 @@ public class Comentario implements Serializable {
     @Min(0)
     private Integer calificacion;
 
+     //Se declaran las relaciones con otras entidades acompañadas de su respectiva multiplicidad.
+
     @ManyToOne
     @JoinColumn(nullable = false)
     private Producto producto;
@@ -44,6 +53,8 @@ public class Comentario implements Serializable {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Usuario usuario;
+
+     //Constructor de la entidad.
 
     public Comentario(String mensaje, LocalDate fecha_comentario, Integer calificacion, Producto producto, Usuario usuario) {
         this.mensaje = mensaje;

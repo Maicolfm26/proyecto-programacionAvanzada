@@ -19,12 +19,13 @@ public class CategoriaTest {
     private CategoriaRepo categoriaRepo;
 
     @Test
-    @Sql("classpath:data.sql")
     public void registarCategoriaTest(){
 
-        Categoria categoriaBuscada = categoriaRepo.findById( 1 ).orElse(null);
+        Categoria categoria = new Categoria("Ropa");
 
-        Assertions.assertNotNull(categoriaBuscada);
+        Categoria categoriaGuardada = categoriaRepo.save(categoria);
+
+        Assertions.assertNotNull(categoriaGuardada);
 
     }
 

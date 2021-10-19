@@ -14,7 +14,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /*
 Esta clase permite la realización de pruebas sobre las funcionalidades CRUD establecidas
@@ -51,13 +53,7 @@ public class CompraTest {
 
         Ciudad ciudad = ciudadRepo.findById("123").orElse(null);
 
-        List<String> telefonosUsuario = new ArrayList<String>();
-        telefonosUsuario.add("3128280008");
-        telefonosUsuario.add("3223631932");
-
-
-        Usuario usuario = new Usuario("1010","Laura", "laura@email.com","123", telefonosUsuario, ciudad);
-        usuarioRepo.save(usuario);
+        Usuario usuario = usuarioRepo.findById("42785998").orElse(null);
 
         Compra compra = new Compra(LocalDate.now(),"Efectivo",usuario);
 
@@ -108,6 +104,8 @@ public class CompraTest {
     @Sql("classpath:data.sql")
     public void listarTest(){
         List<Compra> listaCompras =  compraRepo.findAll();
+        Assertions.assertEquals(3, listaCompras.size());
+
         listaCompras.forEach(c -> System.out.println(c));
     }
 }

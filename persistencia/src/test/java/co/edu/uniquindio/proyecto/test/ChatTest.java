@@ -21,7 +21,10 @@ public class ChatTest {
 
     @Autowired
     private UsuarioRepo usuarioRepo;
-
+    @Autowired
+    private ProductoRepo productoRepo;
+    @Autowired
+    private MensajeRepo mensajeRepo;
     @Autowired
     private ChatRepo chatRepo;
 
@@ -29,10 +32,16 @@ public class ChatTest {
     @Sql("classpath:data.sql")
     public void registrarTest(){
 
-        Chat chatBuscado = chatRepo.findById(1).orElse(null);
+        Usuario comprador = usuarioRepo.findById("42785998").orElse(null);
+        Producto productoGuardado = productoRepo.findById(1).orElse(null);
+        List<Mensaje> listaMensajes =  mensajeRepo.findAll();
 
-        Assertions.assertNotNull(chatBuscado);
+        Chat chat = new Chat(comprador, productoGuardado, listaMensajes);
 
+        Chat chatGuardado = chatRepo.save(chat);
+
+        System.out.println(chat);
+        Assertions.assertNotNull(chatGuardado);
     }
 
     @Test
@@ -63,6 +72,8 @@ public class ChatTest {
     @Sql("classpath:data.sql")
     public void listarTest(){
         List<Chat> listaChats =  chatRepo.findAll();
+        Assertions.assertEquals(3, listaChats.size());
+
         listaChats.forEach(u -> System.out.println(u));
     }
 }

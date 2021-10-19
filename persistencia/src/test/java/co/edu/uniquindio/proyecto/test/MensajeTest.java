@@ -64,6 +64,8 @@ public class MensajeTest {
     @Sql("classpath:data.sql")
     public void listarTest(){
         List<Mensaje> listaMensajes =  mensajeRepo.findAll();
+        Assertions.assertEquals(3, listaMensajes.size());
+
         listaMensajes.forEach(u -> System.out.println(u));
     }
 }

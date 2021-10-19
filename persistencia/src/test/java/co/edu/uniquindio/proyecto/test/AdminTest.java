@@ -19,7 +19,6 @@ public class AdminTest {
     private AdminRepo adminRepo;
 
     @Test
-    @Sql("classpath:data.sql")
     public void registrarTest(){
 
         Admin admin = new Admin("123","Juan","juan@email.com","juan123");
@@ -57,6 +56,8 @@ public class AdminTest {
     @Sql("classpath:data.sql")
     public void listarTest(){
         List<Admin> listaAdmins =  adminRepo.findAll();
+        Assertions.assertEquals(3, listaAdmins.size());
+
         listaAdmins.forEach(u -> System.out.println(u));
     }
 }

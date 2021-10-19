@@ -8,6 +8,7 @@ import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 /*
 Etiquetas para uso de métodos con el fin de acortar la cantidad de lineas de código
@@ -56,7 +57,8 @@ public class Producto implements Serializable {
     private Integer descuento;
 
     @ElementCollection
-    private List<String> imagenes;
+    @Column(nullable = false)
+    private Set<String> imagenes;
 
      /*
     Se declaran las relaciones con otras entidades acompañadas de su respectiva multiplicidad.
@@ -92,7 +94,7 @@ public class Producto implements Serializable {
    Constructores de la entidad.
     */
 
-    public Producto(String nombre, Integer unidades, String descripcion, Integer precio, LocalDate fechaLimite, List<Categoria> categorias, List<String> imagenes, Usuario vendedor, Ciudad ciudad) {
+    public Producto(String nombre, Integer unidades, String descripcion, Integer precio, LocalDate fechaLimite, List<Categoria> categorias, Set<String> imagenes, Usuario vendedor, Ciudad ciudad) {
         this.nombre = nombre;
         this.unidades = unidades;
         this.descripcion = descripcion;
@@ -104,7 +106,7 @@ public class Producto implements Serializable {
         this.ciudad = ciudad;
     }
 
-    public Producto(String nombre, Integer unidades, String descripcion, Integer precio, LocalDate fechaLimite, List<Categoria> categorias, List<String> imagenes, Usuario vendedor, List<Subasta> subastas, Ciudad ciudad) {
+    public Producto(String nombre, Integer unidades, String descripcion, Integer precio, LocalDate fechaLimite, List<Categoria> categorias, Set<String> imagenes, Usuario vendedor, List<Subasta> subastas, Ciudad ciudad) {
         this.nombre = nombre;
         this.unidades = unidades;
         this.descripcion = descripcion;

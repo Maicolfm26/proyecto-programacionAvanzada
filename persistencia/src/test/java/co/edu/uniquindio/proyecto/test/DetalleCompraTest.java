@@ -70,6 +70,8 @@ public class DetalleCompraTest {
     @Sql("classpath:data.sql")
     public void listarTest(){
         List<DetalleCompra> listaDetalles =  detalleCompraRepo.findAll();
+        Assertions.assertEquals(3, listaDetalles.size());
+
         listaDetalles.forEach(u -> System.out.println(u));
     }
 }
