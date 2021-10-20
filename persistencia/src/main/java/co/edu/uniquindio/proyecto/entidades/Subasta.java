@@ -1,9 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
@@ -18,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-
+@ToString
 //Clase para la entidad Subasta la cual tendrá su tabla correspondiente en Mysql.
 
 public class Subasta implements Serializable {
@@ -41,6 +38,7 @@ public class Subasta implements Serializable {
     private Producto producto;
 
     @OneToMany(mappedBy = "subasta")
+    @ToString.Exclude
     private List<Subasta_Usuario> subastasUsuarios;
 
     //Constructor de la entidad.

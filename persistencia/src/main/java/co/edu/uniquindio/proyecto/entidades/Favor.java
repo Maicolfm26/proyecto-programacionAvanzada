@@ -1,9 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,7 +16,7 @@ Etiquetas para uso de métodos con el fin de acortar la cantidad de lineas de c�
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-
+@ToString
 /*
 Clase para la entidad compra la cual tendrá su tabla correspondiente en Mysql.
  */

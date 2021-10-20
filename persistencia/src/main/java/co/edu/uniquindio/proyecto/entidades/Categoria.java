@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-
+@ToString
 /*
     Clase de categoria que tendrá su tabla respectiva en mysql
  */
@@ -34,6 +34,7 @@ public class Categoria implements Serializable {
         Se declaran las relaciones con las demas entidades
      */
     @ManyToMany
+    @ToString.Exclude
     private List<Producto> productos;
 
     /*

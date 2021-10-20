@@ -1,8 +1,9 @@
 package co.edu.uniquindio.proyecto.test;
 
-import co.edu.uniquindio.proyecto.entidades.Departamento;
+import co.edu.uniquindio.proyecto.entidades.Ciudad;
 import co.edu.uniquindio.proyecto.entidades.Domicilio;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
+import co.edu.uniquindio.proyecto.repositorios.CiudadRepo;
 import co.edu.uniquindio.proyecto.repositorios.DomicilioRepo;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
 import org.junit.jupiter.api.Assertions;
@@ -28,6 +29,8 @@ public class DomicilioTest {
     private DomicilioRepo domicilioRepo;
     @Autowired
     private UsuarioRepo usuarioRepo;
+    @Autowired
+    private CiudadRepo ciudadRepo;
 
     @Test
     @Sql("classpath:data.sql")
@@ -35,10 +38,10 @@ public class DomicilioTest {
         Método que verifica que se puede crear y registrar una nueva o varias instancias de la clase Domicilio.
      */
     public void registrarDomicilio(){
-
+        Ciudad ciudad = ciudadRepo.findById(1).orElse(null);
         Usuario usuario = usuarioRepo.findById("100765489").orElse(null);
 
-        Domicilio domicilio = new Domicilio("Zuldemayda", "13", "23", "34", usuario);
+        Domicilio domicilio = new Domicilio(ciudad, "Zuldemayda", "13", "23", "34", usuario);
         Domicilio domicilioGuardado = domicilioRepo.save(domicilio);
 
         Assertions.assertNotNull(domicilioGuardado);

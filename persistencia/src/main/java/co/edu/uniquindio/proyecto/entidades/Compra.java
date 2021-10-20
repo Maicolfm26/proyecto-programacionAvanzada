@@ -16,7 +16,7 @@ Etiquetas para uso de métodos con el fin de acortar la cantidad de lineas de c�
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-
+@ToString
 /*
 Clase para la entidad compra la cual tendrá su tabla correspondiente en Mysql.
  */
@@ -50,6 +50,7 @@ public class Compra implements Serializable {
     private Usuario usuario;
 
     @OneToMany(mappedBy = "compra")
+    @ToString.Exclude
     private List<DetalleCompra> detalleCompras;
 
     @ManyToOne

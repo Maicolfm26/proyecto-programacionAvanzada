@@ -15,7 +15,7 @@ Etiquetas para uso de métodos con el fin de acortar la cantidad de lineas de c�
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-
+@ToString(callSuper = true)
 /*
 Clase para la entidad usuario la cual tendrá su tabla correspondiente en Mysql.
  */
@@ -34,37 +34,48 @@ public class Usuario extends Persona implements Serializable {
     Se declaran las relaciones con otras entidades acompañadas de su respectiva multiplicidad.
      */
 
+    @ManyToOne
+    private Ciudad ciudad;
+
     @OneToMany(mappedBy = "vendedor")
+    @ToString.Exclude
     private List<Producto> listaProductos;
 
     @ManyToMany(mappedBy = "usuariosFavoritos")
+    @ToString.Exclude
     private List<Producto> productosFavoritos;
 
     @OneToMany(mappedBy = "usuario")
+    @ToString.Exclude
     private List<Comentario> comentarios;
 
     @OneToMany(mappedBy = "comprador")
+    @ToString.Exclude
     private List<Chat> chats;
 
     @OneToMany(mappedBy = "usuario")
+    @ToString.Exclude
     private List<Domicilio> domicilios;
 
     @OneToMany(mappedBy = "usuario")
+    @ToString.Exclude
     private List<Compra> compras;
 
     @OneToMany(mappedBy = "usuario")
+    @ToString.Exclude
     private List<Subasta_Usuario> subastasUsuario;
 
     @OneToMany(mappedBy = "usuario")
+    @ToString.Exclude
     private List<Favor> favoresPedidos;
 
      /*
     Constructor de la entidad.
      */
 
-    public Usuario(String codigo, String nombre, String email, String password, Set<String> telefonos, List<Domicilio> domicilios) {
+    public Usuario(Ciudad ciudad, String codigo, String nombre, String email, String password, Set<String> telefonos) {
         super(codigo, nombre, email, password);
+        this.ciudad = ciudad;
         this.telefonos = telefonos;
-        this.domicilios = domicilios;
     }
 }

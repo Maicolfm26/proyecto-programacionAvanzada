@@ -20,11 +20,11 @@ insert into Categoria values(4, "Carros");
 insert into Categoria values(5, "Alcohol");
 
 --Se crean algunos usuarios en la base de datos
-insert into usuario values("100765489", "carlos@gmail.com", "Carlos Florez", "123");
-insert into usuario values("42785998", "maria@gmail.com", "Maria Zapata", "1130");
-insert into usuario values("13838543", "antonio@gmail.com", "Antonio Lopez", "1232");
-insert into usuario values("98765554", "gisela@gmail.com", "Gisela Carvajal", "0000");
-insert into usuario values("3212345", "mariana@gmail.com", "Mariana Carabali", "111");
+insert into usuario values("100765489", "carlos@gmail.com", "Carlos Florez", "123", 1);
+insert into usuario values("42785998", "maria@gmail.com", "Maria Zapata", "1130", 1);
+insert into usuario values("13838543", "antonio@gmail.com", "Antonio Lopez", "1232", 3);
+insert into usuario values("98765554", "gisela@gmail.com", "Gisela Carvajal", "0000", 5);
+insert into usuario values("3212345", "mariana@gmail.com", "Mariana Carabali", "111", 5);
 
 --Se asignan algunos telefonos a usuarios en la base de datos
 insert into usuario_telefonos values("100765489", "3225758645");
@@ -34,9 +34,9 @@ insert into usuario_telefonos values("42785998", "351414151");
 insert into usuario_telefonos values("42785998", "35484848");
 
 --Se insertan algunos domicilios en la base de datos
-insert into domicilio values (1, "Zuldemayda", "13", "", "15", "20", "100765489");
-insert into domicilio values (2, "Genesis", "15", "", "20", "8", "42785998");
-insert into domicilio values (3, "Naranjos", "8", "", "3", "20", "42785998");
+insert into domicilio values (1, "Zuldemayda", "13", "", "15", "20", 1, "100765489");
+insert into domicilio values (2, "Genesis", "15", "", "20", "8", 1, "42785998");
+insert into domicilio values (3, "Naranjos", "8", "", "3", "20", 2, "42785998");
 
 --Se insertan algunos productos en la base de datos
 insert into Producto values(1, "Camiseta de tela fria", null, "2021-11-11", "Camisa", 20000.0, 5, 1, "100765489"  );

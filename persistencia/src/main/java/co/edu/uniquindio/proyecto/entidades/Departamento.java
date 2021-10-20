@@ -11,6 +11,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
+@ToString
 /*
     Clase Departamento que va a tener uns tabla en la base de datos en mysql.
  */
@@ -32,6 +33,7 @@ public class Departamento implements Serializable {
      */
 
     @OneToMany(mappedBy = "departamento")
+    @ToString.Exclude
     private List<Ciudad> ciudades;
 
     /*

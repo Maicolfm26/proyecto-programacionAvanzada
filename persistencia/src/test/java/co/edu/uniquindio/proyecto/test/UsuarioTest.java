@@ -30,7 +30,8 @@ public class UsuarioTest {
 
     @Autowired
     private UsuarioRepo usuarioRepo;
-
+    @Autowired
+    private CiudadRepo ciudadRepo;
     @Autowired
     private DomicilioRepo domicilioRepo;
 
@@ -44,13 +45,14 @@ public class UsuarioTest {
     @Sql("classpath:data.sql")
     public void registrarTest(){
 
+        Ciudad ciudad = ciudadRepo.findById(1).orElse(null);
         List<Domicilio> domicilios = domicilioRepo.findAll();
 
         Set<String> telefonosUsuario = new HashSet<>();
         telefonosUsuario.add("3128280008");
         telefonosUsuario.add("3223631932");
 
-        Usuario usuario = new Usuario("1010","Laura", "laura@email.com","123", telefonosUsuario, domicilios);
+        Usuario usuario = new Usuario(ciudad, "1010","Laura", "laura@email.com","123", telefonosUsuario);
 
         Usuario usuarioGuardado = usuarioRepo.save(usuario);
         System.out.println(usuarioGuardado);

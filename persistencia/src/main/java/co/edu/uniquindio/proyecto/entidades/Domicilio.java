@@ -1,13 +1,10 @@
 package co.edu.uniquindio.proyecto.entidades;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 /*
 Etiquetas para uso de métodos con el fin de acortar la cantidad de lineas de código
@@ -17,7 +14,7 @@ Etiquetas para uso de métodos con el fin de acortar la cantidad de lineas de c�
 @Getter
 @Setter
 @NoArgsConstructor
-
+@ToString
 /*
 Clase para la entidad Domicilio la cual tendrá su tabla correspondiente en Mysql.
  */
@@ -52,22 +49,29 @@ public class Domicilio implements Serializable {
      */
 
      @ManyToOne
+     private Ciudad ciudad;
+
+     @ManyToOne
      private Usuario usuario;
 
      @OneToMany(mappedBy = "domicilio")
+     @ToString.Exclude
      private List<Compra> comprasEntregadas;
 
      @OneToMany(mappedBy = "domicilioOrigen")
+     @ToString.Exclude
      private List<Favor> favoresRecogidos;
 
      @OneToMany(mappedBy = "domicilioDestino")
+     @ToString.Exclude
      private List<Favor> favoresEntregados;
 
      /*
     Constructores de la entidad.
      */
 
-     public Domicilio(String barrio, String calle, String numero1, String numero2, Usuario usuario) {
+     public Domicilio(Ciudad ciudad, String barrio, String calle, String numero1, String numero2, Usuario usuario) {
+          this.ciudad = ciudad;
           this.barrio = barrio;
           this.calle = calle;
           this.numero1 = numero1;
@@ -75,14 +79,16 @@ public class Domicilio implements Serializable {
           this.usuario = usuario;
      }
 
-     public Domicilio(String barrio, String calle, String numero1, String numero2) {
+     public Domicilio(Ciudad ciudad, String barrio, String calle, String numero1, String numero2) {
+          this.ciudad = ciudad;
           this.barrio = barrio;
           this.calle = calle;
           this.numero1 = numero1;
           this.numero2 = numero2;
      }
 
-     public Domicilio(String barrio, String calle, String numero1, String numero2, String datos_opcionales, Usuario usuario) {
+     public Domicilio(Ciudad ciudad, String barrio, String calle, String numero1, String numero2, String datos_opcionales, Usuario usuario) {
+          this.ciudad = ciudad;
           this.barrio = barrio;
           this.calle = calle;
           this.numero1 = numero1;
@@ -91,7 +97,8 @@ public class Domicilio implements Serializable {
           this.usuario = usuario;
      }
 
-     public Domicilio(String barrio, String calle, String numero1, String numero2, String datos_opcionales) {
+     public Domicilio(Ciudad ciudad, String barrio, String calle, String numero1, String numero2, String datos_opcionales) {
+          this.ciudad = ciudad;
           this.barrio = barrio;
           this.calle = calle;
           this.numero1 = numero1;

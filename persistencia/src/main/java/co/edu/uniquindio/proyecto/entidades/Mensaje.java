@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
+@ToString
 public class Mensaje implements Serializable {
 
     /*Atributos de la clase incliyendo su llave primaria*/

@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
+@ToString
 public class Chat implements Serializable {
 
     /*Atributos de la clase incluyendo su llave primaria*/
@@ -31,6 +32,7 @@ public class Chat implements Serializable {
     private Producto producto;
 
     @OneToMany(mappedBy = "chat")
+    @ToString.Exclude
     private List<Mensaje> mensajes;
 
     /*Constructor de la clase*/

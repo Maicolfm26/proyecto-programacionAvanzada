@@ -13,6 +13,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class Admin extends Persona implements Serializable {
     /* Constructor de la entidad implementando el constructor de la super clase*/
     public Admin(String codigo, String nombre, String email, String password) {

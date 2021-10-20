@@ -19,7 +19,7 @@ Etiquetas para uso de métodos con el fin de acortar la cantidad de lineas de c�
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-
+@ToString
 /*
 Clase para la entidad producto la cual tendrá su tabla correspondiente en Mysql.
  */
@@ -65,6 +65,7 @@ public class Producto implements Serializable {
      */
 
     @ManyToMany(mappedBy = "productos")
+    @ToString.Exclude
     private List<Categoria> categorias;
 
     @ManyToOne
@@ -72,12 +73,15 @@ public class Producto implements Serializable {
     private Usuario vendedor;
 
     @ManyToMany
+    @ToString.Exclude
     private List<Usuario> usuariosFavoritos;
 
     @OneToMany(mappedBy = "producto")
+    @ToString.Exclude
     private List<Subasta> subastas;
 
     @OneToMany(mappedBy = "producto")
+    @ToString.Exclude
     private List<Comentario> comentarios;
 
     @ManyToOne
@@ -85,9 +89,11 @@ public class Producto implements Serializable {
     private Ciudad ciudad;
 
     @OneToMany(mappedBy = "producto")
+    @ToString.Exclude
     private List<DetalleCompra> detalleCompras;
 
     @OneToMany(mappedBy = "producto")
+    @ToString.Exclude
     private List<Chat> chats;
 
     /*
