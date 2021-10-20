@@ -54,6 +54,9 @@ public class Domicilio implements Serializable {
      @ManyToOne
      private Usuario usuario;
 
+     @OneToMany(mappedBy = "domicilio")
+     private List<Compra> comprasEntregadas;
+
      @OneToMany(mappedBy = "domicilioOrigen")
      private List<Favor> favoresRecogidos;
 

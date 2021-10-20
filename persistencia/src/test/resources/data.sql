@@ -26,6 +26,13 @@ insert into usuario values("13838543", "antonio@gmail.com", "Antonio Lopez", "12
 insert into usuario values("98765554", "gisela@gmail.com", "Gisela Carvajal", "0000");
 insert into usuario values("3212345", "mariana@gmail.com", "Mariana Carabali", "111");
 
+--Se asignan algunos telefonos a usuarios en la base de datos
+insert into usuario_telefonos values("100765489", "3225758645");
+insert into usuario_telefonos values("100765489", "3225745454");
+insert into usuario_telefonos values("42785998", "322515144");
+insert into usuario_telefonos values("42785998", "351414151");
+insert into usuario_telefonos values("42785998", "35484848");
+
 --Se insertan algunos domicilios en la base de datos
 insert into domicilio values (1, "Zuldemayda", "13", "", "15", "20", "100765489");
 insert into domicilio values (2, "Genesis", "15", "", "20", "8", "42785998");
