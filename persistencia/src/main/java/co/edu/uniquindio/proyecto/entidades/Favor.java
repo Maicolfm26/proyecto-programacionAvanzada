@@ -1,6 +1,9 @@
 package co.edu.uniquindio.proyecto.entidades;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,7 +24,7 @@ Etiquetas para uso de métodos con el fin de acortar la cantidad de lineas de c�
 Clase para la entidad compra la cual tendrá su tabla correspondiente en Mysql.
  */
 
-public class Compra implements Serializable {
+public class Favor implements Serializable {
 
     /*
     Se declaran los atributos de la entidad con sus respectivas restricciones.
@@ -33,13 +36,10 @@ public class Compra implements Serializable {
     private Integer codigo;
 
     @Column(nullable = false)
-    private LocalDate fechaCompra;
+    private String descripcionOrigen;
 
     @Column(nullable = false)
-    private String medioPago;
-
-    @Column(nullable = false)
-    private Double precioEnvio;
+    private String descripcionDestino;
 
     /*
     Se declaran las relaciones con otras entidades acompañadas de su respectiva multiplicidad.
@@ -47,25 +47,25 @@ public class Compra implements Serializable {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private Usuario usuario;
-
-    @OneToMany(mappedBy = "compra")
-    private List<DetalleCompra> detalleCompras;
+    private Domicilio domicilioOrigen;
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private Domicilio domicilio;
+    private Domicilio domicilioDestino;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Usuario usuario;
 
     /*
     Constructor de la entidad.
      */
 
-    public Compra(LocalDate fechaCompra, String medioPago, Usuario usuario, List<DetalleCompra> detalleCompras, Domicilio domicilio, Double precioEnvio) {
-        this.fechaCompra = fechaCompra;
-        this.medioPago = medioPago;
+    public Favor(String descripcionOrigen, String descripcionDestino, Domicilio domicilioOrigen, Domicilio domicilioDestino, Usuario usuario) {
+        this.descripcionOrigen = descripcionOrigen;
+        this.descripcionDestino = descripcionDestino;
+        this.domicilioOrigen = domicilioOrigen;
+        this.domicilioDestino = domicilioDestino;
         this.usuario = usuario;
-        this.detalleCompras = detalleCompras;
-        this.domicilio = domicilio;
-        this.precioEnvio = precioEnvio;
     }
 }

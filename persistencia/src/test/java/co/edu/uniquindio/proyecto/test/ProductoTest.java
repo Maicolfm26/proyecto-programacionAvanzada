@@ -58,14 +58,14 @@ public class ProductoTest {
         Categoria categoria = categoriaRepo.findById(5).orElse(null);
         listaCategorias.add(categoria);
 
-        Ciudad ciudad = ciudadRepo.findById("123").orElse(null);
+        Ciudad ciudad = ciudadRepo.findById(1).orElse(null);
 
         Set<String> listaImagenes= new HashSet<>();
         listaImagenes.add("C:/Users/ALEJANDRA/OneDrive/Escritorio/Smirnoff.jpg");
 
         Usuario usuario = usuarioRepo.findById("42785998").orElse(null);
 
-        Producto producto = new Producto("Smirnoff",10,"Vodka Smirnoff lulo botella 375 ml",21000, LocalDate.of(2021,10,27),listaCategorias,listaImagenes,usuario,ciudad);
+        Producto producto = new Producto("Smirnoff",10,"Vodka Smirnoff lulo botella 375 ml",21000.0, LocalDate.of(2021,10,27),listaCategorias,listaImagenes,usuario,ciudad);
 
         Producto productoGuardado = productoRepo.save(producto);
         Assertions.assertNotNull(productoGuardado);

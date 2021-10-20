@@ -1,8 +1,10 @@
 package co.edu.uniquindio.proyecto.test;
 
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
+import co.edu.uniquindio.proyecto.entidades.Domicilio;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.CiudadRepo;
+import co.edu.uniquindio.proyecto.repositorios.DomicilioRepo;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,7 +32,7 @@ public class UsuarioTest {
     private UsuarioRepo usuarioRepo;
 
     @Autowired
-    private CiudadRepo ciudadRepo;
+    private DomicilioRepo domicilioRepo;
 
     /*
    Método mediante el que se desarrolla el test de la realización de un registro para un usuario,
@@ -42,13 +44,13 @@ public class UsuarioTest {
     @Sql("classpath:data.sql")
     public void registrarTest(){
 
-        Ciudad ciudadGuardada = ciudadRepo.findById("123").orElse(null);
+        List<Domicilio> domicilios = domicilioRepo.findAll();
 
         Set<String> telefonosUsuario = new HashSet<>();
         telefonosUsuario.add("3128280008");
         telefonosUsuario.add("3223631932");
 
-        Usuario usuario = new Usuario("1010","Laura", "laura@email.com","123", telefonosUsuario, ciudadGuardada);
+        Usuario usuario = new Usuario("1010","Laura", "laura@email.com","123", telefonosUsuario, domicilios);
 
         Usuario usuarioGuardado = usuarioRepo.save(usuario);
         System.out.println(usuarioGuardado);

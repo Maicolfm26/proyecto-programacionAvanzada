@@ -46,9 +46,8 @@ public class Usuario extends Persona implements Serializable {
     @OneToMany(mappedBy = "comprador")
     private List<Chat> chats;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Ciudad ciudad;
+    @OneToMany(mappedBy = "usuario")
+    private List<Domicilio> domicilios;
 
     @OneToMany(mappedBy = "usuario")
     private List<Compra> compras;
@@ -56,13 +55,16 @@ public class Usuario extends Persona implements Serializable {
     @OneToMany(mappedBy = "usuario")
     private List<Subasta_Usuario> subastasUsuario;
 
+    @OneToMany(mappedBy = "usuario")
+    private List<Favor> favoresPedidos;
+
      /*
     Constructor de la entidad.
      */
 
-    public Usuario(String codigo, String nombre, String email, String password, Set<String> telefonos, Ciudad ciudad) {
+    public Usuario(String codigo, String nombre, String email, String password, Set<String> telefonos, List<Domicilio> domicilios) {
         super(codigo, nombre, email, password);
         this.telefonos = telefonos;
-        this.ciudad = ciudad;
+        this.domicilios = domicilios;
     }
 }

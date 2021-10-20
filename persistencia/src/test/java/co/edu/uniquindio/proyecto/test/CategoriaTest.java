@@ -76,7 +76,7 @@ public class CategoriaTest {
      */
     public void listarCategoria(){
         List<Categoria> categorias = categoriaRepo.findAll();
-        Assertions.assertEquals(4, categorias.size());
+        Assertions.assertEquals(5, categorias.size());
 
         categorias.forEach(c -> System.out.println(c));
     }

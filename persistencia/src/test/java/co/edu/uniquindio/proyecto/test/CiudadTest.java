@@ -1,7 +1,9 @@
 package co.edu.uniquindio.proyecto.test;
 
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
+import co.edu.uniquindio.proyecto.entidades.Departamento;
 import co.edu.uniquindio.proyecto.repositorios.CiudadRepo;
+import co.edu.uniquindio.proyecto.repositorios.DepartamentoRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class CiudadTest {
      */
     @Autowired
     private CiudadRepo ciudadRepo;
+    @Autowired
+    private DepartamentoRepo departamentoRepo;
 
     @Test
     @Sql("classpath:data.sql")
@@ -32,7 +36,9 @@ public class CiudadTest {
      */
     public void registrarCiudad(){
 
-        Ciudad ciudad = new Ciudad("123", "Armenia");
+        Departamento departamento = departamentoRepo.findById(1).orElse(null);
+
+        Ciudad ciudad = new Ciudad("Armenia", departamento);
 
         Ciudad ciudadGuardada = ciudadRepo.save(ciudad);
 
@@ -45,9 +51,9 @@ public class CiudadTest {
      */
     public void eliminarCiudadTest() {
 
-        ciudadRepo.deleteById("123");
+        ciudadRepo.deleteById(1);
 
-        Ciudad ciudadBuscada = ciudadRepo.findById("123").orElse(null);
+        Ciudad ciudadBuscada = ciudadRepo.findById(1).orElse(null);
         Assertions.assertNull(ciudadBuscada);
     }
 
@@ -57,12 +63,12 @@ public class CiudadTest {
         Método que confirma el buen funcionamiento de la edición de una instancia de la clase ciudad.
      */
     public void editartCiudadTest() {
-        Ciudad ciudadGuardada = ciudadRepo.findById("123").orElse(null);
+        Ciudad ciudadGuardada = ciudadRepo.findById(1).orElse(null);
 
         ciudadGuardada.setNombre("Armenia 2");
         ciudadRepo.save(ciudadGuardada);
 
-        Ciudad buscada = ciudadRepo.findById("123").orElse(null);
+        Ciudad buscada = ciudadRepo.findById(1).orElse(null);
         Assertions.assertEquals("Armenia 2", buscada.getNombre());
     }
 

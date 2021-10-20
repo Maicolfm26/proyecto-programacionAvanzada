@@ -12,9 +12,9 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 /*
-    Clase ciudad que va a tener uns tabla en la base de datos en mysql.
+    Clase Departamento que va a tener uns tabla en la base de datos en mysql.
  */
-public class Ciudad implements Serializable {
+public class Departamento implements Serializable {
 
     /*
         Se declaran los atributos con sus respectivas restricciones sql.
@@ -24,27 +24,22 @@ public class Ciudad implements Serializable {
     @EqualsAndHashCode.Include
     private Integer codigo;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 100)
     private String nombre;
 
     /*
         Se declaran las relaciones de la entidad con las de mas entidades.
      */
 
-    @OneToMany(mappedBy = "ciudad")
-    private List<Producto> productos;
-
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Departamento departamento;
+    @OneToMany(mappedBy = "departamento")
+    private List<Ciudad> ciudades;
 
     /*
         Método constructor de la clase.
      */
 
-    public Ciudad(String nombre, Departamento departamento) {
+    public Departamento(String nombre) {
         this.nombre = nombre;
-        this.departamento = departamento;
     }
 }
 

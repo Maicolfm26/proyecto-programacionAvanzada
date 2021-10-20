@@ -1,9 +1,16 @@
+--Se crean los departamentos en la base de datos
+insert into departamento values(1, "Quindio");
+insert into departamento values(2, "Risaralda");
+insert into departamento values(3, "Antioquia");
+insert into departamento values(4, "Valle del cauca");
+insert into departamento values(5, "Cundinamarca");
+
 --Se crean las ciudades en la base de datos
-insert into Ciudad values("123","Armenia");
-insert into Ciudad values("124", "Pereira");
-insert into Ciudad values("125", "Medellin");
-insert into Ciudad values("126", "Bogota");
-insert into Ciudad values("127", "Cali");
+insert into Ciudad values(1, "Armenia", 1);
+insert into Ciudad values(2, "Pereira", 2);
+insert into Ciudad values(3, "Medellin", 3);
+insert into Ciudad values(4, "Bogota", 4);
+insert into Ciudad values(5, "Cali", 5);
 
 --Se crean las categorias en la base de datos como datos de prueba
 insert into Categoria values(1, "Ropa");
@@ -13,16 +20,21 @@ insert into Categoria values(4, "Carros");
 insert into Categoria values(5, "Alcohol");
 
 --Se crean algunos usuarios en la base de datos
-insert into Usuario values("100765489", "carlos@gmail.com", "Carlos Florez", "123", "123");
-insert into Usuario values("42785998", "maria@gmail.com", "Maria Zapata", "1130", "124");
-insert into Usuario values("13838543", "antonio@gmail.com", "Antonio Lopez", "1232", "127");
-insert into Usuario values("98765554", "gisela@gmail.com", "Gisela Carvajal", "0000", "125");
-insert into Usuario values("3212345", "mariana@gmail.com", "Mariana Carabali", "1111", "126");
+insert into usuario values("100765489", "carlos@gmail.com", "Carlos Florez", "123");
+insert into usuario values("42785998", "maria@gmail.com", "Maria Zapata", "1130");
+insert into usuario values("13838543", "antonio@gmail.com", "Antonio Lopez", "1232");
+insert into usuario values("98765554", "gisela@gmail.com", "Gisela Carvajal", "0000");
+insert into usuario values("3212345", "mariana@gmail.com", "Mariana Carabali", "111");
+
+--Se insertan algunos domicilios en la base de datos
+insert into domicilio values (1, "Zuldemayda", "13", "", "15", "20", "100765489");
+insert into domicilio values (2, "Genesis", "15", "", "20", "8", "42785998");
+insert into domicilio values (3, "Naranjos", "8", "", "3", "20", "42785998");
 
 --Se insertan algunos productos en la base de datos
-insert into Producto values(1, "Camiseta de tela fria", null, "2021-11-11", "Camisa", 20000, 5, "123", "100765489"  );
-insert into Producto values(2, "Jean jogger", null, "2021-10-22", "Jogger", 30000, 15, "124", "42785998"  );
-insert into Producto values(3, "Tenis af1 blancos", null, "2021-12-22", "AF1", 130000, 3, "127", "13838543"  );
+insert into Producto values(1, "Camiseta de tela fria", null, "2021-11-11", "Camisa", 20000.0, 5, 1, "100765489"  );
+insert into Producto values(2, "Jean jogger", null, "2021-10-22", "Jogger", 30000.0, 15, 2, "42785998"  );
+insert into Producto values(3, "Tenis af1 blancos", null, "2021-12-22", "AF1", 130000.0, 3, 3, "13838543"  );
 
 --Se insertan algunos productos y categoria en la tabla categori_productos
 insert into Categoria_productos values(1, 1 );
@@ -56,9 +68,9 @@ insert into mensaje values (2,"Juan","2021/10/06","Me interesa el producto",2);
 insert into mensaje values (3,"Juan","2021/10/06","Espero su respuesta muchas gracias.",3);
 
 --Se crean compras como prueba en la base de datos
-insert into compra values (1,"2021/10/06","Efectivo","100765489");
-insert into compra values (2,"2021/10/06","Efectivo","42785998");
-insert into compra values (3,"2021/10/06","Efectivo","13838543");
+insert into compra values (1,"2021/10/06","Efectivo", 5500.0, 1, "100765489");
+insert into compra values (2,"2021/10/06","Efectivo", 5500.0, 2, "42785998");
+insert into compra values (3,"2021/10/06","Efectivo", 5500.0, 3, "13838543");
 
 --Se crean detalles de compras como prueba en la base de datos
 insert into detalle_compra values (1,200000.00,2,1,1);
@@ -79,3 +91,8 @@ insert into subasta values(3, "2022/10/19", 3);
 insert into subasta_usuario values(1, "2021/10/19", 1000.0, 1, "100765489");
 insert into subasta_usuario values(2, "2021/10/19", 2000.0, 2, "42785998");
 insert into subasta_usuario values(3, "2021/10/19", 3000.0, 3, "42785998");
+
+--Se crean favores como prueba en la base de datos
+insert into favor values(1, "Comprar mercado", "Entregar en puerta", 1, 2, "100765489");
+insert into favor values(2, "Recoger tv", "llevarlo a reparar", 2, 3, "42785998");
+insert into favor values(3, "recoger plata" , "pagar recibo", 3, 1, "42785998");

@@ -12,7 +12,6 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-@ToString
 
 /*
     Clase de categoria que tendrá su tabla respectiva en mysql

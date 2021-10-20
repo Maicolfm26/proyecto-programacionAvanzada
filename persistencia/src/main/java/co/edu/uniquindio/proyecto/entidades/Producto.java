@@ -47,7 +47,7 @@ public class Producto implements Serializable {
 
     @Positive
     @Column(nullable = false)
-    private Integer precio;
+    private Double precio;
 
     @Future
     @Column(nullable = false)
@@ -94,7 +94,7 @@ public class Producto implements Serializable {
    Constructores de la entidad.
     */
 
-    public Producto(String nombre, Integer unidades, String descripcion, Integer precio, LocalDate fechaLimite, List<Categoria> categorias, Set<String> imagenes, Usuario vendedor, Ciudad ciudad) {
+    public Producto(String nombre, Integer unidades, String descripcion, Double precio, LocalDate fechaLimite, List<Categoria> categorias, Set<String> imagenes, Usuario vendedor, Ciudad ciudad) {
         this.nombre = nombre;
         this.unidades = unidades;
         this.descripcion = descripcion;
@@ -106,7 +106,7 @@ public class Producto implements Serializable {
         this.ciudad = ciudad;
     }
 
-    public Producto(String nombre, Integer unidades, String descripcion, Integer precio, LocalDate fechaLimite, List<Categoria> categorias, Set<String> imagenes, Usuario vendedor, List<Subasta> subastas, Ciudad ciudad) {
+    public Producto(String nombre, Integer unidades, String descripcion, Double precio, LocalDate fechaLimite, List<Categoria> categorias, Set<String> imagenes, Usuario vendedor, List<Subasta> subastas, Ciudad ciudad) {
         this.nombre = nombre;
         this.unidades = unidades;
         this.descripcion = descripcion;

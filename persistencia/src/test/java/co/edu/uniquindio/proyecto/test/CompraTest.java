@@ -1,11 +1,7 @@
 package co.edu.uniquindio.proyecto.test;
 
-import co.edu.uniquindio.proyecto.entidades.Ciudad;
-import co.edu.uniquindio.proyecto.entidades.Compra;
-import co.edu.uniquindio.proyecto.entidades.Usuario;
-import co.edu.uniquindio.proyecto.repositorios.CiudadRepo;
-import co.edu.uniquindio.proyecto.repositorios.CompraRepo;
-import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
+import co.edu.uniquindio.proyecto.entidades.*;
+import co.edu.uniquindio.proyecto.repositorios.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +9,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /*
 Esta clase permite la realización de pruebas sobre las funcionalidades CRUD establecidas
@@ -39,7 +32,10 @@ public class CompraTest {
     private UsuarioRepo usuarioRepo;
 
     @Autowired
-    private CiudadRepo ciudadRepo;
+    private DomicilioRepo domicilioRepo;
+
+    @Autowired
+    private DetalleCompraRepo detalleCompraRepo;
 
     /*
     Método mediante el que se desarrolla el test de la realización de un registro para una compra,
@@ -51,11 +47,11 @@ public class CompraTest {
     @Sql("classpath:data.sql")
     public void registrarTest() {
 
-        Ciudad ciudad = ciudadRepo.findById("123").orElse(null);
-
+        Domicilio domicilio = domicilioRepo.findById(1).orElse(null);
         Usuario usuario = usuarioRepo.findById("42785998").orElse(null);
+        List<DetalleCompra> detalleCompras = detalleCompraRepo.findAll();
 
-        Compra compra = new Compra(LocalDate.now(),"Efectivo",usuario);
+        Compra compra = new Compra(LocalDate.now(),"Efectivo",usuario, detalleCompras, domicilio, 5500.0);
 
         Compra compraGuardada= compraRepo.save(compra);
         Assertions.assertNotNull(compraGuardada);
