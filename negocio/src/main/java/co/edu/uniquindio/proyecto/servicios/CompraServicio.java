@@ -8,5 +8,5 @@ public interface CompraServicio {
 
     Compra hacerCompra(Compra compra) throws Exception;
 
-    List<Compra> obtenerComprasUsuario(String codigoUsuario);
+    List<Compra> obtenerComprasUsuario(String codigoUsuario) throws Exception;
 }

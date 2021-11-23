@@ -15,10 +15,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /*
 Esta clase permite la realización de pruebas sobre las funcionalidades CRUD establecidas
@@ -117,5 +114,26 @@ public class ProductoTest {
         Assertions.assertEquals(3, listaProductos.size());
 
         listaProductos.forEach(p -> System.out.println(p));
+    }
+
+    @Test
+    @Sql("classpath:data.sql")
+    public void listarProductosVendedorTest(){
+        List<Producto> listaProductos =  productoRepo.listarProductosVendedor("100765489");
+        Assertions.assertEquals(2, listaProductos.size());
+
+        listaProductos.forEach(p -> System.out.println(p));
+    }
+
+    @Test
+    @Sql("classpath:data.sql")
+    public void actualizarProductoTest(){
+        Optional<Producto> producto = productoRepo.findById(4);
+        producto.get().setNombre("Camisa nueva");
+        producto.get().setPrecio(1500.0);
+        productoRepo.save(producto.get());
+        producto = productoRepo.findById(4);
+        Assertions.assertEquals("Camisa nueva", producto.get().getNombre());
+        Assertions.assertEquals(1500.0, producto.get().getPrecio());
     }
 }

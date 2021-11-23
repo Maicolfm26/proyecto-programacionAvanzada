@@ -12,7 +12,7 @@ public interface ProductoServicio {
 
     void eliminarProducto(Producto producto);
 
-    void actualizarProducto(Producto producto);
+    void actualizarProducto(Producto producto) throws Exception;
 
     List<Producto> obtenerProductosCategoria(Categoria categoria) throws Exception;
 
@@ -20,6 +20,6 @@ public interface ProductoServicio {
 
     List<Producto> buscarProductos(String busqueda);
 
-    List<Producto> obtenerProductosVendedor(String codigoVendedor);
+    List<Producto> obtenerProductosVendedor(String codigoVendedor) throws Exception;
 
 }
