@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -28,6 +29,7 @@ public class Comentario implements Serializable {
     private Integer codigo;
 
     @Column(nullable = false)
+    @NotBlank
     private String mensaje;
 
     //Puede ser null mientras el dueño del producto no haga una respuesta

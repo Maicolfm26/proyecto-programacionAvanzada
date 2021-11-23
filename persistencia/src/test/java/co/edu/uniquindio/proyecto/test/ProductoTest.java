@@ -60,7 +60,7 @@ public class ProductoTest {
 
         Ciudad ciudad = ciudadRepo.findById(1).orElse(null);
 
-        Set<String> listaImagenes= new HashSet<>();
+        List<String> listaImagenes= new ArrayList<>();
         listaImagenes.add("C:/Users/ALEJANDRA/OneDrive/Escritorio/Smirnoff.jpg");
 
         Usuario usuario = usuarioRepo.findById("42785998").orElse(null);

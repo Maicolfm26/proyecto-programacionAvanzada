@@ -37,35 +37,35 @@ public class Usuario extends Persona implements Serializable {
     @ManyToOne
     private Ciudad ciudad;
 
-    @OneToMany(mappedBy = "vendedor")
+    @OneToMany(mappedBy = "vendedor", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Producto> listaProductos;
 
-    @ManyToMany(mappedBy = "usuariosFavoritos")
+    @ManyToMany(mappedBy = "usuariosFavoritos", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Producto> productosFavoritos;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Comentario> comentarios;
 
-    @OneToMany(mappedBy = "comprador")
+    @OneToMany(mappedBy = "comprador", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Chat> chats;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Domicilio> domicilios;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Compra> compras;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Subasta_Usuario> subastasUsuario;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Favor> favoresPedidos;
 

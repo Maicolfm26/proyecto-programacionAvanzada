@@ -35,8 +35,9 @@ public class Compra implements Serializable {
     @Column(nullable = false)
     private LocalDate fechaCompra;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String medioPago;
+    private MedioPago medioPago;
 
     @Column(nullable = false)
     private Double precioEnvio;
@@ -49,7 +50,7 @@ public class Compra implements Serializable {
     @JoinColumn(nullable = false)
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "compra")
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<DetalleCompra> detalleCompras;
 
@@ -61,7 +62,7 @@ public class Compra implements Serializable {
     Constructor de la entidad.
      */
 
-    public Compra(LocalDate fechaCompra, String medioPago, Usuario usuario, List<DetalleCompra> detalleCompras, Domicilio domicilio, Double precioEnvio) {
+    public Compra(LocalDate fechaCompra, MedioPago medioPago, Usuario usuario, List<DetalleCompra> detalleCompras, Domicilio domicilio, Double precioEnvio) {
         this.fechaCompra = fechaCompra;
         this.medioPago = medioPago;
         this.usuario = usuario;

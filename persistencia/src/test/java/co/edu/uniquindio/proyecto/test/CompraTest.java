@@ -51,7 +51,7 @@ public class CompraTest {
         Usuario usuario = usuarioRepo.findById("42785998").orElse(null);
         List<DetalleCompra> detalleCompras = detalleCompraRepo.findAll();
 
-        Compra compra = new Compra(LocalDate.now(),"Efectivo",usuario, detalleCompras, domicilio, 5500.0);
+        Compra compra = new Compra(LocalDate.now(),MedioPago.EFECTIVO,usuario, detalleCompras, domicilio, 5500.0);
 
         Compra compraGuardada= compraRepo.save(compra);
         Assertions.assertNotNull(compraGuardada);
@@ -82,12 +82,12 @@ public class CompraTest {
     public void actualizarTest()
     {
         Compra compraGuardada = compraRepo.findById(1).orElse(null);
-        compraGuardada.setMedioPago("Transferencia");
+        compraGuardada.setMedioPago(MedioPago.DAVIPLATA);
 
         compraRepo.save(compraGuardada);
 
         Compra compraBuscada = compraRepo.findById(1).orElse(null);
-        Assertions.assertEquals("Transferencia",compraBuscada.getMedioPago());
+        Assertions.assertEquals(MedioPago.NEQUI ,compraBuscada.getMedioPago());
     }
 
     /*

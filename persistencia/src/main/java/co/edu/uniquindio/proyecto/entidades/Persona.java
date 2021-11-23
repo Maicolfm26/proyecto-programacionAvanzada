@@ -4,6 +4,7 @@ package co.edu.uniquindio.proyecto.entidades;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Getter
@@ -29,12 +30,15 @@ public class Persona implements Serializable {
     private String codigo;
 
     @Column(nullable = false, length = 100)
+    @NotBlank
     private String nombre;
 
     @Column(nullable = false, length = 50, unique = true)
+    @NotBlank
     private String email;
 
     @Column(nullable = false, length = 50)
+    @NotBlank
     private String password;
 }
 

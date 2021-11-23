@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyecto.entidades;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -33,9 +34,11 @@ public class Favor implements Serializable {
     private Integer codigo;
 
     @Column(nullable = false)
+    @NotBlank
     private String descripcionOrigen;
 
     @Column(nullable = false)
+    @NotBlank
     private String descripcionDestino;
 
     /*

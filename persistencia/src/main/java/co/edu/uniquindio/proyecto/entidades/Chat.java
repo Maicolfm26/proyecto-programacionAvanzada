@@ -31,7 +31,7 @@ public class Chat implements Serializable {
     @JoinColumn (nullable = false)
     private Producto producto;
 
-    @OneToMany(mappedBy = "chat")
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Mensaje> mensajes;
 

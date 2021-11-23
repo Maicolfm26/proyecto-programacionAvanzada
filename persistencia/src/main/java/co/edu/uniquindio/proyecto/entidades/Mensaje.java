@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyecto.entidades;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -22,9 +23,11 @@ public class Mensaje implements Serializable {
     private Integer codigo;
 
     @Column(length = 200, nullable = false)
+    @NotBlank
     private String mensaje;
 
     @Column(length = 200, nullable = false)
+    @NotBlank
     private String emisor;
 
     @Column(nullable = false)

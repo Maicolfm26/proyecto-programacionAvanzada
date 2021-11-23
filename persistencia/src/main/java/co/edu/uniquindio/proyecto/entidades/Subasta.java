@@ -37,7 +37,7 @@ public class Subasta implements Serializable {
     @JoinColumn(nullable = false)
     private Producto producto;
 
-    @OneToMany(mappedBy = "subasta")
+    @OneToMany(mappedBy = "subasta", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Subasta_Usuario> subastasUsuarios;
 

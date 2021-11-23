@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyecto.entidades;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.List;
 
@@ -26,21 +27,22 @@ public class Ciudad implements Serializable {
     private Integer codigo;
 
     @Column(nullable = false, length = 50)
+    @NotBlank
     private String nombre;
 
     /*
         Se declaran las relaciones de la entidad con las de mas entidades.
      */
 
-    @OneToMany(mappedBy = "ciudad")
+    @OneToMany(mappedBy = "ciudad", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Producto> productos;
 
-    @OneToMany(mappedBy = "ciudad")
+    @OneToMany(mappedBy = "ciudad", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Usuario> usuarios;
 
-    @OneToMany(mappedBy = "ciudad")
+    @OneToMany(mappedBy = "ciudad", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Domicilio> domicilios;
 

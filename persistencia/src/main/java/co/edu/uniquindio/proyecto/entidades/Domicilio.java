@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyecto.entidades;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.List;
 
@@ -30,15 +31,19 @@ public class Domicilio implements Serializable {
      private Integer codigo;
 
      @Column(nullable = false, length = 100)
+     @NotBlank
      private String barrio;
 
      @Column(nullable = false, length = 3)
+     @NotBlank
      private String calle;
 
      @Column(nullable = false, length = 3)
+     @NotBlank
      private String numero1;
 
      @Column(nullable = false, length = 3)
+     @NotBlank
      private String numero2;
 
      @Column
@@ -54,15 +59,15 @@ public class Domicilio implements Serializable {
      @ManyToOne
      private Usuario usuario;
 
-     @OneToMany(mappedBy = "domicilio")
+     @OneToMany(mappedBy = "domicilio", cascade = CascadeType.ALL)
      @ToString.Exclude
      private List<Compra> comprasEntregadas;
 
-     @OneToMany(mappedBy = "domicilioOrigen")
+     @OneToMany(mappedBy = "domicilioOrigen", cascade = CascadeType.ALL)
      @ToString.Exclude
      private List<Favor> favoresRecogidos;
 
-     @OneToMany(mappedBy = "domicilioDestino")
+     @OneToMany(mappedBy = "domicilioDestino", cascade = CascadeType.ALL)
      @ToString.Exclude
      private List<Favor> favoresEntregados;
 

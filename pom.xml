@@ -5,6 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>persistencia</module>
+        <module>negocio</module>
     </modules>
 
     <parent>

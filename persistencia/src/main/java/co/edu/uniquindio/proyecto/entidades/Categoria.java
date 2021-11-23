@@ -4,6 +4,7 @@ package co.edu.uniquindio.proyecto.entidades;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class Categoria implements Serializable {
     private Integer codigo;
 
     @Column(nullable = false, length = 100)
+    @NotBlank
     private String nombre;
 
     /*
