@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductoServicioImpl implements ProductoServicio {
@@ -62,5 +63,14 @@ public class ProductoServicioImpl implements ProductoServicio {
             throw new Exception("El codigo del producto no existe");
         }
         return productoRepo.listarProductosVendedor(codigoVendedor);
+    }
+
+    @Override
+    public Producto obtenerProducto(Integer codigo) throws Exception {
+        Optional<Producto> buscado = productoRepo.findById(codigo);
+        if(buscado.isEmpty()){
+            throw new Exception("El producto no existe");
+        }
+        return buscado.get();
     }
 }
