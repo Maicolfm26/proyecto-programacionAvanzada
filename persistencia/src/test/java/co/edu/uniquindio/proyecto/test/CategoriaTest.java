@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyecto.test;
 
 import co.edu.uniquindio.proyecto.entidades.Categoria;
+import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.repositorios.CategoriaRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -78,6 +79,18 @@ public class CategoriaTest {
         List<Categoria> categorias = categoriaRepo.findAll();
         Assertions.assertEquals(5, categorias.size());
 
-        categorias.forEach(c -> System.out.println(c));
+        categorias.forEach(System.out::println);
+    }
+
+    @Test
+    @Sql("classpath:data.sql")
+    /*
+        Método que verifica que se traigan los productos de una determinada categoria
+    */
+    public void obtenerProductosPorCategoriaTest(){
+        List<Producto> productos = categoriaRepo.obtenerProductosPorCategoria(1);
+        Assertions.assertEquals(3, productos.size());
+
+        productos.forEach(System.out::println);
     }
 }

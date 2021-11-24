@@ -136,4 +136,14 @@ public class ProductoTest {
         Assertions.assertEquals("Camisa nueva", producto.get().getNombre());
         Assertions.assertEquals(1500.0, producto.get().getPrecio());
     }
+
+    @Test
+    @Sql("classpath:data.sql")
+    public void buscarProductosTest(){
+        List<Producto> productos = productoRepo.buscarProductos("Camisa");
+
+        Assertions.assertEquals(2, productos.size());
+
+        productos.forEach(p -> Assertions.assertTrue(p.getNombre().contains("Camisa") || p.getDescripcion().contains("Camisa")));
+    }
 }

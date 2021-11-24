@@ -1,12 +1,12 @@
 package co.edu.uniquindio.proyecto.serviciosimpl;
 
-import co.edu.uniquindio.proyecto.entidades.Categoria;
 import co.edu.uniquindio.proyecto.entidades.Comentario;
 import co.edu.uniquindio.proyecto.entidades.Producto;
+import co.edu.uniquindio.proyecto.repositorios.CategoriaRepo;
+import co.edu.uniquindio.proyecto.repositorios.ComentarioRepo;
 import co.edu.uniquindio.proyecto.repositorios.ProductoRepo;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
 import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,22 +15,25 @@ import java.util.List;
 public class ProductoServicioImpl implements ProductoServicio {
 
     private final ProductoRepo productoRepo;
-
     private final UsuarioRepo usuarioRepo;
+    private final CategoriaRepo categoriaRepo;
+    private final ComentarioRepo comentarioRepo;
 
-    public ProductoServicioImpl(ProductoRepo productoRepo, UsuarioRepo usuarioRepo) {
+    public ProductoServicioImpl(ProductoRepo productoRepo, UsuarioRepo usuarioRepo, CategoriaRepo categoriaRepo, ComentarioRepo comentarioRepo) {
         this.productoRepo = productoRepo;
         this.usuarioRepo = usuarioRepo;
+        this.categoriaRepo = categoriaRepo;
+        this.comentarioRepo = comentarioRepo;
     }
 
     @Override
-    public Producto publicarProducto(Producto producto) throws Exception {
-        return null;
+    public void publicarProducto(Producto producto) throws Exception {
+         productoRepo.save(producto);
     }
 
     @Override
-    public void eliminarProducto(Producto producto) {
-
+    public void eliminarProducto(Producto producto) throws Exception {
+        productoRepo.delete(producto);
     }
 
     @Override
@@ -42,13 +45,13 @@ public class ProductoServicioImpl implements ProductoServicio {
     }
 
     @Override
-    public List<Producto> obtenerProductosCategoria(Categoria categoria) throws Exception {
-        return null;
+    public List<Producto> obtenerProductosCategoria(Integer codigoCategoria) throws Exception {
+        return categoriaRepo.obtenerProductosPorCategoria(codigoCategoria);
     }
 
     @Override
-    public Comentario hacerComentario(Comentario comentario) throws Exception {
-        return null;
+    public void hacerComentario(Comentario comentario) throws Exception {
+        comentarioRepo.save(comentario);
     }
 
     @Override

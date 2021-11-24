@@ -39,16 +39,16 @@ insert into domicilio values (2, "Genesis", "15", "", "20", "8", 1, "42785998");
 insert into domicilio values (3, "Naranjos", "8", "", "3", "20", 2, "42785998");
 
 --Se insertan algunos productos en la base de datos
-insert into Producto values(1, "Camiseta de tela fria", null, "2021-11-11", "Camisa", 20000.0, 5, 1, "100765489"  );
+insert into Producto values(1, "Camisa de tela fria", null, "2021-11-11", "esqueleto", 20000.0, 5, 1, "100765489"  );
 insert into Producto values(2, "Jean jogger", null, "2021-10-22", "Jogger", 30000.0, 15, 2, "42785998"  );
 insert into Producto values(3, "Tenis af1 blancos", null, "2021-12-22", "AF1", 130000.0, 3, 3, "13838543"  );
-insert into Producto values(4, "Camiseta de tela caliente", null, "2021-11-12", "Camisa", 20000.0, 5, 1, "100765489"  );
+insert into Producto values(4, "Esqueleto de tela caliente", null, "2021-11-12", "Camisa", 20000.0, 5, 1, "100765489"  );
 
---Se insertan algunos productos y categoria en la tabla categori_productos
-insert into Categoria_productos values(1, 1 );
-insert into Categoria_productos values(1, 2 );
-insert into Categoria_productos values(1, 3 );
-insert into Categoria_productos values(2, 3 );
+--Se insertan algunos productos y categoria en la tabla producto_categorias
+insert into producto_categorias values(1, 1 );
+insert into producto_categorias values(2, 1 );
+insert into producto_categorias values(3, 1 );
+insert into producto_categorias values(4, 2 );
 
 
 --Se insertan algunas imagenes a la base de datos

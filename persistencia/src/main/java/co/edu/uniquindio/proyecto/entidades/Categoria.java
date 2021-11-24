@@ -35,7 +35,7 @@ public class Categoria implements Serializable {
     /*
         Se declaran las relaciones con las demas entidades
      */
-    @ManyToMany
+    @ManyToMany(mappedBy = "categorias")
     @ToString.Exclude
     private List<Producto> productos;
 

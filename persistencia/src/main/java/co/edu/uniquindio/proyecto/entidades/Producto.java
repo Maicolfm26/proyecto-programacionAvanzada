@@ -68,7 +68,7 @@ public class Producto implements Serializable {
     Se declaran las relaciones con otras entidades acompañadas de su respectiva multiplicidad.
      */
 
-    @ManyToMany(mappedBy = "productos", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Categoria> categorias;
 
