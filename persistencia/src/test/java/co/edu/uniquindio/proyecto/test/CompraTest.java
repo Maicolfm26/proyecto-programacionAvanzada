@@ -9,7 +9,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /*
 Esta clase permite la realización de pruebas sobre las funcionalidades CRUD establecidas
@@ -103,5 +105,30 @@ public class CompraTest {
         Assertions.assertEquals(3, listaCompras.size());
 
         listaCompras.forEach(c -> System.out.println(c));
+    }
+
+    @Test
+    @Sql("classpath:data.sql")
+    public void listarComprasUsuarioTest(){
+        List<Compra> listaProductos =  compraRepo.listarComprasUsuario("100765489");
+        Assertions.assertEquals(4, listaProductos.size());
+
+        listaProductos.forEach(p -> System.out.println(p));
+    }
+
+    @Test
+    @Sql("classpath:data.sql")
+    public void crearCompraTest(){
+        Optional<Usuario> usuario = usuarioRepo.findById("100765489");
+        List<DetalleCompra> detallesCompra = new ArrayList<>();
+        Optional<DetalleCompra> detalleCompra = detalleCompraRepo.findById(1);
+        detallesCompra.add(detalleCompra.get());
+        Optional<Domicilio> domicilio = domicilioRepo.findById(1);
+
+        Compra compra = new Compra(LocalDate.now(), MedioPago.NEQUI, usuario.get(), detallesCompra, domicilio.get(), 5000.0);
+
+        Compra compraG = compraRepo.save(compra);
+        System.out.println(compraG);
+        Assertions.assertNotNull(compraG);
     }
 }

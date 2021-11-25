@@ -1,19 +1,27 @@
-package co.edu.uniquindio.proyecto.servicios;
+package co.edu.uniquindio.proyecto.serviciosimpl;
 
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
+import co.edu.uniquindio.proyecto.repositorios.ProductoRepo;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
+import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class UsuarioServicioImpl implements UsuarioServicio{
+public class UsuarioServicioImpl implements UsuarioServicio {
 
-    private final UsuarioRepo usuarioRepo;
+    final
+    UsuarioRepo usuarioRepo;
 
-    public UsuarioServicioImpl(UsuarioRepo usuarioRepo) {
+    final
+    ProductoRepo productoRepo;
+
+    public UsuarioServicioImpl(UsuarioRepo usuarioRepo, ProductoRepo productoRepo) {
         this.usuarioRepo = usuarioRepo;
+        this.productoRepo = productoRepo;
     }
 
     @Override
@@ -66,18 +74,20 @@ public class UsuarioServicioImpl implements UsuarioServicio{
 
     @Override
     public Usuario obtenerUsuario(String codigo) throws Exception {
-        return null;
+        Optional<Usuario> buscado = usuarioRepo.findById(codigo);
+        if(buscado.isEmpty()){
+            throw new Exception("El usuario no existe");
+        }
+        return buscado.get();
     }
 
     @Override
-    public void agregarProductoFavoritos(Producto producto) {
-
+    public void agregarProductoFavoritos(Producto producto,Usuario usuario) {
+        usuario.getProductosFavoritos().add(producto);
     }
 
     @Override
-    public void eliminarProductoFavoritos(Producto producto) {
-
+    public void eliminarProductoFavoritos(Producto producto,Usuario usuario) {
+        usuario.getProductosFavoritos().remove(producto);
     }
-
-
 }

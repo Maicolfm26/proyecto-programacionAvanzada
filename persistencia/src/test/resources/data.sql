@@ -42,6 +42,7 @@ insert into domicilio values (3, "Naranjos", "8", "", "3", "20", 2, "42785998");
 insert into Producto values(1, "Camiseta de tela fria", null, "2021-11-11", "Camisa", 20000.0, 5, 1, "100765489"  );
 insert into Producto values(2, "Jean jogger", null, "2021-10-22", "Jogger", 30000.0, 15, 2, "42785998"  );
 insert into Producto values(3, "Tenis af1 blancos", null, "2021-12-22", "AF1", 130000.0, 3, 3, "13838543"  );
+insert into Producto values(4, "Camiseta de tela caliente", null, "2021-11-12", "Camisa", 20000.0, 5, 1, "100765489"  );
 
 --Se insertan algunos productos y categoria en la tabla categori_productos
 insert into Categoria_productos values(1, 1 );
@@ -75,9 +76,12 @@ insert into mensaje values (2,"Juan","2021/10/06","Me interesa el producto",2);
 insert into mensaje values (3,"Juan","2021/10/06","Espero su respuesta muchas gracias.",3);
 
 --Se crean compras como prueba en la base de datos
-insert into compra values (1,"2021/10/06","Efectivo", 5500.0, 1, "100765489");
-insert into compra values (2,"2021/10/06","Efectivo", 5500.0, 2, "42785998");
-insert into compra values (3,"2021/10/06","Efectivo", 5500.0, 3, "13838543");
+insert into compra values (1,"2021/10/06","EFECTIVO", 5500.0, 1, "100765489");
+insert into compra values (2,"2021/10/06","EFECTIVO", 5500.0, 2, "42785998");
+insert into compra values (3,"2021/10/06","EFECTIVO", 5500.0, 3, "13838543");
+insert into compra values (4,"2021/10/06","EFECTIVO", 5500.0, 1, "100765489");
+insert into compra values (5,"2021/10/06","EFECTIVO", 5500.0, 1, "100765489");
+insert into compra values (6,"2021/10/06","EFECTIVO", 5500.0, 1, "100765489");
 
 --Se crean detalles de compras como prueba en la base de datos
 insert into detalle_compra values (1,200000.00,2,1,1);

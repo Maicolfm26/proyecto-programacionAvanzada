@@ -15,7 +15,7 @@ public interface UsuarioServicio {
 
     Usuario obtenerUsuario(String codigo) throws Exception;
 
-    void agregarProductoFavoritos(Producto producto);
+    void agregarProductoFavoritos(Producto producto,Usuario usuario);
 
-    void eliminarProductoFavoritos(Producto producto);
+    void eliminarProductoFavoritos(Producto producto,Usuario usuario);
 }
