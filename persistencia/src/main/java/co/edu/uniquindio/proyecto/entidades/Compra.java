@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyecto.entidades;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -52,6 +53,7 @@ public class Compra implements Serializable {
 
     @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @Size(min=1)
     private List<DetalleCompra> detalleCompras;
 
     @ManyToOne

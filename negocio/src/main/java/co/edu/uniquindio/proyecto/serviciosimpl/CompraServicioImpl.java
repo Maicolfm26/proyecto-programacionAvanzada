@@ -23,11 +23,7 @@ public class CompraServicioImpl implements CompraServicio {
 
     @Override
     public Compra hacerCompra(Compra compra) throws Exception {
-        try{
             return compraRepo.save(compra);
-        }catch (Exception e ){
-            throw new Exception(e.getMessage());
-        }
     }
 
     @Override
