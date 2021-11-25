@@ -11,7 +11,7 @@ public interface UsuarioServicio {
 
     void eliminarUsuario(String codigo) throws Exception;
 
-    void actualizarUsuario(Usuario usuarioActualizado) throws Exception;
+    Usuario actualizarUsuario(Usuario usuarioActualizado) throws Exception;
 
     Usuario obtenerUsuario(String codigo) throws Exception;
 

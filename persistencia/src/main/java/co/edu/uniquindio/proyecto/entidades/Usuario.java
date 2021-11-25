@@ -25,6 +25,8 @@ public class Usuario extends Persona implements Serializable {
      /*
     Se declaran los atributos de la entidad con sus respectivas restricciones.
      */
+    @Column(unique = true)
+    private String username;
 
     @ElementCollection
     @Column(nullable = false)
@@ -73,9 +75,16 @@ public class Usuario extends Persona implements Serializable {
     Constructor de la entidad.
      */
 
-    public Usuario(Ciudad ciudad, String codigo, String nombre, String email, String password, Set<String> telefonos) {
+    public Usuario(Ciudad ciudad,String codigo, String nombre, String email, String username, String password, Set<String> telefonos) {
         super(codigo, nombre, email, password);
-        this.ciudad = ciudad;
         this.telefonos = telefonos;
+        this.ciudad = ciudad;
+        this.username = username;
+    }
+
+    public Usuario(String codigo, String nombre, String email, String username, String password, Set<String> telefonos) {
+        super(codigo, nombre, email, password);
+        this.telefonos = telefonos;
+        this.username = username;
     }
 }

@@ -52,7 +52,7 @@ public class UsuarioTest {
         telefonosUsuario.add("3128280008");
         telefonosUsuario.add("3223631932");
 
-        Usuario usuario = new Usuario(ciudad, "1010","Laura", "laura@email.com","123", telefonosUsuario);
+        Usuario usuario = new Usuario(ciudad, "1010","Laura", "laura@email.com","Laurasuarez066","123", telefonosUsuario);
 
         Usuario usuarioGuardado = usuarioRepo.save(usuario);
         System.out.println(usuarioGuardado);
