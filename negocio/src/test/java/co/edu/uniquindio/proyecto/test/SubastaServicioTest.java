@@ -36,7 +36,7 @@ public class SubastaServicioTest {
             subastaServicio.crearSubasta(subasta);
             producto.getSubastas().forEach(u -> System.out.println(u));
         } catch (Exception e) {
-            e.printStackTrace();
+            Assertions.assertNotNull(null);
         }
     }
 }

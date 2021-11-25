@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,5 +99,22 @@ public class ProductoServicioTest {
         } catch (Exception e) {
             Assertions.assertTrue(false, e.getMessage());
         }
+    }
+
+    @Test
+    public void actualizarProducto() throws Exception {
+        Producto producto = productoServicio.obtenerProducto(1);
+        producto.setPrecio(1000.0);
+        producto.setNombre("producto editado");
+        productoServicio.actualizarProducto(producto);
+        producto = productoServicio.obtenerProducto(1);
+        Assertions.assertEquals("producto editado", producto.getNombre());
+        Assertions.assertEquals(1000.0, producto.getPrecio());
+    }
+
+    @Test
+    public void listarProductosVendedor() throws Exception {
+        List<Producto> productos = productoServicio.obtenerProductosVendedor("100765489");
+        Assertions.assertEquals(2, productos.size());
     }
 }
