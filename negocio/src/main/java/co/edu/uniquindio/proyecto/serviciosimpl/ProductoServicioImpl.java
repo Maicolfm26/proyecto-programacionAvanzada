@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyecto.serviciosimpl;
+package co.edu.uniquindio.proyecto.serviciosImpl;
 
 import co.edu.uniquindio.proyecto.entidades.Comentario;
 import co.edu.uniquindio.proyecto.entidades.Producto;
@@ -28,12 +28,13 @@ public class ProductoServicioImpl implements ProductoServicio {
     }
 
     @Override
-    public void publicarProducto(Producto producto) throws Exception {
-         productoRepo.save(producto);
+    public Producto publicarProducto(Producto producto) throws Exception {
+         return  productoRepo.save(producto);
     }
 
     @Override
-    public void eliminarProducto(Producto producto) throws Exception {
+    public void eliminarProducto(Integer codigoProducto) throws Exception {
+        Producto producto = obtenerProducto(codigoProducto);
         productoRepo.delete(producto);
     }
 
@@ -46,18 +47,18 @@ public class ProductoServicioImpl implements ProductoServicio {
     }
 
     @Override
-    public List<Producto> obtenerProductosCategoria(Integer codigoCategoria) throws Exception {
+    public List<Producto> obtenerProductosCategoria(Integer codigoCategoria) {
         return categoriaRepo.obtenerProductosPorCategoria(codigoCategoria);
     }
 
     @Override
-    public void hacerComentario(Comentario comentario) throws Exception {
-        comentarioRepo.save(comentario);
+    public Comentario hacerComentario(Comentario comentario) throws Exception {
+        return comentarioRepo.save(comentario);
     }
 
     @Override
     public List<Producto> buscarProductos(String busqueda) {
-        return null;
+        return productoRepo.buscarProductos(busqueda);
     }
 
     @Override

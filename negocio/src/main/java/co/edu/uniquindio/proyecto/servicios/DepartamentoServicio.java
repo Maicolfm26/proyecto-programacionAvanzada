@@ -10,6 +10,4 @@ public interface DepartamentoServicio {
     List<Departamento> obtenerDepartamentos();
 
     List<Ciudad> obtenerCiudadesPorDepartamento(Departamento departamento);
-
-    Ciudad obtenerCiudad(Integer codigo) throws Exception;
 }

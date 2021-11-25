@@ -42,7 +42,6 @@ public class Producto implements Serializable {
 
     @Positive
     @Column(nullable = false)
-    @NotBlank
     private Integer unidades;
 
     @Column(nullable = false)
