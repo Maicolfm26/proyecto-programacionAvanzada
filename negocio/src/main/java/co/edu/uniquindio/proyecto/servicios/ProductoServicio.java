@@ -13,6 +13,8 @@ public interface ProductoServicio {
 
     void actualizarProducto(Producto producto) throws Exception;
 
+    List<Producto> listarProductos();
+
     List<Producto> obtenerProductosCategoria(Integer codigoCategoria);
 
     Comentario hacerComentario(Comentario comentario) throws Exception;

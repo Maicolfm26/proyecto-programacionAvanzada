@@ -1,0 +1,16 @@
+.contenido {
+    margin-top: 120px;
+    margin-bottom: 100px;
+}
+
+.bg-oscuro {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.width-campo {
+    width: 200px;
+}
+
+.imagen-producto {
+    max-width: 120px;
+}

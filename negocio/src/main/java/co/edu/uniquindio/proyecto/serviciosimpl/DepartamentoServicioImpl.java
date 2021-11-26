@@ -29,4 +29,9 @@ public class DepartamentoServicioImpl implements DepartamentoServicio {
     public List<Ciudad> obtenerCiudadesPorDepartamento(Departamento departamento) {
         return ciudadRepo.findByDepartamento(departamento);
     }
+
+    @Override
+    public Departamento obtenerDepartamento(Integer codigo) throws Exception {
+        return  departamentoRepo.findById(codigo).orElseThrow(() -> new Exception("No se encontro el departamento"));
+    }
 }

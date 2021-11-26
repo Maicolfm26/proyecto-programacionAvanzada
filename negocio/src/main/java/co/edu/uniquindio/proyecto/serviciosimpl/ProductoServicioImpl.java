@@ -47,6 +47,11 @@ public class ProductoServicioImpl implements ProductoServicio {
     }
 
     @Override
+    public List<Producto> listarProductos() {
+        return productoRepo.findAll();
+    }
+
+    @Override
     public List<Producto> obtenerProductosCategoria(Integer codigoCategoria) {
         return categoriaRepo.obtenerProductosPorCategoria(codigoCategoria);
     }

@@ -2,11 +2,62 @@
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title>Inicio</title>
-</head>
-<body>
-    Hola mundo
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xml:lang="es" lang="es">
+<ui:composition template="WEB-INF/template.xhtml">
+    <ui:define name="title">Inicio</ui:define>
+    <ui:define name="content">
+        <section>
+            <h2>Lista de productos</h2>
+            <h:form styleClass="mt-5">
+                <p:dataView value="#{inicioBean.productos}" var="producto" rows="3" paginator="true"
+                            gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+                    <p:dataViewGridItem>
+                        <div class="card">
+                            <img src="/resources/img/#{producto.imagenPrincipal}" class="card-img-top" alt="..."/>
+                            <div class="card-body">
+                                <h5 class="card-title">#{producto.nombre}</h5>
+                                <p class="card-text">#{producto.precio}</p>
+                                <p:commandButton value="Ver detalle" styleClass="ui-button-raised"
+                                                 icon="pi pi-arrow-right" iconPos="right"
+                                                 action="#{inicioBean.irADetalle(producto.codigo)}"/>
+                            </div>
+                        </div>
+                    </p:dataViewGridItem>
+                    <p:dataViewListItem>
+                        <div class="row d-flex my-5">
+                            <div class="col-lg-2 col-md-1" style="text-align: center">
+                                <p:graphicImage url="/resources/img/#{producto.imagenPrincipal}"
+                                                styleClass="imagen-producto"/>
+                            </div>
+                            <div class="col-lg-8 col-md-1 align-self-center">
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Nombre:"/>
+                                        <h:outputText value="#{producto.nombre}" style="font-weight: bold"/>
+                                        <h:outputText value="Precio:"/>
+                                        <h:outputText value="#{producto.precio}"/>
+                                        <h:outputText value="Categorías:"/>
+                                        <h:outputText value="#{producto.formatoCategorias}"/>
+                                        <h:outputText value="Descripción:"/>
+                                        <h:outputText value="#{producto.descripcion}"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </div>
+                            <div class="col-lg-2 col-md-1 align-self-center">
+                                <p:commandButton value="Ver detalle" styleClass="ui-button-raised"
+                                                 icon="pi pi-arrow-right" iconPos="right"
+                                                 action="#{inicioBean.irADetalle(producto.codigo)}"/>
+                            </div>
+                        </div>
+                    </p:dataViewListItem>
+                </p:dataView>
+            </h:form>
+        </section>
+    </ui:define>
+</ui:composition>
 </html>

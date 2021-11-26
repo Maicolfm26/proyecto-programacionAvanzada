@@ -26,6 +26,7 @@ public class Categoria implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
+    @ToString.Exclude
     private Integer codigo;
 
     @Column(nullable = false, length = 100)

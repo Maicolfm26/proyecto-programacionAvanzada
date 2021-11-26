@@ -59,7 +59,7 @@ public class Producto implements Serializable {
     @Positive
     private Double descuento;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @Column(nullable = false)
     private List<String> imagenes;
 
@@ -126,5 +126,20 @@ public class Producto implements Serializable {
         this.vendedor = vendedor;
         this.subastas = subastas;
         this.ciudad = ciudad;
+    }
+
+    public String getImagenPrincipal() {
+        if(imagenes!= null && !imagenes.isEmpty()) {
+            return imagenes.get(0);
+        }
+        return "default-producto.jpg";
+    }
+
+    public String getFormatoCategorias() {
+        String formato = "";
+        for(Categoria categoria : categorias) {
+            formato += categoria.getNombre();
+        }
+        return formato;
     }
 }

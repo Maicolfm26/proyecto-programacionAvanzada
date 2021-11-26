@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyecto.serviciosimpl;
+package co.edu.uniquindio.proyecto.serviciosImpl;
 
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
@@ -6,6 +6,7 @@ import co.edu.uniquindio.proyecto.repositorios.CiudadRepo;
 import co.edu.uniquindio.proyecto.servicios.CiudadServicio;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,6 +18,11 @@ public class CiudadServicioImpl implements CiudadServicio {
         this.ciudadRepo = ciudadRepo;
     }
 
+
+    @Override
+    public List<Ciudad> obtenerCiudades() {
+        return ciudadRepo.findAll();
+    }
 
     @Override
     public Ciudad obtenerCiudad(Integer codigo) throws Exception {
