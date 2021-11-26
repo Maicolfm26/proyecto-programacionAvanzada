@@ -32,10 +32,12 @@
                     <li><a href="#" class="nav-link px-2 text-white">About</a></li>
                 </ul>
 
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                    <input type="search" class="form-control form-control-dark" placeholder="Buscar..."
-                           aria-label="Search"/>
-                </form>
+
+                <h:form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                    <p:inputText class="form-control form-control-dark" placeholder="Buscar..."
+                                 required="true" value="#{busquedaBean.busqueda}"  />
+                    <p:commandButton icon="pi pi-search" action="#{busquedaBean.buscar}" update="@form" style="display: none;" />
+                </h:form>
 
                 <div class="text-end">
                     <a href="" type="button" class="btn btn-outline-light me-2">Iniciar sesión</a>

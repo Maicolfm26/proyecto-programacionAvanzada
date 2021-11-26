@@ -18,7 +18,7 @@
                             gridIcon="pi pi-th-large" listIcon="pi pi-bars">
                     <p:dataViewGridItem>
                         <div class="card">
-                            <img src="/resources/img/#{producto.imagenPrincipal}" class="card-img-top" alt="..."/>
+                            <img src="/uploads/#{producto.imagenPrincipal}" class="card-img-top" alt="..."/>
                             <div class="card-body">
                                 <h5 class="card-title">#{producto.nombre}</h5>
                                 <p class="card-text">#{producto.precio}</p>
@@ -31,7 +31,7 @@
                     <p:dataViewListItem>
                         <div class="row d-flex my-5">
                             <div class="col-lg-2 col-md-1" style="text-align: center">
-                                <p:graphicImage url="/resources/img/#{producto.imagenPrincipal}"
+                                <p:graphicImage url="/uploads/#{producto.imagenPrincipal}"
                                                 styleClass="imagen-producto"/>
                             </div>
                             <div class="col-lg-8 col-md-1 align-self-center">
