@@ -7,56 +7,88 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xml:lang="es" lang="es">
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+xml:lang="es" lang="es">
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Unishop | <ui:insert name="title"></ui:insert></title>
-    <link rel="shortcut icon" href="resources/img/logo.ico" />
+    <link rel="shortcut icon" href="resources/img/logo.ico"/>
     <h:outputStylesheet library="css" name="bootstrap.min.css"/>
     <h:outputStylesheet library="css" name="styles.css"/>
 </h:head>
 <body>
-    <header class="fixed-top p-3 bg-dark text-white">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <img src="resources/img/logo.png" class="bi me-2" width="40" height="40" alt="Logo de unishop" />
-                </a>
+<header class="fixed-top p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <img src="resources/img/logo.png" class="bi me-2" width="40" height="40" alt="Logo de unishop"/>
+            </a>
 
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="/" class="nav-link px-2 text-white">Inicio</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                    <li><a href="#" class=  "nav-link px-2 text-white">Pricing</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-                </ul>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="/" class="nav-link px-2 text-white">Inicio</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+            </ul>
 
 
-                <h:form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                    <p:inputText class="form-control form-control-dark" placeholder="Buscar..."
-                                 required="true" value="#{busquedaBean.busqueda}"  />
-                    <p:commandButton icon="pi pi-search" action="#{busquedaBean.buscar}" update="@form" style="display: none;" />
+            <h:form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <p:inputText class="form-control form-control-dark" placeholder="Buscar..."
+                             required="true" value="#{busquedaBean.busqueda}"/>
+                <p:commandButton icon="pi pi-search" action="#{busquedaBean.buscar}" update="@form"
+                                 style="display: none;"/>
+            </h:form>
+
+            <div class="text-end">
+                <h:form rendered="#{!seguridadBean.autenticado}">
+                    <p:commandButton styleClass="btn btn-light me-2" value="Iniciar sesión"
+                                     onclick="PF('login').show()"/>
+                    <p:commandButton styleClass="btn btn-primary" value="Registrarse" action="registro?faces-redirect=true"/>
                 </h:form>
-
-                <div class="text-end">
-                    <a href="" type="button" class="btn btn-outline-light me-2">Iniciar sesión</a>
-                    <a href="/registro.xhtml" type="button" class="btn btn-primary">Registrarse</a>
-                </div>
+                <h:form rendered="#{seguridadBean.autenticado}">
+                    <p:commandButton class="btn btn-primary" value="Cerrar sesión"
+                                     action="#{seguridadBean.cerrarSesion}"/>
+                </h:form>
             </div>
         </div>
-    </header>
-    <article class="contenido container">
-        <ui:insert name="content">Contenido del documento</ui:insert>
-    </article>
-    <footer class="bg-dark fixed-bottom text-center text-white">
-        <!-- Copyright -->
-        <div class="text-center p-3">
-            © 2020 Copyright:
-            <a class="text-white" href="/">unishop.com</a>
-        </div>
-        <!-- Copyright -->
-    </footer>
-    <h:outputScript library="js" name="bootstrap.bundle.min.js"/>
+    </div>
+</header>
+
+<p:dialog header="Iniciar sesión" position="500,100" showEffect="fade" widgetVar="login" modal="true"
+          rendered="#{!seguridadBean.autenticado}">
+    <h:form>
+        <p:messages for="msj-bean" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+
+        <h:panelGrid columns="3" cellpadding="5">
+            <p:outputLabel for="email_login" value="Email:"/>
+            <p:inputText id="email_login" value="#{seguridadBean.email}" required="true"/>
+            <p:message for="email_login"/>
+            <p:outputLabel for="password_login" value="Password:"/>
+            <p:password id="password_login" value="#{seguridadBean.password}" required="true"
+            />
+            <p:message for="password_login"/>
+        </h:panelGrid>
+        <p:commandButton value="Iniciar Sesión" action="#{seguridadBean.iniciarSesion}"
+                         styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left"/>
+        <p:growl for="login-bean" showDetail="true"/>
+    </h:form>
+</p:dialog>
+
+<article class="contenido container">
+    <ui:insert name="content">Contenido del documento</ui:insert>
+</article>
+<footer class="bg-dark fixed-bottom text-center text-white">
+    <!-- Copyright -->
+    <div class="text-center p-3">
+        © 2020 Copyright:
+        <a class="text-white" href="/">unishop.com</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<h:outputScript library="js" name="bootstrap.bundle.min.js"/>
 </body>
 </html>

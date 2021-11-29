@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyecto.serviciosimpl;
+package co.edu.uniquindio.proyecto.serviciosImpl;
 
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
@@ -26,11 +26,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
     @Override
     public Usuario iniciarSesion(String email, String password) throws Exception {
-        Optional<Usuario> usuario= usuarioRepo.findByEmailAndPassword(email,password);
-        if (usuario.isEmpty()){
-            throw new Exception("Los datos de autenticación no coinciden con ningún usuario registrado");
-        }
-        return usuario.get();
+        return usuarioRepo.findByEmailAndPassword(email,password).orElseThrow(() -> new Exception("Los datos de autenticacion son incorrectos"));
     }
 
     private Optional<Usuario> buscarPorEmail(String email){
