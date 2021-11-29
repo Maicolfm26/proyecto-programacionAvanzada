@@ -20,4 +20,10 @@ public class CategoriaServicioImpl implements CategoriaServicio {
     public List<Categoria> obtenerCategorias() {
         return categoriaRepo.findAll();
     }
+
+    @Override
+    public Categoria obtenerCategoria(Integer codigo) throws Exception {
+        return categoriaRepo.findById(codigo).orElseThrow(() -> new Exception("La categoria no fue encontrada"));
+    }
+
 }

@@ -12,8 +12,8 @@ xml:lang="es" lang="es">
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" type="image/png" href="/resources/img/logo.png" sizes="32x32" />
     <title>Unishop | <ui:insert name="title"></ui:insert></title>
-    <link rel="shortcut icon" href="resources/img/logo.ico"/>
     <h:outputStylesheet library="css" name="bootstrap.min.css"/>
     <h:outputStylesheet library="css" name="styles.css"/>
 </h:head>
@@ -22,15 +22,16 @@ xml:lang="es" lang="es">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <img src="resources/img/logo.png" class="bi me-2" width="40" height="40" alt="Logo de unishop"/>
+                <img src="/resources/img/logo.png" class="bi me-2" width="40" height="40" alt="Logo de unishop"/>
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/" class="nav-link px-2 text-white">Inicio</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+                <li><a href="/" class="nav-link px-2 text-white">Unishop</a></li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/crear_producto.xhtml" class="nav-link px-2 text-white">Crear producto</a></li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="#" class="nav-link px-2 text-white">Mis productos</a></li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="#" class="nav-link px-2 text-white">Compras</a></li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="#" class="nav-link px-2 text-white">Perfil</a></li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="#" class="nav-link px-2 text-white">Carrito</a></li>
             </ul>
 
 
@@ -74,7 +75,6 @@ xml:lang="es" lang="es">
         </h:panelGrid>
         <p:commandButton value="Iniciar Sesión" action="#{seguridadBean.iniciarSesion}"
                          styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left"/>
-        <p:growl for="login-bean" showDetail="true"/>
     </h:form>
 </p:dialog>
 

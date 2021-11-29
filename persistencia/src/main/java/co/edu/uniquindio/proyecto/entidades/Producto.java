@@ -59,7 +59,7 @@ public class Producto implements Serializable {
     @Positive
     private Double descuento;
 
-    @ElementCollection()
+    @ElementCollection(fetch = FetchType.EAGER)
     @Column(nullable = false)
     private List<String> imagenes;
 
@@ -67,7 +67,7 @@ public class Producto implements Serializable {
     Se declaran las relaciones con otras entidades acompañadas de su respectiva multiplicidad.
      */
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Categoria> categorias;
 
@@ -148,6 +148,6 @@ public class Producto implements Serializable {
         for(Comentario comentario: comentarios){
             suma += comentario.getCalificacion();
         }
-        return suma/comentarios.size();
+        return comentarios.size() == 0 ? 0 : suma/comentarios.size();
     }
 }

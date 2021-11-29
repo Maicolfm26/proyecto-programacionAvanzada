@@ -7,4 +7,6 @@ import java.util.List;
 public interface CategoriaServicio {
 
     List<Categoria> obtenerCategorias();
+
+    Categoria obtenerCategoria(Integer codigo) throws Exception;
 }

@@ -30,13 +30,14 @@ public class SeguridadBean implements Serializable {
     @Getter @Setter
     private String password;
 
+    @Getter
     private Usuario usuarioSesion;
 
     public String iniciarSesion() {
         try {
             usuarioSesion = usuarioServicio.iniciarSesion(email, password);
             autenticado = true;
-            return "index?faces-redirect=true";
+            return "/index?faces-redirect=true";
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
             FacesContext.getCurrentInstance().addMessage("msj-bean", msg);
@@ -46,7 +47,7 @@ public class SeguridadBean implements Serializable {
 
     public String cerrarSesion() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "index?faces-redirect=true";
+        return "/index?faces-redirect=true";
     }
 
 }
