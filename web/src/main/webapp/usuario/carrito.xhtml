@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="title">Carrito de compras</ui:define>
+    <ui:define name="content">
+
+        <div class="row w-100">
+            <div class="col-lg-12 col-md-12 col-12">
+                <h:form id="form">
+                    <h2 class="text-center">Carrito de compras</h2>
+                    <p class="mb-5 text-center">
+                        <i class="text-primary font-weight-bold">#{seguridadBean.productosCarrito.size()}</i> productos de su carrito
+                    </p>
+                    <table id="shoppingCart" class="table table-condensed table-responsive">
+                        <thead>
+                        <tr>
+                            <th style="width:60%">Producto</th>
+                            <th style="width:12%">Precio</th>
+                            <th style="width:10%">Cantidad</th>
+                            <th style="width:16%"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <p:repeat value="#{seguridadBean.productosCarrito}" var="producto" varStatus="p">
+                            <tr>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-2 text-left">
+                                            <p:graphicImage url="/uploads/#{producto.imagen}"
+                                                            class="img-fluid d-none d-md-block rounded mb-2 shadow"/>
+                                        </div>
+                                        <div class="col-md-10 text-left mt-sm-2">
+                                            <h4>#{producto.nombre}</h4>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>$#{producto.precio}</td>
+                                <td>
+                                    <p:spinner class="form-control form-control-lg text-center"
+                                               value="#{producto.unidades}"
+                                               min="1">
+                                        <p:ajax listener="#{seguridadBean.actualizarSubTotal}" update="form:subtotal-carrito" />
+                                    </p:spinner>
+                                </td>
+                                <td class="actions">
+                                    <div class="text-right">
+                                        <p:commandButton class="btn btn-white border-secondary bg-white btn-md mb-2"
+                                                         action="#{seguridadBean.eliminarDelCarrito(p.index)}" update="@form"
+                                                         icon="pi pi-trash"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </p:repeat>
+                        </tbody>
+                    </table>
+                    <div class="text-end">
+                        <h4>Subtotal:</h4>
+                        <h1 jsf:id="subtotal-carrito">$#{seguridadBean.subtotal}</h1>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+        <div class="row mt-4 d-flex align-items-center">
+                <h:form styleClass="text-center">
+                    <p:commandButton class="btn btn-primary mb-4 btn-lg pl-5 pr-5" value="Comprar"
+                                     action="#{seguridadBean.comprar}" update="@form"
+                                     icon="pi pi-shopping-cart"/>
+                    <p:growl for="msj-bean" showDetail="true" />
+                </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

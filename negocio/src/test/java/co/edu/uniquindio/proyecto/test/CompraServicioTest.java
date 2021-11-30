@@ -39,7 +39,7 @@ public class CompraServicioTest {
     @Autowired
     private CompraServicio compraServicio;
 
-    @Test
+    /*@Test
     public void hacerCompraTest() throws Exception {
         Usuario usuario = usuarioServicio.obtenerUsuario("100765489");
         List<DetalleCompra> detallesCompra = new ArrayList<>();
@@ -51,7 +51,7 @@ public class CompraServicioTest {
 
         Compra compraGuardada = compraServicio.hacerCompra(compra);
         Assertions.assertNotNull(compraGuardada);
-    }
+    }*/
 
     @Test
     public void listarComprasUsuario() throws Exception {

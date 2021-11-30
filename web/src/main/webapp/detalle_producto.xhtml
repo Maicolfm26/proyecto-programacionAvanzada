@@ -15,11 +15,15 @@
         <div class="row">
             <div class="col-lg-7 col-md-1">
                 <div class="box box-stretched">
-                    <p:galleria  rendered="#{detalleProductoBean.producto.imagenes.size() > 0}" value="#{detalleProductoBean.producto.imagenes}" var="imagen">
-                        <p:graphicImage url="/uploads/#{imagen}"  alt="Image Description for #{imagen}" title="#{imagen}" />
+                    <p:galleria rendered="#{detalleProductoBean.producto.imagenes.size() > 0}"
+                                value="#{detalleProductoBean.producto.imagenes}" var="imagen">
+                        <p:graphicImage url="/uploads/#{imagen}" alt="Image Description for #{imagen}"
+                                        title="#{imagen}"/>
                     </p:galleria>
                     <p:graphicImage/>
-                     <p:graphicImage rendered="#{detalleProductoBean.producto.imagenes.size() == 0}" url="/uploads/#{detalleProductoBean.producto.imagenPrincipal}" library="demo" style="max-width: 500px;"/>
+                    <p:graphicImage rendered="#{detalleProductoBean.producto.imagenes.size() == 0}"
+                                    url="/uploads/#{detalleProductoBean.producto.imagenPrincipal}" library="demo"
+                                    style="max-width: 500px;"/>
                 </div>
             </div>
             <div class="col-lg-5 col-md-1">
@@ -33,23 +37,26 @@
                         <h1 class="mt-4">$#{detalleProductoBean.producto.precio}</h1>
 
                         <h:form class="mt-4" rendered="#{seguridadBean.autenticado}">
-                            <p:commandButton value="Añadir al carrito" icon="pi pi-shopping-cart" />
+                            <p:commandButton value="Añadir al carrito" icon="pi pi-shopping-cart"
+                                             action="#{seguridadBean.agregarAlCarrito(detalleProductoBean.producto.codigo, detalleProductoBean.producto.nombre, detalleProductoBean.producto.imagenPrincipal, detalleProductoBean.producto.precio)}"
+                                             update="@form"/>
+                            <p:growl for="msj-bean" showDetail="true" />
                         </h:form>
                     </div>
 
 
-
-                        <div class="box">
-                            <p>Ciudad: #{detalleProductoBean.producto.ciudad.nombre}</p>
-                        </div>
-
-                        <p:dataList emptyMessage="No hay categorias para este producto" styleClass="lista-carac" value="#{detalleProductoBean.producto.categorias}" var="categoria">
-                            <f:facet name="header">Categoria</f:facet>
-                            <p>#{categoria.nombre}</p>
-                        </p:dataList>
+                    <div class="box">
+                        <p>Ciudad: #{detalleProductoBean.producto.ciudad.nombre}</p>
                     </div>
+
+                    <p:dataList emptyMessage="No hay categorias para este producto" styleClass="lista-carac"
+                                value="#{detalleProductoBean.producto.categorias}" var="categoria">
+                        <f:facet name="header">Categoria</f:facet>
+                        <p>#{categoria.nombre}</p>
+                    </p:dataList>
                 </div>
             </div>
+        </div>
 
         <p:panel header="Descripción" styleClass="mt-3">
             <h:outputText value="#{detalleProductoBean.producto.descripcion}" escape="false"/>
@@ -58,31 +65,38 @@
         <p:panel header="Hacer un comentario" styleClass="mt-3" rendered="#{seguridadBean.autenticado}">
             <h:form id="crear-comentario">
                 <h:panelGrid columns="2" cellpadding="3">
-                    <p:inputTextarea value="#{detalleProductoBean.nuevoComentario.mensaje}" required="true" styleClass="comentario-usuario"/>
+                    <p:inputTextarea value="#{detalleProductoBean.nuevoComentario.mensaje}" required="true"
+                                     styleClass="comentario-usuario"/>
                     <p:rating value="#{detalleProductoBean.nuevoComentario.calificacion}" required="true"/>
                 </h:panelGrid>
-                <p:commandButton value="Comentar" icon="pi pi-comment" iconPos="left" update="@form, lista-com" styleClass="mt-4" action="#{detalleProductoBean.crearComentario}"/>
+                <p:commandButton value="Comentar" icon="pi pi-comment" iconPos="left" update="@form, lista-com"
+                                 styleClass="mt-4" action="#{detalleProductoBean.crearComentario}"/>
                 <p:growl for="msj-pregunta" showDetail="true"/>
             </h:form>
         </p:panel>
 
         <p:panel header="Comentarios" styleClass="mt-3">
             <div class="blog-comment">
-                <ul class="comments" >
-                    <p:dataList id="lista-com" value="#{detalleProductoBean.comentarios}" var="comentario" emptyMessage="No hay comentarios" type="definition">
+                <ul class="comments">
+                    <p:dataList id="lista-com" value="#{detalleProductoBean.comentarios}" var="comentario"
+                                emptyMessage="No hay comentarios" type="definition">
                         <li class="clearfix">
-                            <img src="/resources/img/avatar.png" class="avatar" alt="" />
+                            <img src="/resources/img/avatar.png" class="avatar" alt=""/>
                             <div class="post-comments">
-                                <p class="meta">#{comentario.fecha_comentario} <a href="#">#{comentario.usuario.nombre}</a> dijo: <i class="pull-right" style="visibility: hidden"><a href="#"><small>Reply</small></a></i></p>
+                                <p class="meta">#{comentario.fecha_comentario} <a
+                                        href="#">#{comentario.usuario.nombre}</a> dijo: <i class="pull-right"
+                                                                                           style="visibility: hidden"><a
+                                        href="#"><small>Reply</small></a></i></p>
                                 <p>#{comentario.mensaje}</p>
-                                <p:rating readonly="true" value="#{comentario.calificacion}" />
+                                <p:rating readonly="true" value="#{comentario.calificacion}"/>
                             </div>
 
-                            <ul class="comments" jsf:rendered="#{comentario.respuesta != null}" >
-                                <li class="clearfix" >
-                                    <img src="/uploads/userDefault.png" class="avatar" alt="" />
+                            <ul class="comments" jsf:rendered="#{comentario.respuesta != null}">
+                                <li class="clearfix">
+                                    <img src="/uploads/userDefault.png" class="avatar" alt=""/>
                                     <div class="post-comments">
-                                        <p class="meta">#{comentario.fecha_comentario} <a href="#">#{comentario.producto.vendedor.nombre}</a> dijo: </p>
+                                        <p class="meta">#{comentario.fecha_comentario} <a
+                                                href="#">#{comentario.producto.vendedor.nombre}</a> dijo: </p>
                                         <p>#{comentario.respuesta}</p>
                                     </div>
                                 </li>
