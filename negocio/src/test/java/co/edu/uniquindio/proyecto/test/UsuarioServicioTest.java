@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest(classes = NegocioApplication.class)
@@ -38,16 +39,16 @@ public class UsuarioServicioTest {
     @Test
     public void crearUsuarioTest() {
         try {
-        Ciudad ciudad = ciudadServicio.obtenerCiudad(1);
+            Ciudad ciudad = ciudadServicio.obtenerCiudad(1);
 
-        List<String> telefonosUsuario = new ArrayList<>();
-        telefonosUsuario.add("3128280008");
-        telefonosUsuario.add("3223631932");
+            List<String> telefonosUsuario = new ArrayList<>();
+            telefonosUsuario.add("3128280008");
+            telefonosUsuario.add("3223631932");
 
-        Usuario nuevoUsuario = new Usuario(ciudad, "123", "Laura Suárez", "laurasuarez@email.com", "123", telefonosUsuario);
+            Usuario nuevoUsuario = new Usuario(ciudad, "123", "Laura Suárez", "laurasuarez@email.com", "123", telefonosUsuario);
 
-        Usuario comparador = usuarioServicio.crearUsuario(nuevoUsuario);
-        Assertions.assertNotNull(comparador);
+            Usuario comparador = usuarioServicio.crearUsuario(nuevoUsuario);
+            Assertions.assertNotNull(comparador);
         } catch (Exception e) {
             e.printStackTrace();
             Assertions.assertTrue(false);
@@ -66,39 +67,25 @@ public class UsuarioServicioTest {
     }
 
     @Test
-    public void obtenerUsuario()
-    {
+    public void obtenerUsuario() {
         try {
             Usuario usuario = usuarioServicio.obtenerUsuario("100765489");
             Assertions.assertNotNull(usuario);
         } catch (Exception e) {
-            Assertions.assertTrue(false,e.getMessage());
+            Assertions.assertTrue(false, e.getMessage());
         }
     }
 
     @Test
     public void actualizarTest() {
-        try{
+        try {
             Usuario usuario = usuarioServicio.obtenerUsuario("42785998");
             usuario.setPassword("new password");
             usuarioServicio.actualizarUsuario(usuario);
             Usuario modificado = usuarioServicio.obtenerUsuario("42785998");
-            Assertions.assertEquals("new password",modificado.getPassword());
-        } catch (Exception e){
-            Assertions.assertTrue(false,e.getMessage());
-        }
-        }
-
-    @Test
-    public void agregarProductoFavorito()
-    {
-        try {
-          Usuario usuario = usuarioServicio.obtenerUsuario("100765489");
-          Producto producto = productoServicio.obtenerProducto(2);
-          usuarioServicio.agregarProductoFavoritos(producto,usuario);
-          usuario.getProductosFavoritos().forEach(u -> System.out.println(u));
+            Assertions.assertEquals("new password", modificado.getPassword());
         } catch (Exception e) {
-            Assertions.assertTrue(false);
+            Assertions.assertTrue(false, e.getMessage());
         }
     }
 
@@ -107,26 +94,9 @@ public class UsuarioServicioTest {
         try {
             Usuario usuario = usuarioServicio.iniciarSesion("maria@gmail.com", "1130");
             Assertions.assertNotNull(usuario);
-        } catch (Exception e){
-            Assertions.assertTrue(false,e.getMessage());
-        }
-
-    }
-
-    @Test
-    public void eliminarProductoFavorito()
-    {
-        try {
-            Usuario usuario = usuarioServicio.obtenerUsuario("100765489");
-            Producto producto = productoServicio.obtenerProducto(2);
-            usuarioServicio.agregarProductoFavoritos(producto,usuario);
-            usuarioServicio.agregarProductoFavoritos(producto,usuario);
-            usuarioServicio.agregarProductoFavoritos(producto,usuario);
-            usuarioServicio.agregarProductoFavoritos(producto,usuario);
-            usuarioServicio.eliminarProductoFavoritos(producto,usuario);
-            usuario.getProductosFavoritos().forEach(u -> System.out.println(u));
         } catch (Exception e) {
-            Assertions.assertTrue(false,e.getMessage());
+            Assertions.assertTrue(false, e.getMessage());
         }
+
     }
 }

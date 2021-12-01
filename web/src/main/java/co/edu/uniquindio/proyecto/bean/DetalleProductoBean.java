@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -48,17 +50,24 @@ public class DetalleProductoBean implements Serializable {
     @Value("#{seguridadBean.usuarioSesion}")
     private Usuario usuario;
 
+    @Getter
+    @Setter
+    private boolean favorito;
+
     @PostConstruct
     public void inicializar() throws Exception {
         nuevoComentario = new Comentario();
         if (codigoProducto != null && !codigoProducto.isEmpty()) {
             producto = productoServicio.obtenerProducto(Integer.parseInt(codigoProducto));
             this.comentarios = producto.getComentarios();
+            if (usuario != null) {
+                favorito = usuario.getProductosFavoritos().contains(producto);
+            }
         }
     }
 
     public void crearComentario() {
-        if(usuario != null) {
+        if (usuario != null) {
             try {
                 nuevoComentario.setProducto(producto);
                 nuevoComentario.setUsuario(usuario);
@@ -68,6 +77,31 @@ public class DetalleProductoBean implements Serializable {
                 nuevoComentario = new Comentario();
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    public void actualizarProductoFavorito() {
+        String mensaje = "";
+        if (favorito) {
+            try {
+                usuarioServicio.agregarProductoFavorito(producto.getCodigo(), usuario.getCodigo());
+                mensaje = "Se agrego el producto a favoritos";
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", mensaje);
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            } catch (Exception e) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+        } else {
+            try {
+                usuarioServicio.eliminarProductoFavorito(producto.getCodigo(), usuario.getCodigo());
+                mensaje = "Se elimino el producto de favoritos";
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", mensaje);
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            } catch (Exception e) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
+                FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         }
     }

@@ -30,8 +30,22 @@
                     <div class="p-grid">
 
                         <div class="box">
-                            <p:rating value="#{detalleProductoBean.producto.promedio}" readonly="true"/>
+                            <p:rating value="#{detalleProductoBean.producto.promedio}" readonly="true" rendered="#{!seguridadBean.autenticado}"/>
 
+                            <div class="row" jsf:rendered="#{seguridadBean.autenticado}">
+                                <div class="col-4">
+                                    <p class="text-center text-black">Favorito</p>
+                                    <h:form>
+                                        <p:growl showDetail="true" id="msj-detalle"/>
+                                        <p:toggleSwitch value="#{detalleProductoBean.favorito}">
+                                            <p:ajax listener="#{detalleProductoBean.actualizarProductoFavorito}" update="msj-detalle"/>
+                                        </p:toggleSwitch>
+                                    </h:form>
+                                </div>
+                                <div class="col-8">
+                                    <p:rating value="#{detalleProductoBean.producto.promedio}" readonly="true"/>
+                                </div>
+                            </div>
                             <h1 class="mt-4">#{detalleProductoBean.producto.nombre}</h1>
 
                             <h1 class="mt-4">$#{detalleProductoBean.producto.precio}</h1>

@@ -36,7 +36,9 @@ public class InicioBean implements Serializable {
     public void inicializar() {
         productos = productoServicio.listarProductos();
         try {
-            misProductos = productoServicio.obtenerProductosVendedor(usuario.getCodigo());
+            if(usuario != null) {
+                misProductos = productoServicio.obtenerProductosVendedor(usuario.getCodigo());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

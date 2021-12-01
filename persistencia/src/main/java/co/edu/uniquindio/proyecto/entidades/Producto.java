@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -79,9 +80,11 @@ public class Producto implements Serializable {
     @JoinColumn(nullable = false)
     private Usuario vendedor;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
+    @JoinTable(name = "producto_usuario", joinColumns = @JoinColumn(name = "producto_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ToString.Exclude
-    private List<Usuario> usuariosFavoritos;
+    private Set<Usuario> usuariosFavoritos = new HashSet<>();
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
     @ToString.Exclude
@@ -133,7 +136,7 @@ public class Producto implements Serializable {
     }
 
     public String getImagenPrincipal() {
-        if(imagenes!= null && !imagenes.isEmpty()) {
+        if (imagenes != null && !imagenes.isEmpty()) {
             return imagenes.get(0);
         }
         return "default-producto.jpg";
@@ -141,17 +144,17 @@ public class Producto implements Serializable {
 
     public String getFormatoCategorias() {
         String formato = "";
-        for(Categoria categoria : categorias) {
+        for (Categoria categoria : categorias) {
             formato += categoria.getNombre();
         }
         return formato;
     }
 
-    public int getPromedio(){
+    public int getPromedio() {
         int suma = 0;
-        for(Comentario comentario: comentarios){
+        for (Comentario comentario : comentarios) {
             suma += comentario.getCalificacion();
         }
-        return comentarios.size() == 0 ? 0 : suma/comentarios.size();
+        return comentarios.size() == 0 ? 0 : suma / comentarios.size();
     }
 }

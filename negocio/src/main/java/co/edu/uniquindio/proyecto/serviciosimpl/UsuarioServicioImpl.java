@@ -4,8 +4,8 @@ import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.ProductoRepo;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
+import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,15 +13,12 @@ import java.util.Optional;
 @Service
 public class UsuarioServicioImpl implements UsuarioServicio {
 
-    final
-    UsuarioRepo usuarioRepo;
+    private final UsuarioRepo usuarioRepo;
+    private final ProductoServicio productoServicio;
 
-    final
-    ProductoRepo productoRepo;
-
-    public UsuarioServicioImpl(UsuarioRepo usuarioRepo, ProductoRepo productoRepo) {
+    public UsuarioServicioImpl(UsuarioRepo usuarioRepo, ProductoRepo productoRepo, ProductoServicio productoServicio) {
         this.usuarioRepo = usuarioRepo;
-        this.productoRepo = productoRepo;
+        this.productoServicio = productoServicio;
     }
 
     @Override
@@ -69,7 +66,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     @Override
     public Usuario actualizarUsuario(Usuario usuarioActualizado) throws Exception {
         Optional<Usuario> buscado = buscarPorEmail(usuarioActualizado.getEmail());
-        if (buscado.isEmpty()){
+        if (buscado.isEmpty()) {
             throw new Exception("El usuario no fue encontrado en nuestros registros");
         }
         return usuarioRepo.save(usuarioActualizado);
@@ -85,12 +82,18 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     }
 
     @Override
-    public void agregarProductoFavoritos(Producto producto,Usuario usuario) {
-        usuario.getProductosFavoritos().add(producto);
+    public void agregarProductoFavorito(Integer codigoProducto, String codigoUsuario) throws Exception {
+        Usuario usuario = obtenerUsuario(codigoUsuario);
+        Producto producto = productoServicio.obtenerProducto(codigoProducto);
+        usuario.agregarProductoFavorito(producto);
+        usuarioRepo.save(usuario);
     }
 
     @Override
-    public void eliminarProductoFavoritos(Producto producto,Usuario usuario) {
-        usuario.getProductosFavoritos().remove(producto);
+    public void eliminarProductoFavorito(Integer codigoProducto, String codigoUsuario) throws Exception {
+        Usuario usuario = obtenerUsuario(codigoUsuario);
+        Producto producto = productoServicio.obtenerProducto(codigoProducto);
+        usuario.eliminarProductoFavorito(producto);
+        usuarioRepo.save(usuario);
     }
 }
