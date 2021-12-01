@@ -8,22 +8,25 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf">
-<ui:composition template="WEB-INF/template.xhtml">
+<ui:composition template="/WEB-INF/template.xhtml">
     <ui:define name="title">#{detalleProductoBean.producto.nombre}</ui:define>
     <ui:define name="content">
         <div class="row">
             <div class="text-start mb-5 col-3" style="display: inline-block; margin-left: 50px; margin-right: 50px;">
                 <h3>Datos adicionales para la compra</h3>
                 <h:panelGrid columns="1" cellpadding="5" styleClass="mt-4">
-                    <h4>Fecha de compra: #{detalleCompraBean.compra.fechaCompra}</h4>
-                    <h4>Direccion de envio: #{detalleCompraBean.compra.domicilio.direccion}</h4>
-                    <h4>Metodo de pago: #{detalleCompraBean.compra.medioPago}</h4>
+                    <h4>Fecha de compra:</h4>
+                    <p>#{detalleCompraBean.compra.fechaCompra}</p>
+                    <h4>Direccion de envio:</h4>
+                    <p>#{detalleCompraBean.compra.domicilio.direccion}</p>
+                    <h4>Metodo de pago:</h4>
+                    <p>#{detalleCompraBean.compra.medioPago}</p>
                 </h:panelGrid>
             </div>
             <div class="col-8" style="display: inline-block; padding-right: 50px;">
-                <h2 class="text-center">Carrito de compras</h2>
+                <h2 class="text-center">Detalle de la compra</h2>
                 <p class="mb-5 text-center">
-                    <i class="text-primary font-weight-bold">#{detalleCompraBean.detalleCompras.size()}</i> productos de su carrito
+                    <i class="text-primary font-weight-bold">#{detalleCompraBean.detalleCompras.size()}</i> productos en la compra
                 </p>
                 <table id="shoppingCart" class="table table-condensed table-responsive">
                     <thead>
@@ -34,22 +37,22 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <p:repeat value="#{detalleCompraBean.detalleCompras}" var="producto" varStatus="p">
+                    <p:repeat value="#{detalleCompraBean.detalleCompras}" var="detalle" varStatus="d">
                         <tr>
                             <td>
                                 <div class="row">
                                     <div class="col-md-2 text-left">
-                                        <p:graphicImage url="/uploads/#{producto.imagen}"
+                                        <p:graphicImage url="/uploads/#{detalle.producto.imagenPrincipal}"
                                                         class="img-fluid d-none d-md-block rounded mb-2 shadow"/>
                                     </div>
                                     <div class="col-md-10 text-left mt-sm-2">
-                                        <h4>#{producto.nombre}</h4>
+                                        <h4>#{detalle.producto.nombre}</h4>
                                     </div>
                                 </div>
                             </td>
-                            <td>$#{producto.precio}</td>
+                            <td>$#{detalle.producto.precio}</td>
                             <td>
-                                #{producto.unidades}
+                                #{detalle.unidades}
                             </td>
                         </tr>
                     </p:repeat>

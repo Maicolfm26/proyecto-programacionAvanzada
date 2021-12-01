@@ -18,11 +18,13 @@
                 <p:message for="nombre"/>
 
                 <p:outputLabel for="unidades" value="Unidades disponibles:"/>
-                <p:inputText id="unidades" style="width: 278px;" value="#{productoBean.producto.unidades}" required="true"/>
+                <p:inputText id="unidades" style="width: 278px;" value="#{productoBean.producto.unidades}"
+                             required="true"/>
                 <p:message for="unidades"/>
 
                 <p:outputLabel value="Descripción: " for="descripcion"/>
-                <p:textEditor id="descripcion" value="#{productoBean.producto.descripcion}" height="300" secure="false" required="true" />
+                <p:textEditor id="descripcion" value="#{productoBean.producto.descripcion}" height="300" secure="false"
+                              required="true"/>
                 <p:message for="descripcion"/>
 
                 <p:outputLabel for="precio" value="Precio:"/>
@@ -30,7 +32,8 @@
                 <p:message for="precio"/>
 
                 <p:outputLabel for="categoria_p" value="Categorias: "/>
-                <p:selectManyMenu id="categoria_p" style="width: 278px;" value="#{productoBean.producto.categorias}" filter="true"
+                <p:selectManyMenu id="categoria_p" style="width: 278px;" value="#{productoBean.producto.categorias}"
+                                  filter="true"
                                   filterMatchMode="contains" showCheckbox="true" styleClass="manymenu-advanced"
                                   required="true" requiredMessage="La ciudad es obligatoria"
                                   converter="#{categoriaConverter}">
@@ -63,7 +66,8 @@
                 <p:message for="ciudad"/>
 
                 <p:outputLabel for="imagen" value="Imagenes: "/>
-                <p:fileUpload id="imagen" style="min-width: 278px;" listener="#{productoBean.subirImagenes}" mode="advanced" multiple="true"
+                <p:fileUpload id="imagen" style="min-width: 278px;" listener="#{productoBean.subirImagenes}"
+                              mode="advanced" multiple="true"
                               sizeLimit="1000000" fileLimit="5" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
                               required="true"/>
 
