@@ -43,6 +43,17 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         if (buscado.isPresent()){
             throw new Exception("El email del usuario ya existe");
         }
+        if(usuario.getTelefonos().isEmpty()) {
+            throw new Exception("Debe ingresar al menos un telefono");
+        }
+
+        try {
+            usuario.getTelefonos().forEach(Integer::parseInt);
+        } catch (NumberFormatException e) {
+            throw new Exception("El telefono debe de ser numerico");
+        }
+
+
         return usuarioRepo.save(usuario);
     }
 

@@ -53,7 +53,7 @@ public class CompraTest {
         Usuario usuario = usuarioRepo.findById("42785998").orElse(null);
         List<DetalleCompra> detalleCompras = detalleCompraRepo.findAll();
 
-        Compra compra = new Compra(LocalDate.now(),MedioPago.EFECTIVO,usuario, detalleCompras, domicilio, 5500.0);
+        Compra compra = new Compra(LocalDate.now(),MedioPago.EFECTIVO,usuario, detalleCompras, domicilio);
 
         Compra compraGuardada= compraRepo.save(compra);
         Assertions.assertNotNull(compraGuardada);
@@ -125,7 +125,7 @@ public class CompraTest {
         detallesCompra.add(detalleCompra.get());
         Optional<Domicilio> domicilio = domicilioRepo.findById(1);
 
-        Compra compra = new Compra(LocalDate.now(), MedioPago.NEQUI, usuario.get(), detallesCompra, domicilio.get(), 5000.0);
+        Compra compra = new Compra(LocalDate.now(), MedioPago.NEQUI, usuario.get(), detallesCompra, domicilio.get());
 
         Compra compraG = compraRepo.save(compra);
         System.out.println(compraG);

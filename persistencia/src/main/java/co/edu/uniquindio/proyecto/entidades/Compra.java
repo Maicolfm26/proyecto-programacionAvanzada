@@ -40,9 +40,6 @@ public class Compra implements Serializable {
     @Column(nullable = false)
     private MedioPago medioPago;
 
-    @Column(nullable = false)
-    private Double precioEnvio;
-
     /*
     Se declaran las relaciones con otras entidades acompañadas de su respectiva multiplicidad.
      */
@@ -64,12 +61,11 @@ public class Compra implements Serializable {
     Constructor de la entidad.
      */
 
-    public Compra(LocalDate fechaCompra, MedioPago medioPago, Usuario usuario, List<DetalleCompra> detalleCompras, Domicilio domicilio, Double precioEnvio) {
+    public Compra(LocalDate fechaCompra, MedioPago medioPago, Usuario usuario, List<DetalleCompra> detalleCompras, Domicilio domicilio) {
         this.fechaCompra = fechaCompra;
         this.medioPago = medioPago;
         this.usuario = usuario;
         this.detalleCompras = detalleCompras;
         this.domicilio = domicilio;
-        this.precioEnvio = precioEnvio;
     }
 }

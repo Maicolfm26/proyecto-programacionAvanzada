@@ -14,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +40,7 @@ public class UsuarioServicioTest {
         try {
         Ciudad ciudad = ciudadServicio.obtenerCiudad(1);
 
-        Set<String> telefonosUsuario = new HashSet<>();
+        List<String> telefonosUsuario = new ArrayList<>();
         telefonosUsuario.add("3128280008");
         telefonosUsuario.add("3223631932");
 

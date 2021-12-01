@@ -48,7 +48,7 @@ public class UsuarioTest {
         Ciudad ciudad = ciudadRepo.findById(1).orElse(null);
         List<Domicilio> domicilios = domicilioRepo.findAll();
 
-        Set<String> telefonosUsuario = new HashSet<>();
+        List<String> telefonosUsuario = new ArrayList<>();
         telefonosUsuario.add("3128280008");
         telefonosUsuario.add("3223631932");
 

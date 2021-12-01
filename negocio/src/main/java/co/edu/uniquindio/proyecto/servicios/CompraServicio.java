@@ -9,7 +9,9 @@ import java.util.List;
 
 public interface CompraServicio {
 
-    Compra hacerCompra(Usuario usuario, List<ProductoCarrito> productoCarritos, MedioPago medioPago) throws Exception;
+    Compra hacerCompra(Compra compra, List<ProductoCarrito> productoCarritos) throws Exception;
 
     List<Compra> obtenerComprasUsuario(String codigoUsuario) throws Exception;
+
+    List<MedioPago> listarMedioDePagos();
 }

@@ -27,15 +27,8 @@ public class CompraServicioImpl implements CompraServicio {
     }
 
     @Override
-    public Compra hacerCompra(Usuario usuario, List<ProductoCarrito> productosCarrito, MedioPago medioPago) throws Exception {
-        Domicilio domicilio = domicilioRepo.findById(1).get();
-
-        Compra compra = new Compra();
+    public Compra hacerCompra(Compra compra, List<ProductoCarrito> productosCarrito) throws Exception {
         compra.setFechaCompra(LocalDate.now());
-        compra.setMedioPago(medioPago);
-        compra.setUsuario(usuario);
-        compra.setPrecioEnvio(5000.0);
-        compra.setDomicilio(domicilio);
 
         Compra compraGuardada = compraRepo.save(compra);
 
@@ -57,5 +50,10 @@ public class CompraServicioImpl implements CompraServicio {
             throw new Exception("El codigo del producto no existe");
         }
         return compraRepo.listarComprasUsuario(codigoUsuario);
+    }
+
+    @Override
+    public List<MedioPago> listarMedioDePagos() {
+        return List.of(MedioPago.values());
     }
 }

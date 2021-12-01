@@ -11,9 +11,38 @@
 <ui:composition template="/WEB-INF/template.xhtml">
     <ui:define name="title">Carrito de compras</ui:define>
     <ui:define name="content">
+        <div class="row">
+            <div class="text-start mb-5 col-3" style="display: inline-block; margin-left: 50px; margin-right: 50px;">
+                <h:form>
+                    <h3>Datos adicionales para la compra</h3>
+                    <h:panelGrid columns="2" cellpadding="5" styleClass="mt-4">
+                        <p:outputLabel for="domicilio" value="Direccion para el domicilio:"/>
+                        <p:selectOneMenu id="domicilio" style="width: 235px;" value="#{seguridadBean.compra.domicilio}"
+                                         required="true"
+                                         requiredMessage="La direccion es obligatoria"
+                                         converter="#{domicilioConverter}">
+                            <f:selectItem itemLabel="Seleccionar direccion" noSelectionOption="true"/>
+                            <f:selectItems var="dir" itemValue="#{dir.direccion}" value="#{seguridadBean.domicilios}"/>
+                        </p:selectOneMenu>
 
-        <div class="row w-100">
-            <div class="col-lg-12 col-md-12 col-12">
+                        <p:outputLabel for="medio-pago" value="Medio de pago:"/>
+                        <p:selectOneMenu id="medio-pago" style="width: 235px;"
+                                         value="#{seguridadBean.compra.medioPago}"
+                                         required="true"
+                                         requiredMessage="EL medio de pago es obligatorio">
+                            <f:selectItem itemLabel="Seleccionar medio de pago" noSelectionOption="true"/>
+                            <f:selectItems var="pago"
+                                           value="#{seguridadBean.medioPagos}"/>
+                        </p:selectOneMenu>
+
+                        <p:commandButton class="btn btn-primary mt-4 btn-lg pl-5 pr-5" value="Comprar"
+                                         action="#{seguridadBean.comprar}" update="@form"
+                                         icon="pi pi-shopping-cart"/>
+                        <p:growl showDetail="true"/>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+            <div class="col-8" style="display: inline-block; padding-right: 50px;">
                 <h:form id="form">
                     <h2 class="text-center">Carrito de compras</h2>
                     <p class="mb-5 text-center">
@@ -47,13 +76,15 @@
                                     <p:spinner class="form-control form-control-lg text-center"
                                                value="#{producto.unidades}"
                                                min="1">
-                                        <p:ajax listener="#{seguridadBean.actualizarSubTotal}" update="form:subtotal-carrito" />
+                                        <p:ajax listener="#{seguridadBean.actualizarSubTotal}"
+                                                update="form:subtotal-carrito"/>
                                     </p:spinner>
                                 </td>
                                 <td class="actions">
                                     <div class="text-right">
                                         <p:commandButton class="btn btn-white border-secondary bg-white btn-md mb-2"
-                                                         action="#{seguridadBean.eliminarDelCarrito(p.index)}" update="@form"
+                                                         action="#{seguridadBean.eliminarDelCarrito(p.index)}"
+                                                         update="@form"
                                                          icon="pi pi-trash"/>
                                     </div>
                                 </td>
@@ -67,14 +98,6 @@
                     </div>
                 </h:form>
             </div>
-        </div>
-        <div class="row mt-4 d-flex align-items-center">
-                <h:form styleClass="text-center">
-                    <p:commandButton class="btn btn-primary mb-4 btn-lg pl-5 pr-5" value="Comprar"
-                                     action="#{seguridadBean.comprar}" update="@form"
-                                     icon="pi pi-shopping-cart"/>
-                    <p:growl for="msj-bean" showDetail="true" />
-                </h:form>
         </div>
     </ui:define>
 </ui:composition>

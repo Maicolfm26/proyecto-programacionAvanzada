@@ -27,7 +27,7 @@ public class Usuario extends Persona implements Serializable {
      */
     @ElementCollection
     @Column(nullable = false)
-    private Set<String> telefonos;
+    private List<String> telefonos;
 
      /*
     Se declaran las relaciones con otras entidades acompañadas de su respectiva multiplicidad.
@@ -72,7 +72,7 @@ public class Usuario extends Persona implements Serializable {
     Constructor de la entidad.
      */
 
-    public Usuario(Ciudad ciudad,String codigo, String nombre, String email, String password, Set<String> telefonos) {
+    public Usuario(Ciudad ciudad,String codigo, String nombre, String email, String password, List<String> telefonos) {
         super(codigo, nombre, email, password);
         this.telefonos = telefonos;
         this.ciudad = ciudad;

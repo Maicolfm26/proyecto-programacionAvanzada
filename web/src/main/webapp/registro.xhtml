@@ -11,22 +11,25 @@
 <ui:composition template="WEB-INF/template.xhtml">
     <ui:define name="title">Crear cuenta</ui:define>
     <ui:define name="content">
-        <section>
+        <section class="container">
             <h:form id="form-registro">
                 <h:panelGrid columns="3" cellpadding="5">
                     <p:outputLabel for="codigo" value="Codigo:"/>
-                    <p:inputText id="codigo" styleClass="width-campo" value="#{registroBean.usuario.codigo}" required="true"/>
+                    <p:inputText id="codigo" style="width: 400px;" value="#{registroBean.usuario.codigo}"
+                                 required="true"/>
                     <p:message for="codigo"/>
 
                     <p:outputLabel for="nombre" value="Nombre:"/>
-                    <p:inputText id="nombre" styleClass="width-campo" value="#{registroBean.usuario.nombre}" required="true"/>
+                    <p:inputText id="nombre" style="width: 400px;" value="#{registroBean.usuario.nombre}"
+                                 required="true"/>
                     <p:message for="nombre"/>
 
                     <p:outputLabel for="departamento" value="Departamento:"/>
-                    <p:selectOneMenu id="departamento" style="width: 200px;" value="#{registroBean.departamento}" required="true"
+                    <p:selectOneMenu id="departamento" style="width: 400px;" value="#{registroBean.departamento}"
+                                     required="true"
                                      requiredMessage="El departamento es obligatorio"
                                      converter="#{departamentoConverter}">
-                        <f:selectItem itemLabel="Seleccionar departa..." noSelectionOption="true"/>
+                        <f:selectItem itemLabel="Seleccionar departamento" noSelectionOption="true"/>
                         <f:selectItems var="depart" itemLabel="#{depart.nombre}"
                                        value="#{registroBean.departamentos}"/>
                         <p:ajax listener="#{registroBean.actualizarCiudades}" process=":form-registro:departamento"
@@ -35,7 +38,8 @@
                     <p:message for="departamento"/>
 
                     <p:outputLabel for="ciudad" value="Ciudad:"/>
-                    <p:selectOneMenu id="ciudad" style="width: 200px;" value="#{registroBean.usuario.ciudad}" required="true"
+                    <p:selectOneMenu id="ciudad" style="width: 400px;" value="#{registroBean.usuario.ciudad}"
+                                     required="true"
                                      requiredMessage="La ciudad es obligatoria" converter="#{ciudadConverter}">
                         <f:selectItem itemLabel="Seleccionar ciudad" noSelectionOption="true"/>
                         <f:selectItems var="ciudad" itemLabel="#{ciudad.nombre}"
@@ -44,16 +48,25 @@
                     <p:message for="ciudad"/>
 
                     <p:outputLabel for="email" value="Email:"/>
-                    <p:inputText id="email" styleClass="width-campo" value="#{registroBean.usuario.email}" required="true"/>
+                    <p:inputText id="email" style="width: 400px;" value="#{registroBean.usuario.email}"
+                                 required="true"/>
                     <p:message for="email"/>
 
                     <p:outputLabel for="password" value="Clave:"/>
-                    <p:password id="password" styleClass="width-campo" value="#{registroBean.usuario.password}" required="true"/>
+                    <p:password id="password" style="width: 400px;" value="#{registroBean.usuario.password}"
+                                required="true"/>
                     <p:message for="password"/>
+
+                    <p:outputLabel for="telefono" value="Telefonos:"/>
+                    <p:autoComplete id="telefono" multiple="true" value="#{registroBean.usuario.telefonos}"
+                                    forceSelection="true" scrollHeight="250" minQueryLength="1" >
+                    </p:autoComplete>
+                    <p:message for="telefono"/>
 
                 </h:panelGrid>
                 <p:growl showDetail="true" for="msj-bean"/>
-                <p:commandButton styleClass="mt-4" value="Registrar" action="#{registroBean.registrarUsuario}" update="@form"
+                <p:commandButton styleClass="mt-4" value="Registrar" action="#{registroBean.registrarUsuario}"
+                                 update="@form"
                                  icon="pi pi-user-plus"/>
             </h:form>
         </section>

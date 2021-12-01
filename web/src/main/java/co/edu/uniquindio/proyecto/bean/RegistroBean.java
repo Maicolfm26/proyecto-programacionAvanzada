@@ -36,6 +36,9 @@ public class RegistroBean implements Serializable {
     @Setter
     private List<Ciudad> ciudades;
 
+    @Getter @Setter
+    private List<Integer> telefonos;
+
     private final UsuarioServicio usuarioServicio;
     private final DepartamentoServicio departamentoServicio;
 

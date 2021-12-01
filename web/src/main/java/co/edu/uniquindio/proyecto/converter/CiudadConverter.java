@@ -3,7 +3,6 @@ package co.edu.uniquindio.proyecto.converter;
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
 import co.edu.uniquindio.proyecto.servicios.CiudadServicio;
 import org.springframework.stereotype.Component;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;

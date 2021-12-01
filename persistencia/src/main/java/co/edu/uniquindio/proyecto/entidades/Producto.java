@@ -1,6 +1,8 @@
 package co.edu.uniquindio.proyecto.entidades;
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
@@ -59,7 +61,8 @@ public class Producto implements Serializable {
     @Positive
     private Double descuento;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
+    @LazyCollection(LazyCollectionOption.FALSE)
     @Column(nullable = false)
     private List<String> imagenes;
 
@@ -68,6 +71,7 @@ public class Producto implements Serializable {
      */
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ToString.Exclude
     private List<Categoria> categorias;
 

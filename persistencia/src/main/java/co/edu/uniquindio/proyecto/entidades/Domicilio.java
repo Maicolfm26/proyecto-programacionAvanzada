@@ -14,6 +14,7 @@ Etiquetas para uso de m√©todos con el fin de acortar la cantidad de lineas de c√
 @Entity
 @Getter
 @Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @ToString
 /*
@@ -109,5 +110,9 @@ public class Domicilio implements Serializable {
           this.numero1 = numero1;
           this.numero2 = numero2;
           this.datos_opcionales = datos_opcionales;
+     }
+
+     public String getDireccion() {
+          return barrio +" calle "+ calle + "#" + numero1 +"-"+ numero2;
      }
 }
