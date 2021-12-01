@@ -41,7 +41,7 @@ public class CompraBean implements Serializable {
     }
 
     public String irADetalle(String id) {
-        return "/detalle_compra?faces-redirect=true&amp;compra=" + id;
+        return "/usuario/detalle_compra?faces-redirect=true&amp;compra=" + id;
     }
 
 }

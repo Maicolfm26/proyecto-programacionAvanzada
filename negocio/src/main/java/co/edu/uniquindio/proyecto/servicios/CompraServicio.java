@@ -14,4 +14,6 @@ public interface CompraServicio {
     List<Compra> obtenerComprasUsuario(String codigoUsuario) throws Exception;
 
     List<MedioPago> listarMedioDePagos();
+
+    Compra obtenerCompra(Integer codigoCompra) throws Exception;
 }

@@ -89,7 +89,7 @@ public class ProductoBean implements Serializable {
                     productoServicio.publicarProducto(producto);
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Registro exitoso");
                     FacesContext.getCurrentInstance().addMessage("msj-bean", msg);
-                    return "/detalle_producto?faces-redirect=true&amp;producto="+producto.getCodigo();
+                    return "/detalle_producto?faces-redirect=true&amp;producto=" + producto.getCodigo();
                 } catch (Exception e) {
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
                     FacesContext.getCurrentInstance().addMessage("msj-bean", msg);

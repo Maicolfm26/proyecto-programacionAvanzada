@@ -16,17 +16,6 @@
             <h:form styleClass="mt-5">
                 <p:dataView value="#{compraBean.compras}" var="compra" rows="3" paginator="true"
                             gridIcon="pi pi-th-large" listIcon="pi pi-bars">
-                    <p:dataViewGridItem>
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">#{compra.fechaCompra}</h5>
-                                <p class="card-text">#{compra.total}</p>
-                                <p:commandButton value="Ver detalle" styleClass="ui-button-raised"
-                                                 icon="pi pi-arrow-right" iconPos="right"
-                                                 action="#"/>
-                            </div>
-                        </div>
-                    </p:dataViewGridItem>
                     <p:dataViewListItem>
                         <div class="row d-flex my-5">
                             <div class="col-lg-2 col-md-1" style="text-align: center">
