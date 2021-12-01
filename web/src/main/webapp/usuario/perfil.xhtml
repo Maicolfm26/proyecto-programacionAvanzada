@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<ui:composition template="../WEB-INF/template.xhtml">
+    <ui:define name="title">Perfil</ui:define>
+    <ui:define name="content">
+        <div class="container emp-profile">
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="/resources/img/avatar.png" style="width: 150px"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                            <h5>
+                                #{perfilBean.usuario.nombre}
+                            </h5>
+                            <h6>
+                                Numero de compras : #{perfilBean.compras.size()}
+                            </h6>
+                            <p class="proile-rating">Numero de productos publicados : #{perfilBean.productos.size()}</p>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#" role="tab" aria-controls="home" aria-selected="true">Acerda de</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="misProductosFavoritos.xhtml" role="tab" aria-controls="profile" aria-selected="false">Productos favoritos</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Editar perfil"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-work" style="margin-left: 50px">
+                            <p>Links</p>
+                            <a href="">Facebook</a><br/>
+                            <a href="">Instagram</a><br/>
+                            <a href="">Whatsapp</a>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Nombre</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>#{perfilBean.usuario.nombre}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Email</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>#{perfilBean.usuario.email}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Ciudad</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>#{perfilBean.usuario.ciudad.nombre}</p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Telefonos</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <p>#{perfilBean.telefonos}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

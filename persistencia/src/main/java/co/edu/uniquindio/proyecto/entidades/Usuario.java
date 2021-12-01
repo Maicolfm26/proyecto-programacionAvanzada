@@ -1,6 +1,9 @@
 package co.edu.uniquindio.proyecto.entidades;
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -26,6 +29,7 @@ public class Usuario extends Persona implements Serializable {
     Se declaran los atributos de la entidad con sus respectivas restricciones.
      */
     @ElementCollection
+    @LazyCollection(LazyCollectionOption.FALSE)
     @Column(nullable = false)
     private List<String> telefonos;
 

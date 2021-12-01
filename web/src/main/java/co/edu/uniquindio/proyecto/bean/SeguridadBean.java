@@ -129,6 +129,8 @@ public class SeguridadBean implements Serializable {
         }
     }
 
+
+
     private String getMensaje(){
         String mensaje = "";
         for(ProductoCarrito pc : productosCarrito){

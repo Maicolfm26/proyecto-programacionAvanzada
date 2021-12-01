@@ -8,6 +8,7 @@ import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,7 +36,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         if (buscado.isPresent()){
             throw new Exception("El código del usuario ya existe");
         }
-        buscado = buscarPorEmail(usuario.getEmail());
+        buscado = usuarioRepo.findByEmail(usuario.getEmail());
         if (buscado.isPresent()){
             throw new Exception("El email del usuario ya existe");
         }
@@ -44,7 +45,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         }
 
         try {
-            usuario.getTelefonos().forEach(Integer::parseInt);
+            usuario.getTelefonos().forEach(Long::parseLong);
         } catch (NumberFormatException e) {
             throw new Exception("El telefono debe de ser numerico");
         }
@@ -54,8 +55,8 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     }
 
     @Override
-    public Optional<Usuario> buscarPorEmail(String email) throws Exception{
-        return usuarioRepo.findByEmail(email);
+    public Usuario buscarPorEmail(String email) throws Exception{
+        return usuarioRepo.findByEmail(email).orElseThrow(() ->new Exception("El usuario con el email especificado no existe."));
     }
 
     @Override
@@ -69,10 +70,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
     @Override
     public Usuario actualizarUsuario(Usuario usuarioActualizado) throws Exception {
-        Optional<Usuario> buscado = buscarPorEmail(usuarioActualizado.getEmail());
-        if (buscado.isEmpty()){
-            throw new Exception("El usuario no fue encontrado en nuestros registros");
-        }
+        Usuario buscado = buscarPorEmail(usuarioActualizado.getEmail());
         return usuarioRepo.save(usuarioActualizado);
     }
 
@@ -94,5 +92,14 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     @Override
     public void eliminarProductoFavoritos(Producto producto,Usuario usuario) {
         usuario.getProductosFavoritos().remove(producto);
+    }
+
+    @Override
+    public List<Producto> listarProductosFavoritos(String codigoVendedor) throws Exception {
+        if (usuarioRepo.findById(codigoVendedor).isEmpty()) {
+            throw new Exception("El codigo del vendedor no existe");
+        }
+        return usuarioRepo.listarProductosFavoritos(codigoVendedor);
+
     }
 }
