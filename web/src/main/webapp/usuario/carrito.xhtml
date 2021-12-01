@@ -16,14 +16,16 @@
                 <h:form>
                     <h3>Datos adicionales para la compra</h3>
                     <h:panelGrid columns="2" cellpadding="5" styleClass="mt-4">
-                        <p:outputLabel for="domicilio" value="Direccion para el domicilio:"/>
+                        <p:outputLabel for="domicilio" value="Dirección"/>
                         <p:selectOneMenu id="domicilio" style="width: 235px;" value="#{seguridadBean.compra.domicilio}"
+                                         converter="#{domicilioConverter}"
                                          required="true"
-                                         requiredMessage="La direccion es obligatoria"
-                                         converter="#{domicilioConverter}">
+                                         requiredMessage="La dirección es obligatoria">
                             <f:selectItem itemLabel="Seleccionar direccion" noSelectionOption="true"/>
-                            <f:selectItems var="dir" itemValue="#{dir.direccion}" value="#{seguridadBean.domicilios}"/>
+                            <f:selectItems var="dir" itemLabel="#{dir.direccion}"
+                                           value="#{seguridadBean.domicilios}"/>
                         </p:selectOneMenu>
+
 
                         <p:outputLabel for="medio-pago" value="Medio de pago:"/>
                         <p:selectOneMenu id="medio-pago" style="width: 235px;"
