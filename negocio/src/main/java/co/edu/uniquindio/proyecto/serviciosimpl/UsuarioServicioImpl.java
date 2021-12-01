@@ -8,6 +8,7 @@ import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,7 +49,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         }
 
         try {
-            usuario.getTelefonos().forEach(Integer::parseInt);
+            usuario.getTelefonos().forEach(Long::parseLong);
         } catch (NumberFormatException e) {
             throw new Exception("El telefono debe de ser numerico");
         }
@@ -92,5 +93,14 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     @Override
     public void eliminarProductoFavoritos(Producto producto,Usuario usuario) {
         usuario.getProductosFavoritos().remove(producto);
+    }
+
+    @Override
+    public List<Producto> listarProductosFavoritos(String codigoVendedor) throws Exception {
+        if (usuarioRepo.findById(codigoVendedor).isEmpty()) {
+            throw new Exception("El codigo del vendedor no existe");
+        }
+        return usuarioRepo.listarProductosFavoritos(codigoVendedor);
+
     }
 }

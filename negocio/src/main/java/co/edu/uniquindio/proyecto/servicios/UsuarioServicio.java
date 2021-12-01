@@ -3,6 +3,9 @@ package co.edu.uniquindio.proyecto.servicios;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
 
+import java.util.List;
+import java.util.Optional;
+
 public interface UsuarioServicio {
 
     Usuario iniciarSesion(String email, String password) throws Exception;
@@ -18,4 +21,6 @@ public interface UsuarioServicio {
     void agregarProductoFavoritos(Producto producto,Usuario usuario);
 
     void eliminarProductoFavoritos(Producto producto,Usuario usuario);
+
+    public List<Producto> listarProductosFavoritos(String codigoVendedor)throws Exception;
 }
