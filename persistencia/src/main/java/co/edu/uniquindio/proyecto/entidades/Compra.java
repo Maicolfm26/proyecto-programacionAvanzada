@@ -1,6 +1,8 @@
 package co.edu.uniquindio.proyecto.entidades;
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -48,7 +50,7 @@ public class Compra implements Serializable {
     @JoinColumn(nullable = false)
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @ToString.Exclude
     @Size(min=1)
     private List<DetalleCompra> detalleCompras;
@@ -76,5 +78,14 @@ public class Compra implements Serializable {
             total += dc.getPrecio_producto() * dc.getUnidades();
         }
         return total;
+    }
+
+    public String getMensaje(){
+        String mensaje = "";
+        for(DetalleCompra dc : detalleCompras){
+         mensaje += "Producto: " + dc.getProducto().getNombre() +"       Unidades: "+
+                 dc.getUnidades()+ "    Precio: "+dc.getProducto().getPrecio()*dc.getUnidades() +"\n";
+        }
+        return mensaje;
     }
 }

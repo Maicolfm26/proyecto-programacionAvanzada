@@ -29,10 +29,6 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         return usuarioRepo.findByEmailAndPassword(email,password).orElseThrow(() -> new Exception("Los datos de autenticacion son incorrectos"));
     }
 
-    private Optional<Usuario> buscarPorEmail(String email){
-        return usuarioRepo.findByEmail(email);
-    }
-
     @Override
     public Usuario crearUsuario(Usuario usuario) throws Exception {
         Optional<Usuario> buscado = usuarioRepo.findById(usuario.getCodigo());
@@ -58,6 +54,11 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     }
 
     @Override
+    public Optional<Usuario> buscarPorEmail(String email) throws Exception{
+        return usuarioRepo.findByEmail(email);
+    }
+
+    @Override
     public void eliminarUsuario(String codigo) throws Exception {
         Optional<Usuario> buscado = usuarioRepo.findById(codigo);
         if (buscado.isEmpty()){
@@ -74,6 +75,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         }
         return usuarioRepo.save(usuarioActualizado);
     }
+
 
     @Override
     public Usuario obtenerUsuario(String codigo) throws Exception {
