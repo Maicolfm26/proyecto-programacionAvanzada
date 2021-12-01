@@ -57,6 +57,7 @@ public class Compra implements Serializable {
     @JoinColumn(nullable = false)
     private Domicilio domicilio;
 
+
     /*
     Constructor de la entidad.
      */
