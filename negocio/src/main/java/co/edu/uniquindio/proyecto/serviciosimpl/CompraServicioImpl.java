@@ -56,4 +56,9 @@ public class CompraServicioImpl implements CompraServicio {
     public List<MedioPago> listarMedioDePagos() {
         return List.of(MedioPago.values());
     }
+
+    @Override
+    public Compra obtenerCompra(Integer codigoCompra) throws Exception {
+        return compraRepo.findById(codigoCompra).orElseThrow(() -> new Exception("La compra no fue encontrada"));
+    }
 }

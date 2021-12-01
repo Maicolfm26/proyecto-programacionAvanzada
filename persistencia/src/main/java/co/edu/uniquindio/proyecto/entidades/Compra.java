@@ -68,4 +68,12 @@ public class Compra implements Serializable {
         this.detalleCompras = detalleCompras;
         this.domicilio = domicilio;
     }
+
+    public Double getTotal(){
+        Double total = 0.0;
+        for(DetalleCompra dc : detalleCompras){
+            total += dc.getPrecio_producto() * dc.getUnidades();
+        }
+        return total;
+    }
 }
