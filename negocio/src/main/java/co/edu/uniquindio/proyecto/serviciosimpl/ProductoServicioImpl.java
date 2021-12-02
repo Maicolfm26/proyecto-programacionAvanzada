@@ -35,9 +35,14 @@ public class ProductoServicioImpl implements ProductoServicio {
     }
 
     @Override
-    public void eliminarProducto(Integer codigoProducto) throws Exception {
+    public void eliminarProducto(Integer codigoProducto) throws Exception{
         Producto producto = obtenerProducto(codigoProducto);
+
         producto.eliminarUsuariosFavoritos();
+        for(Usuario usuario : producto.getUsuariosFavoritos()){
+            usuarioRepo.save(usuario);
+
+        }
         productoRepo.save(producto);
         productoRepo.deleteById(codigoProducto);
     }

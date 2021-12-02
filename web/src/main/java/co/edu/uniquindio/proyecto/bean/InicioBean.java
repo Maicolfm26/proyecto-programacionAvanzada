@@ -62,7 +62,6 @@ public class InicioBean implements Serializable {
     public void eliminarProducto(Producto producto) {
         if (usuario != null) {
             try {
-
                 productoServicio.eliminarProducto(producto.getCodigo());
                 misProductos.remove(producto);
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Producto eliminado");
