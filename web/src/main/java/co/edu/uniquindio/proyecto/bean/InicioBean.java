@@ -15,6 +15,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -29,13 +30,16 @@ public class InicioBean implements Serializable {
         this.usuarioServicio = usuarioServicio;
     }
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private List<Producto> productos;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private List<Producto> misProductos;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private List<Producto> misProductosFavoritos;
 
     @Value("#{seguridadBean.usuarioSesion}")
@@ -46,7 +50,7 @@ public class InicioBean implements Serializable {
         productos = productoServicio.listarProductos();
         try {
 
-            if(usuario!=null) {
+            if (usuario != null) {
                 misProductos = productoServicio.obtenerProductosVendedor(usuario.getCodigo());
                 misProductosFavoritos = usuarioServicio.listarProductosFavoritos(usuario.getCodigo());
             }
@@ -55,22 +59,40 @@ public class InicioBean implements Serializable {
         }
     }
 
-    public void eliminarProducto(Producto producto){
-        if(usuario!=null) {
+    public void eliminarProducto(Producto producto) {
+        if (usuario != null) {
             try {
+
                 productoServicio.eliminarProducto(producto.getCodigo());
                 misProductos.remove(producto);
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Producto eliminado");
-                FacesContext.getCurrentInstance().addMessage("msj-eliminar", msg);
+                FacesContext.getCurrentInstance().addMessage("msj-options", msg);
 
             } catch (Exception e) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
-                FacesContext.getCurrentInstance().addMessage("msj-eliminar", msg);
+                FacesContext.getCurrentInstance().addMessage("msj-options", msg);
             }
         }
     }
 
+    public void reactivarProducto(Producto producto) {
+        producto.setFechaLimite(LocalDate.now().plusMonths(1));
+        try {
+            productoServicio.actualizarProducto(producto);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Se a reactivado el producto");
+            FacesContext.getCurrentInstance().addMessage("msj-options", msg);
+        } catch (Exception e) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
+            FacesContext.getCurrentInstance().addMessage("msj-options", msg);
+        }
+    }
+
+
     public String irADetalle(String id) {
         return "/detalle_producto?faces-redirect=true&amp;producto=" + id;
+    }
+
+    public String irAEditar(String id) {
+        return "editarProducto?faces-redirect=true&amp;producto=" + id;
     }
 }

@@ -14,4 +14,7 @@ public interface ProductoRepo extends JpaRepository<Producto, Integer> {
 
     @Query("select p from Producto p where p.nombre like concat('%', :busqueda, '%') or p.descripcion like concat('%', :busqueda, '%')")
     List<Producto> buscarProductos(String busqueda);
+
+    @Query("select p from Producto p where p.fechaLimite > current_date")
+    List<Producto> listarProductos();
 }
