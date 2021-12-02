@@ -80,4 +80,13 @@ public class Compra implements Serializable {
         }
         return total;
     }
+
+    public String getMensaje(){
+        String mensaje = "";
+        for(DetalleCompra dc : detalleCompras){
+         mensaje += "Producto: " + dc.getProducto().getNombre() +"       Unidades: "+
+                 dc.getUnidades()+ "    Precio: "+dc.getProducto().getPrecio()*dc.getUnidades() +"\n";
+        }
+        return mensaje;
+    }
 }

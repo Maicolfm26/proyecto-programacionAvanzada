@@ -22,5 +22,9 @@ public interface UsuarioServicio {
 
     void eliminarProductoFavoritos(Producto producto,Usuario usuario);
 
+
+    Usuario buscarPorEmail(String email) throws Exception;
+
     public List<Producto> listarProductosFavoritos(String codigoVendedor)throws Exception;
+
 }

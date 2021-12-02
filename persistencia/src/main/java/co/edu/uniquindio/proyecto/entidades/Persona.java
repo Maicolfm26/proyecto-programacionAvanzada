@@ -23,6 +23,8 @@ public class Persona implements Serializable {
     /*
         Se declaran los atributos de la entidad.
      */
+
+
     @Id
     @Column(length = 10)
     @EqualsAndHashCode.Include

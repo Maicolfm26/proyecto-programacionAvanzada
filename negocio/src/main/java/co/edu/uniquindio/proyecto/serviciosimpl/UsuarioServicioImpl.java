@@ -30,17 +30,13 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         return usuarioRepo.findByEmailAndPassword(email,password).orElseThrow(() -> new Exception("Los datos de autenticacion son incorrectos"));
     }
 
-    private Optional<Usuario> buscarPorEmail(String email){
-        return usuarioRepo.findByEmail(email);
-    }
-
     @Override
     public Usuario crearUsuario(Usuario usuario) throws Exception {
         Optional<Usuario> buscado = usuarioRepo.findById(usuario.getCodigo());
         if (buscado.isPresent()){
             throw new Exception("El código del usuario ya existe");
         }
-        buscado = buscarPorEmail(usuario.getEmail());
+        buscado = usuarioRepo.findByEmail(usuario.getEmail());
         if (buscado.isPresent()){
             throw new Exception("El email del usuario ya existe");
         }
@@ -59,6 +55,11 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     }
 
     @Override
+    public Usuario buscarPorEmail(String email) throws Exception{
+        return usuarioRepo.findByEmail(email).orElseThrow(() ->new Exception("El usuario con el email especificado no existe."));
+    }
+
+    @Override
     public void eliminarUsuario(String codigo) throws Exception {
         Optional<Usuario> buscado = usuarioRepo.findById(codigo);
         if (buscado.isEmpty()){
@@ -69,12 +70,10 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
     @Override
     public Usuario actualizarUsuario(Usuario usuarioActualizado) throws Exception {
-        Optional<Usuario> buscado = buscarPorEmail(usuarioActualizado.getEmail());
-        if (buscado.isEmpty()){
-            throw new Exception("El usuario no fue encontrado en nuestros registros");
-        }
+        Usuario buscado = buscarPorEmail(usuarioActualizado.getEmail());
         return usuarioRepo.save(usuarioActualizado);
     }
+
 
     @Override
     public Usuario obtenerUsuario(String codigo) throws Exception {
