@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import java.security.SecureRandom;
 
 @ViewScoped
 @Component

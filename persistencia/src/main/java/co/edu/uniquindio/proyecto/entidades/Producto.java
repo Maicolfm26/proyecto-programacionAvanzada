@@ -8,10 +8,10 @@ import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 /*
 Etiquetas para uso de métodos con el fin de acortar la cantidad de lineas de código
@@ -42,7 +42,7 @@ public class Producto implements Serializable {
     @NotBlank
     private String nombre;
 
-    @Positive
+    @PositiveOrZero
     @Column(nullable = false)
     private Integer unidades;
 
@@ -58,7 +58,7 @@ public class Producto implements Serializable {
     @Column(nullable = false)
     private LocalDate fechaLimite;
 
-    @Positive
+    @PositiveOrZero
     private Double descuento;
 
     @ElementCollection
@@ -153,5 +153,13 @@ public class Producto implements Serializable {
             suma += comentario.getCalificacion();
         }
         return comentarios.size() == 0 ? 0 : suma/comentarios.size();
+    }
+
+    public boolean verificarFecha(){
+       return LocalDate.now().isBefore(fechaLimite) && unidades > 0;
+    }
+
+    public void reducirUnidades(Integer unidades){
+        this.unidades -= unidades;
     }
 }
