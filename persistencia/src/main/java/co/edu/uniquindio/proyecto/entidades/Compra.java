@@ -1,6 +1,8 @@
 package co.edu.uniquindio.proyecto.entidades;
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -48,6 +50,7 @@ public class Compra implements Serializable {
     @JoinColumn(nullable = false)
     private Usuario usuario;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
     @ToString.Exclude
     @Size(min=1)
