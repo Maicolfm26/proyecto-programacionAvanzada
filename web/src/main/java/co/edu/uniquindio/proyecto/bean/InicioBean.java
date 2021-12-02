@@ -1,7 +1,9 @@
 package co.edu.uniquindio.proyecto.bean;
 
+import co.edu.uniquindio.proyecto.entidades.Domicilio;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
+import co.edu.uniquindio.proyecto.servicios.DomicilioServicio;
 import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import lombok.Getter;
@@ -24,10 +26,16 @@ public class InicioBean implements Serializable {
     private final ProductoServicio productoServicio;
     private final UsuarioServicio usuarioServicio;
 
-    public InicioBean(ProductoServicio productoServicio, UsuarioServicio usuarioServicio) {
+    private final DomicilioServicio domicilioServicio;
+
+    public InicioBean(ProductoServicio productoServicio, UsuarioServicio usuarioServicio, DomicilioServicio domicilioServicio) {
         this.productoServicio = productoServicio;
         this.usuarioServicio = usuarioServicio;
+        this.domicilioServicio = domicilioServicio;
     }
+
+    @Getter @Setter
+    private List<Domicilio> domicilios;
 
     @Getter @Setter
     private List<Producto> productos;
@@ -49,6 +57,7 @@ public class InicioBean implements Serializable {
             if(usuario!=null) {
                 misProductos = productoServicio.obtenerProductosVendedor(usuario.getCodigo());
                 misProductosFavoritos = usuarioServicio.listarProductosFavoritos(usuario.getCodigo());
+                domicilios = domicilioServicio.obtenerDomiciliosUsuario(usuario.getCodigo());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,6 +67,7 @@ public class InicioBean implements Serializable {
     public void eliminarProducto(Producto producto){
         if(usuario!=null) {
             try {
+                eliminarProductoFavoritoUsuario(producto.getCodigo());
                 productoServicio.eliminarProducto(producto.getCodigo());
                 misProductos.remove(producto);
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Producto eliminado");
@@ -66,6 +76,21 @@ public class InicioBean implements Serializable {
             } catch (Exception e) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
                 FacesContext.getCurrentInstance().addMessage("msj-eliminar", msg);
+            }
+        }
+    }
+
+    public void eliminarProductoFavoritoUsuario(int codigo){
+        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+        for(Usuario u : usuarios){
+            for(Producto p : u.getProductosFavoritos()){
+                if(p.getCodigo() == codigo){
+                    try {
+                        usuarioServicio.eliminarProductoFavorito(codigo, u.getCodigo());
+                    }catch (Exception e){
+                        new Exception("No se puede eliminar el producto favorito");
+                    }
+                }
             }
         }
     }

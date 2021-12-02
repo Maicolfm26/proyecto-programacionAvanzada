@@ -14,4 +14,5 @@ public interface ProductoRepo extends JpaRepository<Producto, Integer> {
 
     @Query("select p from Producto p where p.nombre like concat('%', :busqueda, '%') or p.descripcion like concat('%', :busqueda, '%')")
     List<Producto> buscarProductos(String busqueda);
+
 }

@@ -35,8 +35,7 @@ public class ProductoBean implements Serializable {
 
     private ArrayList<String> imagenes;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private List<Ciudad> ciudades;
 
     @Getter

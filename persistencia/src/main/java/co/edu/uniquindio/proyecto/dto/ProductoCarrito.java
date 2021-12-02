@@ -13,4 +13,5 @@ public class ProductoCarrito {
     private String nombre, imagen;
     private Double precio;
     private Integer unidades;
+    private Double descuento;
 }
