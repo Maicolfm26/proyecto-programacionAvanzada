@@ -111,7 +111,7 @@ public class SeguridadBean implements Serializable {
 
     public void comprar() {
         if(usuarioSesion != null && !productosCarrito.isEmpty()) {
-            try {
+           try {
                 compra.setUsuario(usuarioSesion);
                 compra = compraServicio.hacerCompra(compra, productosCarrito);
                 senderService.sendEmail(usuarioSesion.getEmail(), "Compra éxitosa", "La compra se realizó de manera correcta\n" +
@@ -139,4 +139,5 @@ public class SeguridadBean implements Serializable {
         }
         return  mensaje;
     }
+
 }

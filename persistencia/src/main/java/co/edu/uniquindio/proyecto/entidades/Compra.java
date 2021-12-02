@@ -50,7 +50,8 @@ public class Compra implements Serializable {
     @JoinColumn(nullable = false)
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
     @ToString.Exclude
     @Size(min=1)
     private List<DetalleCompra> detalleCompras;

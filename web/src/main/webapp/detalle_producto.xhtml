@@ -50,12 +50,16 @@
 
                             <h1 class="mt-4">$#{detalleProductoBean.producto.precio}</h1>
 
-                            <h:form class="mt-4" rendered="#{seguridadBean.autenticado}">
+                            <h:form class="mt-4" rendered="#{seguridadBean.autenticado and detalleProductoBean.producto.verificarFecha()}">
                                 <p:commandButton value="Añadir al carrito" icon="pi pi-shopping-cart"
                                                  action="#{seguridadBean.agregarAlCarrito(detalleProductoBean.producto.codigo, detalleProductoBean.producto.nombre, detalleProductoBean.producto.imagenPrincipal, detalleProductoBean.producto.precio)}"
                                                  update="@form"/>
+
                                 <p:growl for="msj-bean" showDetail="true"/>
                             </h:form>
+
+                            <p jsf:rendered="#{!detalleProductoBean.producto.verificarFecha()}" class="mt-4">Producto inhabilitado</p>
+
                         </div>
 
 

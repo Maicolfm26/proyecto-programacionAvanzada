@@ -58,8 +58,8 @@ public class ProductoServicioTest {
     @Test
     public void eliminarProductoTest() {
         try {
-            productoServicio.eliminarProducto(1);
-            Producto producto = productoServicio.obtenerProducto(1);
+            productoServicio.eliminarProducto(2);
+            Producto producto = productoServicio.obtenerProducto(2);
             Assertions.assertTrue(false, "No se elimino el producto");
         } catch (Exception e) {
         }

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.util.List;
@@ -50,6 +52,21 @@ public class InicioBean implements Serializable {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void eliminarProducto(Producto producto){
+        if(usuario!=null) {
+            try {
+                productoServicio.eliminarProducto(producto.getCodigo());
+                misProductos.remove(producto);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Producto eliminado");
+                FacesContext.getCurrentInstance().addMessage("msj-eliminar", msg);
+
+            } catch (Exception e) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
+                FacesContext.getCurrentInstance().addMessage("msj-eliminar", msg);
+            }
         }
     }
 

@@ -7,7 +7,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xml:lang="es" lang="es">
+      xml:lang="es" lang="es"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
 <ui:composition template="WEB-INF/template.xhtml">
     <ui:define name="title">Inicio</ui:define>
     <ui:define name="content">
@@ -24,7 +25,7 @@
                                 <p class="card-text">#{producto.precio}</p>
                                 <p:commandButton value="Ver detalle" styleClass="ui-button-raised"
                                                  icon="pi pi-arrow-right" iconPos="right"
-                                                 action="#{inicioBean.irADetalle(producto.codigo)}"/>
+                                                 action="#{inicioBean.irADetalle(producto.codigo)}" />
                             </div>
                         </div>
                     </p:dataViewGridItem>
@@ -49,9 +50,10 @@
                                 </p:outputPanel>
                             </div>
                             <div class="col-lg-2 col-md-1 align-self-center">
-                                <p:commandButton value="Ver detalle" styleClass="ui-button-raised"
+                                <p:commandButton value="Ver detalle"
                                                  icon="pi pi-arrow-right" iconPos="right"
                                                  action="#{inicioBean.irADetalle(producto.codigo)}"/>
+
                             </div>
                         </div>
                     </p:dataViewListItem>
