@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.bean;
 
+import co.edu.uniquindio.proyecto.Email.EmailSenderService;
 import co.edu.uniquindio.proyecto.dto.ProductoCarrito;
 import co.edu.uniquindio.proyecto.entidades.Compra;
 import co.edu.uniquindio.proyecto.entidades.Domicilio;
@@ -10,6 +11,7 @@ import co.edu.uniquindio.proyecto.servicios.DomicilioServicio;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -37,13 +39,16 @@ public class SeguridadBean implements Serializable {
     @Getter @Setter
     private boolean autenticado;
 
+    @Autowired
+    private EmailSenderService senderService;
+
     @Getter @Setter
     private String email;
 
     @Getter @Setter
     private String password;
 
-    @Getter
+    @Getter @Setter
     private Usuario usuarioSesion;
 
     @Getter @Setter
@@ -72,7 +77,6 @@ public class SeguridadBean implements Serializable {
             compra = new Compra();
             medioPagos = compraServicio.listarMedioDePagos();
             domicilios = domicilioServicio.obtenerDomiciliosUsuario(usuarioSesion.getCodigo());
-            System.out.println(domicilios);
             return "/index?faces-redirect=true";
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
@@ -109,11 +113,14 @@ public class SeguridadBean implements Serializable {
         if(usuarioSesion != null && !productosCarrito.isEmpty()) {
             try {
                 compra.setUsuario(usuarioSesion);
-                compraServicio.hacerCompra(compra, productosCarrito);
+                compra = compraServicio.hacerCompra(compra, productosCarrito);
+                senderService.sendEmail(usuarioSesion.getEmail(), "Compra éxitosa", "La compra se realizó de manera correcta\n" +
+                        "Medio de pago: "+compra.getMedioPago().name()+"\nDetalles de la compra: \n"+getMensaje()+"Total: "+
+                        subtotal+"\nDirección: "+compra.getDomicilio().getDireccion());
                 productosCarrito.clear();
                 subtotal = 0.0;
                 compra = new Compra();
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Compra realizada correctamente");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Compra realizada correctamente.");
                 FacesContext.getCurrentInstance().addMessage("msj-bean", msg);
             } catch (Exception e) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
@@ -122,4 +129,14 @@ public class SeguridadBean implements Serializable {
         }
     }
 
+
+
+    private String getMensaje(){
+        String mensaje = "";
+        for(ProductoCarrito pc : productosCarrito){
+            mensaje += "Producto: " + pc.getNombre() +"\tPrecio por unidad: "+pc.getPrecio()+"\tUnidades: "+
+                    pc.getUnidades()+ "\tPrecio: "+pc.getUnidades()*pc.getPrecio()+"\n";
+        }
+        return  mensaje;
+    }
 }

@@ -8,6 +8,7 @@ import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,29 +24,25 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
     @Override
     public Usuario iniciarSesion(String email, String password) throws Exception {
-        return usuarioRepo.findByEmailAndPassword(email,password).orElseThrow(() -> new Exception("Los datos de autenticacion son incorrectos"));
-    }
-
-    private Optional<Usuario> buscarPorEmail(String email){
-        return usuarioRepo.findByEmail(email);
+        return usuarioRepo.findByEmailAndPassword(email, password).orElseThrow(() -> new Exception("Los datos de autenticacion son incorrectos"));
     }
 
     @Override
     public Usuario crearUsuario(Usuario usuario) throws Exception {
         Optional<Usuario> buscado = usuarioRepo.findById(usuario.getCodigo());
-        if (buscado.isPresent()){
+        if (buscado.isPresent()) {
             throw new Exception("El código del usuario ya existe");
         }
-        buscado = buscarPorEmail(usuario.getEmail());
-        if (buscado.isPresent()){
+        buscado = usuarioRepo.findByEmail(usuario.getEmail());
+        if (buscado.isPresent()) {
             throw new Exception("El email del usuario ya existe");
         }
-        if(usuario.getTelefonos().isEmpty()) {
+        if (usuario.getTelefonos().isEmpty()) {
             throw new Exception("Debe ingresar al menos un telefono");
         }
 
         try {
-            usuario.getTelefonos().forEach(Integer::parseInt);
+            usuario.getTelefonos().forEach(Long::parseLong);
         } catch (NumberFormatException e) {
             throw new Exception("El telefono debe de ser numerico");
         }
@@ -55,45 +52,71 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     }
 
     @Override
+    public Usuario buscarPorEmail(String email) throws Exception {
+        return usuarioRepo.findByEmail(email).orElseThrow(() -> new Exception("El usuario con el email especificado no existe."));
+    }
+
+    @Override
     public void eliminarUsuario(String codigo) throws Exception {
         Optional<Usuario> buscado = usuarioRepo.findById(codigo);
-        if (buscado.isEmpty()){
+        if (buscado.isEmpty()) {
             throw new Exception("El código del usuario no existe en nuestros registros");
         }
         usuarioRepo.deleteById(codigo);
     }
 
     @Override
-    public Usuario actualizarUsuario(Usuario usuarioActualizado) throws Exception {
-        Optional<Usuario> buscado = buscarPorEmail(usuarioActualizado.getEmail());
-        if (buscado.isEmpty()) {
-            throw new Exception("El usuario no fue encontrado en nuestros registros");
+    public Usuario actualizarUsuario(String codigo, String email, Usuario usuarioActualizado) throws Exception {
+        Optional<Usuario> buscado;
+        if (!codigo.equals(usuarioActualizado.getCodigo())) {
+            buscado = usuarioRepo.findById(usuarioActualizado.getCodigo());
+            if (buscado.isPresent()) {
+                throw new Exception("El código del usuario ya existe");
+            }
         }
+
+        if(!email.equals(usuarioActualizado.getEmail())) {
+            buscado = usuarioRepo.findByEmail(usuarioActualizado.getEmail());
+            if (buscado.isPresent()) {
+                throw new Exception("El email del usuario ya existe");
+            }
+        }
+
         return usuarioRepo.save(usuarioActualizado);
     }
+
 
     @Override
     public Usuario obtenerUsuario(String codigo) throws Exception {
         Optional<Usuario> buscado = usuarioRepo.findById(codigo);
-        if(buscado.isEmpty()){
+        if (buscado.isEmpty()) {
             throw new Exception("El usuario no existe");
         }
         return buscado.get();
     }
 
     @Override
-    public void agregarProductoFavorito(Integer codigoProducto, String codigoUsuario) throws Exception {
+    public Usuario agregarProductoFavorito(Integer codigoProducto, String codigoUsuario) throws Exception {
         Usuario usuario = obtenerUsuario(codigoUsuario);
         Producto producto = productoServicio.obtenerProducto(codigoProducto);
         usuario.agregarProductoFavorito(producto);
-        usuarioRepo.save(usuario);
+        return usuarioRepo.save(usuario);
     }
 
     @Override
-    public void eliminarProductoFavorito(Integer codigoProducto, String codigoUsuario) throws Exception {
+    public Usuario eliminarProductoFavorito(Integer codigoProducto, String codigoUsuario) throws Exception {
         Usuario usuario = obtenerUsuario(codigoUsuario);
         Producto producto = productoServicio.obtenerProducto(codigoProducto);
         usuario.eliminarProductoFavorito(producto);
-        usuarioRepo.save(usuario);
+        return usuarioRepo.save(usuario);
+    }
+
+    @Override
+    public List<Producto> listarProductosFavoritos(String codigoVendedor) throws Exception {
+        if (usuarioRepo.findById(codigoVendedor).isEmpty()) {
+            throw new Exception("El codigo del vendedor no existe");
+        }
+        return usuarioRepo.listarProductosFavoritos(codigoVendedor);
+
     }
 }

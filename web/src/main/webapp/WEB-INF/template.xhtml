@@ -12,7 +12,7 @@ xml:lang="es" lang="es">
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="icon" type="image/png" href="/resources/img/logo.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/resources/img/logo.png" sizes="32x32"/>
     <title>Unishop | <ui:insert name="title"></ui:insert></title>
     <h:outputStylesheet library="css" name="bootstrap.min.css"/>
     <h:outputStylesheet library="css" name="styles.css"/>
@@ -27,11 +27,18 @@ xml:lang="es" lang="es">
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="/" class="nav-link px-2 text-white">Unishop</a></li>
-                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/crear_producto.xhtml" class="nav-link px-2 text-white">Crear producto</a></li>
-                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/misProductos.xhtml" class="nav-link px-2 text-white">Mis productos</a></li>
-                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/compras.xhtml" class="nav-link px-2 text-white">Mis compras</a></li>
-                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="#" class="nav-link px-2 text-white">Perfil</a></li>
-                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/carrito.xhtml" class="nav-link px-2 text-white">Carrito</a></li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/crear_producto.xhtml"
+                                                                   class="nav-link px-2 text-white">Crear producto</a>
+                </li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/misProductos.xhtml"
+                                                                   class="nav-link px-2 text-white">Mis productos</a>
+                </li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/compras.xhtml"
+                                                                   class="nav-link px-2 text-white">Mis compras</a></li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/perfil.xhtml"
+                                                                   class="nav-link px-2 text-white">Perfil</a></li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/carrito.xhtml"
+                                                                   class="nav-link px-2 text-white">Carrito</a></li>
             </ul>
 
 
@@ -46,7 +53,8 @@ xml:lang="es" lang="es">
                 <h:form rendered="#{!seguridadBean.autenticado}">
                     <p:commandButton styleClass="btn btn-light me-2" value="Iniciar sesión"
                                      onclick="PF('login').show()"/>
-                    <p:commandButton styleClass="btn btn-primary" value="Registrarse" action="registro?faces-redirect=true"/>
+                    <p:commandButton styleClass="btn btn-primary" value="Registrarse"
+                                     action="registro?faces-redirect=true"/>
                 </h:form>
                 <h:form rendered="#{seguridadBean.autenticado}">
                     <p:commandButton class="btn btn-primary" value="Cerrar sesión"
@@ -59,7 +67,7 @@ xml:lang="es" lang="es">
 
 <p:dialog header="Iniciar sesión" position="500,100" showEffect="fade" widgetVar="login" modal="true"
           rendered="#{!seguridadBean.autenticado}">
-    <h:form>
+    <h:form id="form-sesion">
         <p:messages for="msj-bean" showDetail="true" closable="true">
             <p:autoUpdate/>
         </p:messages>
@@ -72,8 +80,56 @@ xml:lang="es" lang="es">
             <p:password id="password_login" value="#{seguridadBean.password}" required="true"
             />
             <p:message for="password_login"/>
+            <p:commandLink value="Recuperar contraseña"
+                           onclick="PF('login').hide();$('#form-sesion').trigger('reset');PF('email_recup').show();"
+                           styleClass="p-text-bold"/>
         </h:panelGrid>
         <p:commandButton value="Iniciar Sesión" action="#{seguridadBean.iniciarSesion}"
+                         styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left"/>
+    </h:form>
+</p:dialog>
+
+<p:dialog header="Recuperar contraseña" position="500,100" showEffect="fade" widgetVar="email_recup" modal="true"
+          rendered="#{!seguridadBean.autenticado}">
+    <h:form>
+        <p:messages for="msj-recuperar" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+
+        <h:panelGrid columns="3" cellpadding="5">
+            <p:outputLabel for="email_recuperar" value="Email:"/>
+            <p:inputText id="email_recuperar" value="#{recuperarContrasenaBean.email}" required="true"/>
+            <p:message for="email_recuperar"/>
+        </h:panelGrid>
+        <p:commandButton value="Recuperar" action="#{recuperarContrasenaBean.enviarCodigo}"
+                         styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left"/>
+    </h:form>
+</p:dialog>
+
+<p:dialog header="Recuperar contraseña" position="500,100" showEffect="fade" widgetVar="pass_change" modal="true"
+          rendered="#{!seguridadBean.autenticado}">
+    <h:form id="form-pass">
+        <p:messages for="msj-pass" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+
+        <h:panelGrid columns="3" cellpadding="5">
+            <p:outputLabel for="codigo" value="Codigo enviado:"/>
+            <p:inputText id="codigo" value="#{recuperarContrasenaBean.codigoUsuario}" required="true"/>
+            <p:message for="codigo"/>
+
+            <p:outputLabel for="password_nueva" value="Password nueva:"/>
+            <p:password id="password_nueva" value="#{recuperarContrasenaBean.passwordNueva}" required="true"
+            />
+            <p:message for="password_nueva"/>
+
+            <p:outputLabel for="password_repeat" value="Repetir password:"/>
+            <p:password id="password_repeat" value="#{recuperarContrasenaBean.passwordRepeat}" required="true"
+            />
+            <p:message for="password_repeat"/>
+
+        </h:panelGrid>
+        <p:commandButton value="Cambiar password" action="#{recuperarContrasenaBean.cambiarContrasena}"
                          styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left"/>
     </h:form>
 </p:dialog>

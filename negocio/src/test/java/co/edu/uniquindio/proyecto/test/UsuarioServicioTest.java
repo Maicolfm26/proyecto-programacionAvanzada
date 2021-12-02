@@ -81,7 +81,7 @@ public class UsuarioServicioTest {
         try {
             Usuario usuario = usuarioServicio.obtenerUsuario("42785998");
             usuario.setPassword("new password");
-            usuarioServicio.actualizarUsuario(usuario);
+            usuarioServicio.actualizarUsuario(usuario.getCodigo(), usuario.getEmail(), usuario);
             Usuario modificado = usuarioServicio.obtenerUsuario("42785998");
             Assertions.assertEquals("new password", modificado.getPassword());
         } catch (Exception e) {

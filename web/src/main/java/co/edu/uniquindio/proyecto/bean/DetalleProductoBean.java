@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -50,9 +51,12 @@ public class DetalleProductoBean implements Serializable {
     @Value("#{seguridadBean.usuarioSesion}")
     private Usuario usuario;
 
+    @Value("#{seguridadBean}")
+    private SeguridadBean seguridadBean;
+
     @Getter
     @Setter
-    private boolean favorito;
+    private boolean favorito = false;
 
     @PostConstruct
     public void inicializar() throws Exception {
@@ -85,7 +89,7 @@ public class DetalleProductoBean implements Serializable {
         String mensaje = "";
         if (favorito) {
             try {
-                usuarioServicio.agregarProductoFavorito(producto.getCodigo(), usuario.getCodigo());
+                usuario = usuarioServicio.agregarProductoFavorito(producto.getCodigo(), usuario.getCodigo());
                 mensaje = "Se agrego el producto a favoritos";
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", mensaje);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -93,9 +97,10 @@ public class DetalleProductoBean implements Serializable {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
+            seguridadBean.setUsuarioSesion(usuario);
         } else {
             try {
-                usuarioServicio.eliminarProductoFavorito(producto.getCodigo(), usuario.getCodigo());
+                usuario = usuarioServicio.eliminarProductoFavorito(producto.getCodigo(), usuario.getCodigo());
                 mensaje = "Se elimino el producto de favoritos";
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", mensaje);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -103,6 +108,7 @@ public class DetalleProductoBean implements Serializable {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
+            seguridadBean.setUsuarioSesion(usuario);
         }
     }
 }

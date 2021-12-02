@@ -31,6 +31,7 @@ public class Usuario extends Persona implements Serializable {
    Se declaran los atributos de la entidad con sus respectivas restricciones.
     */
     @ElementCollection
+    @LazyCollection(LazyCollectionOption.FALSE)
     @Column(nullable = false)
     @ToString.Exclude
     private List<String> telefonos;
