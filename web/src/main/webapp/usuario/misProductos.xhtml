@@ -26,6 +26,12 @@
                                 <p:commandButton value="Ver detalle" styleClass="ui-button-raised"
                                                  icon="pi pi-arrow-right" iconPos="right"
                                                  action="#{inicioBean.irADetalle(producto.codigo)}"/>
+                                <br> </br>
+                                <p:commandButton value="Eliminar" styleClass="ui-button-raised"
+                                                 icon="pi pi-trash" iconPos="right"
+                                                 action="#{inicioBean.eliminarProducto(producto)}" update="@form"/>
+                                <p:growl for="msj-eliminar" showDetail="true"/>
+
                             </div>
                         </div>
                     </p:dataViewGridItem>
@@ -53,6 +59,11 @@
                                 <p:commandButton value="Ver detalle" styleClass="ui-button-raised"
                                                  icon="pi pi-arrow-right" iconPos="right"
                                                  action="#{inicioBean.irADetalle(producto.codigo)}"/>
+                                <br> </br>
+                                <p:commandButton value="Eliminar" styleClass="ui-button-raised"
+                                                 icon="pi pi-trash" iconPos="right"
+                                                 action="#{inicioBean.eliminarProducto(producto)}" update="@form"/>
+                                <p:growl for="msj-eliminar" showDetail="true"/>
                             </div>
                         </div>
                     </p:dataViewListItem>

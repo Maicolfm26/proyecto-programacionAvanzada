@@ -70,7 +70,7 @@ public class Producto implements Serializable {
     Se declaran las relaciones con otras entidades acompañadas de su respectiva multiplicidad.
      */
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @LazyCollection(LazyCollectionOption.FALSE)
     @ToString.Exclude
     private List<Categoria> categorias;
