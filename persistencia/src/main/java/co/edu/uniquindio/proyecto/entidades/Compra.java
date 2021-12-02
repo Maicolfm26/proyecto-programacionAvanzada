@@ -51,7 +51,7 @@ public class Compra implements Serializable {
     private Usuario usuario;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     @Size(min=1)
     private List<DetalleCompra> detalleCompras;

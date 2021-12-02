@@ -87,11 +87,11 @@ public class Producto implements Serializable {
     @ToString.Exclude
     private Set<Usuario> usuariosFavoritos = new HashSet<>();
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private List<Subasta> subastas;
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private List<Comentario> comentarios;
 
@@ -99,11 +99,11 @@ public class Producto implements Serializable {
     @JoinColumn(nullable = false)
     private Ciudad ciudad;
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private List<DetalleCompra> detalleCompras;
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private List<Chat> chats;
 
@@ -157,6 +157,12 @@ public class Producto implements Serializable {
             suma += comentario.getCalificacion();
         }
         return comentarios.size() == 0 ? 0 : suma / comentarios.size();
+    }
+
+    public void eliminarUsuariosFavoritos() {
+        for(Usuario usuario: usuariosFavoritos) {
+            usuario.eliminarProductoFavorito(this);
+        }
     }
 
     public boolean verificarFecha(){

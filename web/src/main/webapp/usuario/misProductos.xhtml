@@ -17,24 +17,6 @@
             <h:form styleClass="mt-5">
                 <p:dataView value="#{inicioBean.misProductos}" var="producto" rows="3" paginator="true"
                             gridIcon="pi pi-th-large" listIcon="pi pi-bars">
-                    <p:dataViewGridItem>
-                        <div class="card">
-                            <img src="/uploads/#{producto.imagenPrincipal}" class="card-img-top" alt="..."/>
-                            <div class="card-body">
-                                <h5 class="card-title">#{producto.nombre}</h5>
-                                <p class="card-text">#{producto.precio}</p>
-                                <p:commandButton value="Ver detalle" styleClass="ui-button-raised"
-                                                 icon="pi pi-arrow-right" iconPos="right"
-                                                 action="#{inicioBean.irADetalle(producto.codigo)}"/>
-                                <br> </br>
-                                <p:commandButton value="Eliminar" styleClass="ui-button-raised"
-                                                 icon="pi pi-trash" iconPos="right"
-                                                 action="#{inicioBean.eliminarProducto(producto)}" update="@form"/>
-                                <p:growl for="msj-eliminar" showDetail="true"/>
-
-                            </div>
-                        </div>
-                    </p:dataViewGridItem>
                     <p:dataViewListItem>
                         <div class="row d-flex my-5">
                             <div class="col-lg-2 col-md-1" style="text-align: center">
@@ -56,14 +38,19 @@
                                 </p:outputPanel>
                             </div>
                             <div class="col-lg-2 col-md-1 align-self-center">
-                                <p:commandButton value="Ver detalle" styleClass="ui-button-raised"
+                                <p:growl for="msj-options" showDetail="true"/>
+                                <p:commandButton style="margin-bottom: 20px" value="Ver detalle" styleClass="ui-button-raised"
                                                  icon="pi pi-arrow-right" iconPos="right"
                                                  action="#{inicioBean.irADetalle(producto.codigo)}"/>
-                                <br> </br>
-                                <p:commandButton value="Eliminar" styleClass="ui-button-raised"
+                                <p:commandButton style="margin-bottom: 20px" value="Eliminar" styleClass="ui-button-raised"
                                                  icon="pi pi-trash" iconPos="right"
                                                  action="#{inicioBean.eliminarProducto(producto)}" update="@form"/>
-                                <p:growl for="msj-eliminar" showDetail="true"/>
+                                <p:commandButton style="margin-bottom: 20px" value="Editar" styleClass="ui-button-raised"
+                                                 icon="pi pi-trash" iconPos="right"
+                                                 action="#{inicioBean.irAEditar(producto.codigo)}"/>
+                                <p:commandButton rendered="#{!producto.verificarFecha()}" value="Reactivar" styleClass="ui-button-raised"
+                                                 icon="pi pi-arrow-right" iconPos="right"
+                                                 action="#{inicioBean.reactivarProducto(producto)}" update="@form"/>
                             </div>
                         </div>
                     </p:dataViewListItem>

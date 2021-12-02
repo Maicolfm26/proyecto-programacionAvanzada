@@ -2,11 +2,13 @@ package co.edu.uniquindio.proyecto.serviciosImpl;
 
 import co.edu.uniquindio.proyecto.entidades.Comentario;
 import co.edu.uniquindio.proyecto.entidades.Producto;
+import co.edu.uniquindio.proyecto.entidades.Usuario;
 import co.edu.uniquindio.proyecto.repositorios.CategoriaRepo;
 import co.edu.uniquindio.proyecto.repositorios.ComentarioRepo;
 import co.edu.uniquindio.proyecto.repositorios.ProductoRepo;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
 import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
+import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +36,10 @@ public class ProductoServicioImpl implements ProductoServicio {
 
     @Override
     public void eliminarProducto(Integer codigoProducto) throws Exception {
-       productoRepo.deleteById(codigoProducto);
+        Producto producto = obtenerProducto(codigoProducto);
+        producto.eliminarUsuariosFavoritos();
+        productoRepo.save(producto);
+        productoRepo.deleteById(codigoProducto);
     }
 
     @Override
@@ -47,7 +52,7 @@ public class ProductoServicioImpl implements ProductoServicio {
 
     @Override
     public List<Producto> listarProductos() {
-        return productoRepo.findAll();
+        return productoRepo.listarProductos();
     }
 
     @Override
