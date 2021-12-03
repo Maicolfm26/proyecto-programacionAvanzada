@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<ui:composition template="../WEB-INF/template.xhtml">
+    <ui:define name="title">Crear domicilio</ui:define>
+    <ui:define name="content">
+
+               <h:form id="form-crear-domicilio" styleClass="container">
+                   <h:panelGrid columns="3" cellpadding="5">
+
+
+                       <p:outputLabel for="departamento" value="Departamento:"/>
+                       <p:selectOneMenu id="departamento" style="width: 278px;" value="#{domicilioBean.departamento}"
+                                        required="true"
+                                        requiredMessage="El departamento es obligatorio"
+                                        converter="#{departamentoConverter}">
+                           <f:selectItem itemLabel="Seleccionar departa..." noSelectionOption="true"/>
+                           <f:selectItems var="depart" itemLabel="#{depart.nombre}"
+                                          value="#{domicilioBean.departamentos}"/>
+                           <p:ajax listener="#{domicilioBean.actualizarCiudades}" process=":form-crear-domicilio:departamento"
+                                   update=":form-crear-domicilio:ciudad"/>
+                       </p:selectOneMenu>
+                       <p:message for="departamento"/>
+
+                       <p:outputLabel for="ciudad" value="Ciudad:"/>
+                       <p:selectOneMenu id="ciudad" style="width: 278px;" value="#{domicilioBean.domicilio.ciudad}"
+                                        required="true"
+                                        requiredMessage="La ciudad es obligatoria" converter="#{ciudadConverter}">
+                           <f:selectItem itemLabel="Seleccionar ciudad" noSelectionOption="true"/>
+                           <f:selectItems var="ciudad" itemLabel="#{ciudad.nombre}"
+                                          value="#{domicilioBean.ciudades}"/>
+                       </p:selectOneMenu>
+                       <p:message for="ciudad"/>
+
+                    <p:outputLabel for="barrio" value="Barrio:"/>
+                    <p:inputText id="barrio" style="width: 278px;" value="#{domicilioBean.domicilio.barrio}" required="true"/>
+                    <p:message for="barrio"/>
+
+                    <p:outputLabel for="calle" value="Calle:"/>
+                    <p:inputText id="calle" style="width: 278px;" value="#{domicilioBean.domicilio.calle}" required="true"
+                                 maxlength="3"/>
+                    <p:message for="calle"/>
+
+                    <p:outputLabel for="numero1" value="Número 1:"/>
+                    <p:inputText id="numero1" style="width: 278px;" value="#{domicilioBean.domicilio.numero1}" required="true"
+                    maxlength="3"/>
+                    <p:message for="numero1"/>
+
+                    <p:outputLabel for="numero2" value="Número 2:"/>
+                    <p:inputText id="numero2" style="width: 278px;" value="#{domicilioBean.domicilio.numero2}" required="true"
+                                 maxlength="3"/>
+                    <p:message for="numero2"/>
+
+                    <p:outputLabel for="datos" value="Datos opcionales:"/>
+                    <p:inputText id="datos" style="width: 278px;" value="#{domicilioBean.domicilio.datos_opcionales}"/>
+                    <p:message for="datos"/>
+
+                       <p:growl showDetail="true" for="msj-bean"/>
+                        <p:commandButton value="Guardar" action="#{domicilioBean.crearDomicilio}"
+                                         styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left"/>
+                    </h:panelGrid>
+                </h:form>
+    </ui:define>
+</ui:composition>
+</html>

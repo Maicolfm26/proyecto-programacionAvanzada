@@ -60,6 +60,9 @@ public class Compra implements Serializable {
     @JoinColumn(nullable = false)
     private Domicilio domicilio;
 
+    @Getter @Setter
+    private Double total;
+
 
     /*
     Constructor de la entidad.
@@ -73,13 +76,13 @@ public class Compra implements Serializable {
         this.domicilio = domicilio;
     }
 
-    public Double getTotal(){
+    /*public Double getTotal(){
         Double total = 0.0;
         for(DetalleCompra dc : detalleCompras){
             total += dc.getPrecio_producto() * dc.getUnidades();
         }
         return total;
-    }
+    }*/
 
     public String getMensaje(){
         String mensaje = "";

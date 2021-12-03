@@ -89,23 +89,6 @@ xml:lang="es" lang="es">
     </h:form>
 </p:dialog>
 
-<p:dialog header="Recuperar contraseña" position="500,100" showEffect="fade" widgetVar="email_recup" modal="true"
-          rendered="#{!seguridadBean.autenticado}">
-    <h:form>
-        <p:messages for="msj-recuperar" showDetail="true" closable="true">
-            <p:autoUpdate/>
-        </p:messages>
-
-        <h:panelGrid columns="3" cellpadding="5">
-            <p:outputLabel for="email_recuperar" value="Email:"/>
-            <p:inputText id="email_recuperar" value="#{recuperarContrasenaBean.email}" required="true"/>
-            <p:message for="email_recuperar"/>
-        </h:panelGrid>
-        <p:commandButton value="Recuperar" action="#{recuperarContrasenaBean.enviarCodigo}"
-                         styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left"/>
-    </h:form>
-</p:dialog>
-
 <p:dialog header="Recuperar contraseña" position="500,100" showEffect="fade" widgetVar="pass_change" modal="true"
           rendered="#{!seguridadBean.autenticado}">
     <h:form id="form-pass">
@@ -137,6 +120,7 @@ xml:lang="es" lang="es">
 <article class="contenido">
     <ui:insert name="content">Contenido del documento</ui:insert>
 </article>
+
 <footer class="bg-dark fixed-bottom text-center text-white">
     <!-- Copyright -->
     <div class="text-center p-3">
@@ -146,5 +130,21 @@ xml:lang="es" lang="es">
     <!-- Copyright -->
 </footer>
 <h:outputScript library="js" name="bootstrap.bundle.min.js"/>
+<p:dialog header="Recuperar contraseña" position="500,100" showEffect="fade" widgetVar="email_recup" modal="true"
+          rendered="#{!seguridadBean.autenticado}">
+    <h:form>
+        <p:messages for="msj-recuperar" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+
+        <h:panelGrid columns="3" cellpadding="5">
+            <p:outputLabel for="email_recuperar" value="Email:"/>
+            <p:inputText id="email_recuperar" value="#{recuperarContrasenaBean.email}" required="true"/>
+            <p:message for="email_recuperar"/>
+        </h:panelGrid>
+        <p:commandButton value="Recuperar" action="#{recuperarContrasenaBean.enviarCodigo}"
+                         styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left"/>
+    </h:form>
+</p:dialog>
 </body>
 </html>

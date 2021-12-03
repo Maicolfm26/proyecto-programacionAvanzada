@@ -23,4 +23,9 @@ public class DomicilioServicioImpl implements DomicilioServicio {
     public List<Domicilio> obtenerDomiciliosUsuario(String codigo) {
         return domicilioRepo.obtenerDomiciliosUsuario(codigo);
     }
+
+    @Override
+    public Domicilio crearDomicilio(Domicilio domicilio) throws Exception{
+        return domicilioRepo.save(domicilio);
+    }
 }

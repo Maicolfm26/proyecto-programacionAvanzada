@@ -49,16 +49,19 @@
                             <h1 class="mt-4">#{detalleProductoBean.producto.nombre}</h1>
 
                             <h1 class="mt-4">$#{detalleProductoBean.producto.precio}</h1>
+                            <h5 class="mt-4">Descuento: #{detalleProductoBean.producto.descuento}%</h5>
 
                             <h:form class="mt-4" rendered="#{seguridadBean.autenticado and detalleProductoBean.producto.verificarFecha()}">
                                 <p:commandButton value="Añadir al carrito" icon="pi pi-shopping-cart"
-                                                 action="#{seguridadBean.agregarAlCarrito(detalleProductoBean.producto.codigo, detalleProductoBean.producto.nombre, detalleProductoBean.producto.imagenPrincipal, detalleProductoBean.producto.precio)}"
+                                                 action="#{seguridadBean.agregarAlCarrito(detalleProductoBean.producto.codigo, detalleProductoBean.producto.nombre, detalleProductoBean.producto.imagenPrincipal,
+                                                 detalleProductoBean.producto.precio, detalleProductoBean.producto.descuento)}"
                                                  update="@form"/>
 
                                 <p:growl for="msj-bean" showDetail="true"/>
                             </h:form>
 
-                            <p jsf:rendered="#{!detalleProductoBean.producto.verificarFecha()}" class="mt-4">Producto inhabilitado</p>
+                            <p jsf:rendered="#{!detalleProductoBean.producto.verificarFecha()}" class="mt-4">Producto inhabilitado por fecha limite
+                            o por falta de unidades</p>
 
                         </div>
 

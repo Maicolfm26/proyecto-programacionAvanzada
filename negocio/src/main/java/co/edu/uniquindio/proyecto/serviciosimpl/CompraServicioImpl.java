@@ -35,14 +35,15 @@ public class CompraServicioImpl implements CompraServicio {
         if(validarUnidades(productosCarrito)) {
             compra.setFechaCompra(LocalDate.now());
              compraGuardada = compraRepo.save(compra);
-            for (ProductoCarrito productoCarrito : productosCarrito) {
+            for (ProductoCarrito pc : productosCarrito) {
                     DetalleCompra detalleCompra = new DetalleCompra();
                     detalleCompra.setCompra(compraGuardada);
-                    Producto producto = productoRepo.findById(productoCarrito.getId()).orElse(null);
-                    producto.reducirUnidades(productoCarrito.getUnidades());
+                    Producto producto = productoRepo.findById(pc.getId()).orElse(null);
+                    producto.reducirUnidades(pc.getUnidades());
                     detalleCompra.setProducto(producto);
-                    detalleCompra.setUnidades(productoCarrito.getUnidades());
-                    detalleCompra.setPrecio_producto(productoCarrito.getPrecio());
+                    detalleCompra.setUnidades(pc.getUnidades());
+                    detalleCompra.setPrecio_producto(pc.getPrecio()*pc.getUnidades()-
+                            ((pc.getUnidades())*pc.getPrecio()*pc.getDescuento())/100);
                     productoRepo.save(producto);
                     detalleCompraRepo.save(detalleCompra);
             }
