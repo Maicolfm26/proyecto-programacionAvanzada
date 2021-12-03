@@ -44,7 +44,7 @@ public class Usuario extends Persona implements Serializable {
     private Ciudad ciudad;
 
 
-    @OneToMany(mappedBy = "vendedor", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "vendedor", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private List<Producto> listaProductos;
 

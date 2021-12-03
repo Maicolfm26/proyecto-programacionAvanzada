@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xml:lang="es" lang="es">
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="title">Administrador</ui:define>
+
+    <ui:define name="content">
+        <section class="container">
+            <h:form id="form-registro">
+                <h:panelGrid columns="3" cellpadding="5">
+                    <p:outputLabel for="codigo" value="Codigo:"/>
+                    <p:inputText id="codigo" style="width: 400px;" value="#{editarUsuarioBean.usuarioActualizado.codigo}"
+                                disabled="true"/>
+                    <p:message for="codigo"/>
+
+                    <p:outputLabel for="nombre" value="Nombre:"/>
+                    <p:inputText id="nombre" style="width: 400px;" value="#{editarUsuarioBean.usuarioActualizado.nombre}"
+                                 required="true"/>
+                    <p:message for="nombre"/>
+
+                    <p:outputLabel for="departamento" value="Departamento:"/>
+                    <p:selectOneMenu id="departamento" style="width: 400px;" value="#{editarUsuarioBean.departamento}"
+                                     required="true"
+                                     requiredMessage="El departamento es obligatorio"
+                                     converter="#{departamentoConverter}">
+                        <f:selectItem itemLabel="Seleccionar departamento" noSelectionOption="true"/>
+                        <f:selectItems var="depart" itemLabel="#{depart.nombre}"
+                                       value="#{editarUsuarioBean.departamentos}"/>
+                        <p:ajax listener="#{editarUsuarioBean.actualizarCiudades}" process=":form-registro:departamento"
+                                update=":form-registro:ciudad"/>
+                    </p:selectOneMenu>
+                    <p:message for="departamento"/>
+
+                    <p:outputLabel for="ciudad" value="Ciudad:"/>
+                    <p:selectOneMenu id="ciudad" style="width: 400px;" value="#{editarUsuarioBean.usuarioActualizado.ciudad}"
+                                     required="true"
+                                     requiredMessage="La ciudad es obligatoria" converter="#{ciudadConverter}">
+                        <f:selectItem itemLabel="Seleccionar ciudad" noSelectionOption="true"/>
+                        <f:selectItems var="ciudad" itemLabel="#{ciudad.nombre}"
+                                       value="#{editarUsuarioBean.ciudades}"/>
+                    </p:selectOneMenu>
+                    <p:message for="ciudad"/>
+
+                    <p:outputLabel for="email" value="Email:"/>
+                    <p:inputText id="email" style="width: 400px;" value="#{editarUsuarioBean.usuarioActualizado.email}"
+                                 required="true"/>
+                    <p:message for="email"/>
+
+                    <p:outputLabel for="password" value="Clave:"/>
+                    <p:password id="password" style="width: 400px;" value="#{editarUsuarioBean.usuarioActualizado.password}"
+                                required="true"/>
+                    <p:message for="password"/>
+
+                    <p:outputLabel for="telefono" value="Telefonos:"/>
+                    <p:autoComplete id="telefono" multiple="true" value="#{editarUsuarioBean.usuarioActualizado.telefonos}"
+                                    forceSelection="true" scrollHeight="250" minQueryLength="1" >
+                    </p:autoComplete>
+                    <p:message for="telefono"/>
+
+                </h:panelGrid>
+                <p:growl showDetail="true" for="msj-bean"/>
+                <p:commandButton styleClass="mt-4" value="Actualizar" action="#{editarUsuarioBean.actualizarUsuario}"
+                                 update="@form"
+                                 icon="pi pi-refresh"/>
+            </h:form>
+        </section>
+    </ui:define>
+
+</ui:composition>
+</html>

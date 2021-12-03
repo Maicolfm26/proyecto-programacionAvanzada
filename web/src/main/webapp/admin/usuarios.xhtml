@@ -19,10 +19,9 @@
 
           <p:dataViewListItem>
             <div class="row d-flex my-5">
-              <div class="col-md-4" align="left">
-                <div class="profile-img">
-                  <img src="/resources/img/avatar.png" style="width: 150px" align="left"/>
-                </div>
+              <div class="col-lg-2 col-md-1" align="left">
+                <p:graphicImage url="/resources/img/avatar.png"
+                                styleClass="imagen-producto"/>
               </div>
               <div class="col-lg-8 col-md-1 align-self-center">
                 <p:outputPanel>
@@ -38,7 +37,15 @@
                   </h:panelGrid>
                 </p:outputPanel>
               </div>
-
+              <div class="col-lg-2 col-md-1 align-self-center">
+                <p:growl for="msj-eliminar" showDetail="true"/>
+                <p:commandButton style="margin-bottom: 20px" value="Eliminar" styleClass="ui-button-raised"
+                                 icon="pi pi-trash" iconPos="right"
+                                 action="#{inicioBean.eliminarUsuario(usuario)}" update="@form" />
+                <p:commandButton style="margin-bottom: 20px" value="Editar" styleClass="ui-button-raised"
+                                 icon="pi pi-refresh" iconPos="right"
+                                 action="#{inicioBean.editarUsuario(usuario.codigo)}"/>
+              </div>
             </div>
           </p:dataViewListItem>
         </p:dataView>

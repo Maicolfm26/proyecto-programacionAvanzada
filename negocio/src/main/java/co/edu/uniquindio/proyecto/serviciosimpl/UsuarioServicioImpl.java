@@ -62,6 +62,9 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         if (buscado.isEmpty()) {
             throw new Exception("El código del usuario no existe en nuestros registros");
         }
+        for(Producto p : buscado.get().getListaProductos()){
+            productoServicio.eliminarProducto(p.getCodigo());
+        }
         usuarioRepo.deleteById(codigo);
     }
 

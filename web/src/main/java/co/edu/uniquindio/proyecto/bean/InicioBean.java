@@ -87,6 +87,18 @@ public class InicioBean implements Serializable {
         }
     }
 
+    public void eliminarUsuario(Usuario usuario){
+        try {
+            usuarioServicio.eliminarUsuario(usuario.getCodigo());
+            listaUsuarios.remove(usuario);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Usuario eliminado");
+            FacesContext.getCurrentInstance().addMessage("msj-eliminar", msg);
+        }catch (Exception e){
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
+            FacesContext.getCurrentInstance().addMessage("msj-eliminar", msg);
+        }
+    }
+
     public void eliminarProductoFavoritoUsuario(int codigo){
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
         for(Usuario u : usuarios){
@@ -121,5 +133,9 @@ public class InicioBean implements Serializable {
 
     public String irAEditar(String id) {
         return "editarProducto?faces-redirect=true&amp;producto=" + id;
+    }
+
+    public String editarUsuario(String codigo){
+        return "/admin/editar_usuario?faces-redirect=true&amp;usuario=" + codigo;
     }
 }
