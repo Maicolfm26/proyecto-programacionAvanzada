@@ -61,7 +61,7 @@ public class Producto implements Serializable {
     private LocalDate fechaLimite;
 
     @PositiveOrZero
-    private Double descuento;
+    private Double descuento = 0.0;
 
     @ElementCollection
     @LazyCollection(LazyCollectionOption.FALSE)
