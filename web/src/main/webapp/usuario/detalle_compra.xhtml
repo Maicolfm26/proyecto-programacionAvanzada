@@ -50,7 +50,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>$#{detalle.producto.precio}</td>
+                            <td>$#{detalle.producto.precio-((detalle.producto.precio*detalle.producto.descuento)/100)}</td>
                             <td>
                                 #{detalle.unidades}
                             </td>

@@ -17,6 +17,4 @@ public interface ProductoRepo extends JpaRepository<Producto, Integer>, JpaSpeci
 
     @Query("select p from Producto p where p.fechaLimite > current_date")
     List<Producto> listarProductos();
-
-
 }

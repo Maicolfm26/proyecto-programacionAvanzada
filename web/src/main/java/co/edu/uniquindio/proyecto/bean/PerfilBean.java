@@ -60,4 +60,8 @@ public class PerfilBean implements Serializable {
         }
     }
 
+    public String crearDomicilio(){
+        return "/usuario/crearDomicilio?faces-redirect=true";
+    }
+
 }

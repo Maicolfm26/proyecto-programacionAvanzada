@@ -15,28 +15,31 @@
         <h:form id="form-crear-producto" class="container">
             <h:panelGrid columns="3" cellpadding="15">
                 <p:outputLabel for="nombre" value="Nombre:"/>
-                <p:inputText id="nombre" style="width: 278px;" value="#{productoBean.producto.nombre}" required="true"/>
+                <p:inputText id="nombre" style="width: 278px;" value="#{productoBean.productoActualizar.nombre}"
+                             required="true"/>
                 <p:message for="nombre"/>
-
                 <p:outputLabel for="unidades" value="Unidades disponibles:"/>
-                <p:inputText id="unidades" style="width: 278px;" value="#{productoBean.producto.unidades}"
+                <p:inputText id="unidades" style="width: 278px;" value="#{productoBean.productoActualizar.unidades}"
                              required="true"/>
                 <p:message for="unidades"/>
 
                 <p:outputLabel value="Descripción: " for="descripcion"/>
-                <p:textEditor id="descripcion" value="#{productoBean.producto.descripcion}" height="300" secure="false"
+                <p:textEditor id="descripcion" value="#{productoBean.productoActualizar.descripcion}" height="300"
+                              secure="false"
                               required="true"/>
                 <p:message for="descripcion"/>
 
                 <p:outputLabel for="precio" value="Precio:"/>
-                <p:inputText id="precio" style="width: 278px;" value="#{productoBean.producto.precio}" required="true"/>
+                <p:inputText id="precio" style="width: 278px;" value="#{productoBean.productoActualizar.precio}"
+                             required="true"/>
                 <p:message for="precio"/>
 
                 <p:outputLabel for="categoria_p" value="Categorias: "/>
-                <p:selectManyMenu id="categoria_p" style="width: 278px;" value="#{productoBean.producto.categorias}"
+                <p:selectManyMenu id="categoria_p" style="width: 278px;"
+                                  value="#{productoBean.producto.categorias}"
                                   filter="true"
                                   filterMatchMode="contains" showCheckbox="true" styleClass="manymenu-advanced"
-                                  required="true" requiredMessage="La ciudad es obligatoria"
+                                  required="true" requiredMessage="Debe volver a poner las categorias"
                                   converter="#{categoriaConverter}">
                     <f:selectItems var="categoria" itemLabel="#{categoria.nombre}"
                                    value="#{productoBean.categorias}"/>
@@ -57,7 +60,7 @@
                 <p:message for="departamento"/>
 
                 <p:outputLabel for="ciudad" value="Ciudad:"/>
-                <p:selectOneMenu id="ciudad" style="width: 278px;" value="#{productoBean.producto.ciudad}"
+                <p:selectOneMenu id="ciudad" style="width: 278px;" value="#{productoBean.productoActualizar.ciudad}"
                                  required="true"
                                  requiredMessage="La ciudad es obligatoria" converter="#{ciudadConverter}">
                     <f:selectItem itemLabel="Seleccionar ciudad" noSelectionOption="true"/>
@@ -66,15 +69,11 @@
                 </p:selectOneMenu>
                 <p:message for="ciudad"/>
 
-                <p:outputLabel for="imagen" value="Imagenes: "/>
-                <p:fileUpload id="imagen" style="min-width: 278px;" listener="#{productoBean.subirImagenes}"
-                              mode="advanced" multiple="true"
-                              sizeLimit="1000000" fileLimit="5" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
-                              required="true"/>
-
                 <p:growl showDetail="true" for="msj-bean"/>
-                <p:commandButton value="Publicar" action="#{productoBean.crearProducto}" update="@form"
-                                 icon="pi pi-plus"/>
+                <p:commandButton value="Actualizar"
+                                 action="#{productoBean.actualizarProducto}"
+                                 update="@form"
+                                 icon="pi pi-refresh"/>
             </h:panelGrid>
         </h:form>
     </ui:define>

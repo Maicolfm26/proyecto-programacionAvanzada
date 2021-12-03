@@ -25,4 +25,6 @@ public interface UsuarioServicio {
     Usuario buscarPorEmail(String email) throws Exception;
 
     public List<Producto> listarProductosFavoritos(String codigoVendedor)throws Exception;
+
+    List<Usuario> listarUsuarios();
 }

@@ -30,6 +30,7 @@ public class ProductoBean implements Serializable {
     @Getter @Setter
     private Subasta subasta;
 
+
     private final ProductoServicio productoServicio;
     private final UsuarioServicio usuarioServicio;
     private final CiudadServicio ciudadServicio;
@@ -38,6 +39,12 @@ public class ProductoBean implements Serializable {
     private final SubastaServicio subastaServicio;
 
     private ArrayList<String> imagenes;
+
+    @Value("#{param['producto']}")
+    private String codigoProducto;
+
+    @Getter@Setter
+    private Producto productoActualizar;
 
     @Getter
     @Setter
@@ -77,6 +84,13 @@ public class ProductoBean implements Serializable {
         this.imagenes = new ArrayList<>();
         this.categorias = categoriaServicio.obtenerCategorias();
         departamentos = departamentoServicio.obtenerDepartamentos();
+        if (codigoProducto != null && !codigoProducto.isEmpty()) {
+            try {
+                productoActualizar = productoServicio.obtenerProducto(Integer.parseInt(codigoProducto));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void actualizarCiudades() {
@@ -118,6 +132,20 @@ public class ProductoBean implements Serializable {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", "Debe de subir al menos una imagen del producto");
             FacesContext.getCurrentInstance().addMessage("msj-bean", msg);
         }
+    }
+
+    public String actualizarProducto(){
+
+        productoActualizar.setCategorias(producto.getCategorias());
+        try {
+            productoServicio.actualizarProducto(productoActualizar);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Se actualizo el producto correctamente");
+            FacesContext.getCurrentInstance().addMessage("msj-bean", msg);
+            return "/detalle_producto?faces-redirect=true&amp;producto=" + productoActualizar.getCodigo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void subirImagenes(FileUploadEvent event) {

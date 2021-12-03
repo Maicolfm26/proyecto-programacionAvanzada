@@ -65,8 +65,6 @@ public class SeguridadBean implements Serializable {
     private Compra compra;
     @Getter @Setter
     private List<MedioPago> medioPagos;
-    @Getter @Setter
-    private List<Domicilio> domicilios;
 
 
     @PostConstruct
@@ -94,7 +92,6 @@ public class SeguridadBean implements Serializable {
             autenticado = true;
             compra = new Compra();
             medioPagos = compraServicio.listarMedioDePagos();
-            domicilios = domicilioServicio.obtenerDomiciliosUsuario(usuarioSesion.getCodigo());
             return "/index?faces-redirect=true";
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
@@ -103,34 +100,39 @@ public class SeguridadBean implements Serializable {
         return null;
     }
 
+
     public String cerrarSesion() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/index?faces-redirect=true";
     }
 
-    public void agregarAlCarrito(Integer id, String nombre, String imagen, Double precio) {
-        ProductoCarrito productoCarrito = new ProductoCarrito(id, nombre, imagen, precio, 1);
+    public void agregarAlCarrito(Integer id, String nombre, String imagen, Double precio, Double descuento) {
+        ProductoCarrito productoCarrito = new ProductoCarrito(id, nombre, imagen, precio, 1, descuento);
         if(!productosCarrito.contains(productoCarrito)) {
             productosCarrito.add(productoCarrito);
-            subtotal += precio;
+            subtotal += precio - ((precio*descuento)/100);
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Producto agregado al carrito");
             FacesContext.getCurrentInstance().addMessage("msj-bean", msg);
         }
     }
 
     public void eliminarDelCarrito(int posicion) {
-        subtotal -= productosCarrito.remove(posicion).getPrecio();
+        ProductoCarrito p = productosCarrito.get(posicion);
+        subtotal -= (p.getPrecio()*p.getUnidades()-((p.getPrecio()*p.getUnidades()*p.getDescuento())/100));
+        productosCarrito.remove(posicion);
     }
 
     public void actualizarSubTotal() {
         subtotal = 0.0;
-        productosCarrito.forEach(p -> subtotal += p.getPrecio() * p.getUnidades());
+        productosCarrito.forEach(p -> subtotal +=
+                (p.getPrecio() * p.getUnidades()- ((p.getPrecio()*p.getUnidades()*p.getDescuento())/100)));
     }
 
     public void comprar() {
         if(usuarioSesion != null && !productosCarrito.isEmpty()) {
            try {
                 compra.setUsuario(usuarioSesion);
+                compra.setTotal(subtotal);
                 compra = compraServicio.hacerCompra(compra, productosCarrito);
                 senderService.sendEmail(usuarioSesion.getEmail(), "Compra éxitosa", "La compra se realizó de manera correcta\n" +
                         "Medio de pago: "+compra.getMedioPago().name()+"\nDetalles de la compra: \n"+getMensaje()+"Total: "+
@@ -153,7 +155,9 @@ public class SeguridadBean implements Serializable {
         String mensaje = "";
         for(ProductoCarrito pc : productosCarrito){
             mensaje += "Producto: " + pc.getNombre() +"\tPrecio por unidad: "+pc.getPrecio()+"\tUnidades: "+
-                    pc.getUnidades()+ "\tPrecio: "+pc.getUnidades()*pc.getPrecio()+"\n";
+                    pc.getUnidades()+ "\tPrecio: "+pc.getUnidades()*pc.getPrecio()+"\n"+ "Descuento:\t"+
+                    pc.getDescuento() +"\nSubtotal:\t"+ (pc.getPrecio()*pc.getUnidades()-
+                    ((pc.getPrecio()*pc.getDescuento()*pc.getUnidades())/100))+"\n";
         }
         return  mensaje;
     }

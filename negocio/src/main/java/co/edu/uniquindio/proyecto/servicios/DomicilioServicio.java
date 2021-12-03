@@ -12,4 +12,6 @@ public interface DomicilioServicio {
     Domicilio obtenerDomicilio(Integer codigo) throws Exception;
 
     List<Domicilio> obtenerDomiciliosUsuario(String codigo);
+
+    Domicilio crearDomicilio(Domicilio domicilio) throws Exception;
 }
