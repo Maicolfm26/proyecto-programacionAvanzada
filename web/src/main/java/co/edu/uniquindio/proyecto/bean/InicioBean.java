@@ -46,6 +46,9 @@ public class InicioBean implements Serializable {
     @Setter
     private List<Producto> misProductos;
 
+    @Getter @Setter
+    private List<Usuario> listaUsuarios;
+
     @Getter
     @Setter
     private List<Producto> misProductosFavoritos;
@@ -56,8 +59,8 @@ public class InicioBean implements Serializable {
     @PostConstruct
     public void inicializar() {
         productos = productoServicio.listarProductos();
+        listaUsuarios=usuarioServicio.listarUsuarios();
         try {
-
             if (usuario != null) {
                 misProductos = productoServicio.obtenerProductosVendedor(usuario.getCodigo());
                 misProductosFavoritos = usuarioServicio.listarProductosFavoritos(usuario.getCodigo());
