@@ -3,12 +3,14 @@ package co.edu.uniquindio.proyecto.serviciosImpl;
 import co.edu.uniquindio.proyecto.entidades.Comentario;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
+import co.edu.uniquindio.proyecto.filter.ProductoSpecification;
 import co.edu.uniquindio.proyecto.repositorios.CategoriaRepo;
 import co.edu.uniquindio.proyecto.repositorios.ComentarioRepo;
 import co.edu.uniquindio.proyecto.repositorios.ProductoRepo;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
 import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,11 +39,9 @@ public class ProductoServicioImpl implements ProductoServicio {
     @Override
     public void eliminarProducto(Integer codigoProducto) throws Exception{
         Producto producto = obtenerProducto(codigoProducto);
-
         producto.eliminarUsuariosFavoritos();
         for(Usuario usuario : producto.getUsuariosFavoritos()){
             usuarioRepo.save(usuario);
-
         }
         productoRepo.save(producto);
         productoRepo.deleteById(codigoProducto);
@@ -71,8 +71,8 @@ public class ProductoServicioImpl implements ProductoServicio {
     }
 
     @Override
-    public List<Producto> buscarProductos(String busqueda) {
-        return productoRepo.buscarProductos(busqueda);
+    public List<Producto> buscarProductos(Specification<Producto> productoSpecification) {
+        return productoRepo.findAll(productoSpecification);
     }
 
     @Override

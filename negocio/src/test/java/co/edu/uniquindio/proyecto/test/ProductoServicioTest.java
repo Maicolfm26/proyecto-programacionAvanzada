@@ -1,7 +1,9 @@
 package co.edu.uniquindio.proyecto.test;
 
 import co.edu.uniquindio.proyecto.NegocioApplication;
+import co.edu.uniquindio.proyecto.dto.ProductoFilter;
 import co.edu.uniquindio.proyecto.entidades.*;
+import co.edu.uniquindio.proyecto.filter.ProductoSpecification;
 import co.edu.uniquindio.proyecto.servicios.CategoriaServicio;
 import co.edu.uniquindio.proyecto.servicios.CiudadServicio;
 import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
@@ -87,7 +89,9 @@ public class ProductoServicioTest {
 
     @Test
     public void buscarProductosTest() {
-        List<Producto> productos = productoServicio.buscarProductos("Camisa");
+        ProductoSpecification productoSpecification = new ProductoSpecification(new ProductoFilter());
+        productoSpecification.getProductoFilter().setNombre("Camisa");
+        List<Producto> productos = productoServicio.buscarProductos(productoSpecification);
         Assertions.assertEquals(2, productos.size());
     }
 
