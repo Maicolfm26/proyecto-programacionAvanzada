@@ -43,6 +43,7 @@ public class Usuario extends Persona implements Serializable {
     @ManyToOne
     private Ciudad ciudad;
 
+
     @OneToMany(mappedBy = "vendedor", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Producto> listaProductos;

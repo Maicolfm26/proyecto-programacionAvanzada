@@ -110,7 +110,7 @@ public class SeguridadBean implements Serializable {
                 (p.getPrecio() * p.getUnidades()- ((p.getPrecio()*p.getUnidades()*p.getDescuento())/100)));
     }
 
-    public void comprar() {
+    public String comprar() {
         if(usuarioSesion != null && !productosCarrito.isEmpty()) {
            try {
                 compra.setUsuario(usuarioSesion);
@@ -122,13 +122,16 @@ public class SeguridadBean implements Serializable {
                 productosCarrito.clear();
                 subtotal = 0.0;
                 compra = new Compra();
+
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Compra realizada correctamente.");
                 FacesContext.getCurrentInstance().addMessage("msj-bean", msg);
+               return "/index?faces-redirect=true";
             } catch (Exception e) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
                 FacesContext.getCurrentInstance().addMessage("msj-bean", msg);
             }
         }
+        return "";
     }
 
 
