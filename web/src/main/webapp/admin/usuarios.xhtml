@@ -9,41 +9,50 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xml:lang="es" lang="es">
 <ui:composition template="/WEB-INF/template.xhtml">
-  <ui:define name="title">Inicio</ui:define>
-  <ui:define name="content">
-    <section class="container">
-      <h2>Lista de usuarios</h2>
-      <h:form styleClass="mt-5">
-        <p:dataView value="#{inicioBean.listaUsuarios}" var="usuario" rows="3" paginator="true"
-                    gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+    <ui:define name="title">Inicio</ui:define>
+    <ui:define name="content">
+        <section class="container">
+            <h2>Lista de usuarios</h2>
+            <h:form styleClass="mt-5">
+                <p:dataView value="#{inicioBean.listaUsuarios}" var="usuario" rows="3" paginator="true"
+                            gridIcon="pi pi-th-large" listIcon="pi pi-bars">
 
-          <p:dataViewListItem>
-            <div class="row d-flex my-5">
-              <div class="col-md-4" align="left">
-                <div class="profile-img">
-                  <img src="/resources/img/avatar.png" style="width: 150px" align="left"/>
-                </div>
-              </div>
-              <div class="col-lg-8 col-md-1 align-self-center">
-                <p:outputPanel>
-                  <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputText value="Codigo:"/>
-                    <h:outputText value="#{usuario.codigo}" style="font-weight: bold"/>
-                    <h:outputText value="Nombre:"/>
-                    <h:outputText value="#{usuario.nombre}" style="font-weight: bold"/>
-                    <h:outputText value="Email:"/>
-                    <h:outputText value="#{usuario.email}"/>
-                    <h:outputText value="Ciudad:"/>
-                    <h:outputText value="#{usuario.ciudad.nombre}"/>
-                  </h:panelGrid>
-                </p:outputPanel>
-              </div>
-
-            </div>
-          </p:dataViewListItem>
-        </p:dataView>
-      </h:form>
-    </section>
-  </ui:define>
+                    <p:dataViewListItem>
+                        <div class="row d-flex my-5">
+                            <div class="col-lg-2 col-md-1" align="left">
+                                <div class="profile-img">
+                                    <img src="/resources/img/avatar.png" style="width: 150px" align="left"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-1 align-self-center">
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Codigo:"/>
+                                        <h:outputText value="#{usuario.codigo}" style="font-weight: bold"/>
+                                        <h:outputText value="Nombre:"/>
+                                        <h:outputText value="#{usuario.nombre}" style="font-weight: bold"/>
+                                        <h:outputText value="Email:"/>
+                                        <h:outputText value="#{usuario.email}"/>
+                                        <h:outputText value="Ciudad:"/>
+                                        <h:outputText value="#{usuario.ciudad.nombre}"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </div>
+                            <div class="col-lg-2 col-md-1 align-self-center">
+                                <p:commandButton style="margin-bottom: 20px" value="Eliminar"
+                                                 styleClass="ui-button-raised"
+                                                 icon="pi pi-trash" iconPos="right"
+                                                 action="#{inicioBean.eliminarProducto(producto)}" update="@form"/>
+                                <p:commandButton style="margin-bottom: 20px" value="Editar"
+                                                 styleClass="ui-button-raised"
+                                                 icon="pi pi-refresh" iconPos="right"
+                                                 action="#{inicioBean.irAEditar(producto.codigo)}"/>
+                            </div>
+                        </div>
+                    </p:dataViewListItem>
+                </p:dataView>
+            </h:form>
+        </section>
+    </ui:define>
 </ui:composition>
 </html>
