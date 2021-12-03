@@ -9,13 +9,13 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xml:lang="es" lang="es">
 <ui:composition template="/WEB-INF/template.xhtml">
-  <ui:define name="title">Inicio</ui:define>
-  <ui:define name="content">
-    <section class="container">
-      <h2>Lista de usuarios</h2>
-      <h:form styleClass="mt-5">
-        <p:dataView value="#{inicioBean.listaUsuarios}" var="usuario" rows="3" paginator="true"
-                    gridIcon="pi pi-th-large" listIcon="pi pi-bars">
+    <ui:define name="title">Inicio</ui:define>
+    <ui:define name="content">
+        <section class="container">
+            <h2>Lista de usuarios</h2>
+            <h:form styleClass="mt-5">
+                <p:dataView value="#{inicioBean.listaUsuarios}" var="usuario" rows="3" paginator="true"
+                            gridIcon="pi pi-th-large" listIcon="pi pi-bars">
 
           <p:dataViewListItem>
             <div class="row d-flex my-5">
@@ -51,6 +51,6 @@
         </p:dataView>
       </h:form>
     </section>
-  </ui:define>
+    </ui:define>
 </ui:composition>
 </html>
