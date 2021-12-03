@@ -81,6 +81,7 @@ public class ProductoBean implements Serializable {
     @PostConstruct
     public void inicializar() {
         this.producto = new Producto();
+        this.subasta = new Subasta();
         this.imagenes = new ArrayList<>();
         this.categorias = categoriaServicio.obtenerCategorias();
         departamentos = departamentoServicio.obtenerDepartamentos();
