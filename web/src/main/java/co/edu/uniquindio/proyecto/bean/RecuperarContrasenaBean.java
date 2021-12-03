@@ -1,13 +1,16 @@
 package co.edu.uniquindio.proyecto.bean;
 
 import co.edu.uniquindio.proyecto.Email.EmailSenderService;
+import co.edu.uniquindio.proyecto.entidades.Admin;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
+import co.edu.uniquindio.proyecto.servicios.AdminServicio;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -19,35 +22,58 @@ public class RecuperarContrasenaBean {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+    @Autowired
+    private AdminServicio adminServicio;
 
     @Autowired
     private EmailSenderService senderService;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String email;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Usuario usuario;
+    @Getter
+    @Setter
+    private Admin admin;
 
     private String codigo;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String codigoUsuario;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String passwordNueva;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String passwordRepeat;
 
-    public void enviarCodigo(){
+    public void enviarCodigo() {
         try {
             usuario = usuarioServicio.buscarPorEmail(email);
             codigo = generateRandomString(8);
             PrimeFaces.current().executeScript("PF('email_recup').hide();$('#form-sesion').trigger('reset');PF('pass_change').show();");
-            senderService.sendEmail(email, "Recuperación de contraseña", "El código para recuperar la contraseña es: "+
+            senderService.sendEmail(email, "Recuperación de contraseña", "El código para recuperar la contraseña es: " +
                     codigo);
-        }catch (Exception e){
+        } catch (Exception e) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
+            FacesContext.getCurrentInstance().addMessage("msj-recuperar", msg);
+        }
+    }
+
+    public void enviarCodigoAdmin() {
+        try {
+            admin = adminServicio.buscarPorEmail(email);
+            codigo = generateRandomString(8);
+            PrimeFaces.current().executeScript("PF('email_recup').hide();$('#form-sesion').trigger('reset');PF('pass_change').show();");
+            senderService.sendEmail(email, "Recuperación de contraseña", "El código para recuperar la contraseña es: " +
+                    codigo);
+        } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
             FacesContext.getCurrentInstance().addMessage("msj-recuperar", msg);
         }
@@ -79,16 +105,28 @@ public class RecuperarContrasenaBean {
     }
 
     public void cambiarContrasena() {
-        if(codigo.equals(codigoUsuario)) {
-            if(passwordNueva.equals(passwordRepeat)) {
-                usuario.setPassword(passwordNueva);
-                try {
-                    usuarioServicio.actualizarUsuario(usuario.getCodigo(), usuario.getEmail(), usuario);
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Contraseña cambiada");
-                    FacesContext.getCurrentInstance().addMessage("msj-pass", msg);
-                } catch (Exception e) {
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
-                    FacesContext.getCurrentInstance().addMessage("msj-pass", msg);
+        if (codigo.equals(codigoUsuario)) {
+            if (passwordNueva.equals(passwordRepeat)) {
+                if (usuario != null) {
+                    usuario.setPassword(passwordNueva);
+                    try {
+                        usuarioServicio.actualizarUsuario(usuario.getCodigo(), usuario.getEmail(), usuario);
+                        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Contraseña cambiada");
+                        FacesContext.getCurrentInstance().addMessage("msj-pass", msg);
+                    } catch (Exception e) {
+                        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
+                        FacesContext.getCurrentInstance().addMessage("msj-pass", msg);
+                    }
+                } else {
+                    admin.setPassword(passwordNueva);
+                    try {
+                        adminServicio.actualizarAdmin(admin.getCodigo(), admin.getEmail(), admin);
+                        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Contraseña cambiada");
+                        FacesContext.getCurrentInstance().addMessage("msj-pass", msg);
+                    } catch (Exception e) {
+                        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
+                        FacesContext.getCurrentInstance().addMessage("msj-pass", msg);
+                    }
                 }
             } else {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", "Las contraseñas no coinciden");

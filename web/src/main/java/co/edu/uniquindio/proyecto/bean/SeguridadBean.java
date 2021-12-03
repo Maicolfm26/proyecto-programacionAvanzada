@@ -2,10 +2,8 @@ package co.edu.uniquindio.proyecto.bean;
 
 import co.edu.uniquindio.proyecto.Email.EmailSenderService;
 import co.edu.uniquindio.proyecto.dto.ProductoCarrito;
-import co.edu.uniquindio.proyecto.entidades.Compra;
-import co.edu.uniquindio.proyecto.entidades.Domicilio;
-import co.edu.uniquindio.proyecto.entidades.MedioPago;
-import co.edu.uniquindio.proyecto.entidades.Usuario;
+import co.edu.uniquindio.proyecto.entidades.*;
+import co.edu.uniquindio.proyecto.servicios.AdminServicio;
 import co.edu.uniquindio.proyecto.servicios.CompraServicio;
 import co.edu.uniquindio.proyecto.servicios.DomicilioServicio;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
@@ -29,15 +27,20 @@ public class SeguridadBean implements Serializable {
     private final UsuarioServicio usuarioServicio;
     private final CompraServicio compraServicio;
     private final DomicilioServicio domicilioServicio;
+    private final AdminServicio adminServicio;
 
-    public SeguridadBean(UsuarioServicio usuarioServicio, CompraServicio compraServicio, DomicilioServicio domicilioServicio) {
+    public SeguridadBean(UsuarioServicio usuarioServicio, CompraServicio compraServicio, DomicilioServicio domicilioServicio, AdminServicio adminServicio) {
         this.usuarioServicio = usuarioServicio;
         this.compraServicio = compraServicio;
         this.domicilioServicio = domicilioServicio;
+        this.adminServicio = adminServicio;
     }
 
     @Getter @Setter
     private boolean autenticado;
+
+    @Getter @Setter
+    private boolean autenticadoAdmin;
 
     @Autowired
     private EmailSenderService senderService;
@@ -50,6 +53,9 @@ public class SeguridadBean implements Serializable {
 
     @Getter @Setter
     private Usuario usuarioSesion;
+
+    @Getter @Setter
+    private Admin adminSesion;
 
     @Getter @Setter
     private List<ProductoCarrito> productosCarrito;
@@ -69,6 +75,18 @@ public class SeguridadBean implements Serializable {
         productosCarrito = new ArrayList<>();
     }
 
+
+    public String iniciarSesionAdmin() {
+        try {
+            adminSesion = adminServicio.iniciarSesion(email, password);
+            autenticadoAdmin = true;
+            return "/admin/index?faces-redirect=true";
+        } catch (Exception e) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
+            FacesContext.getCurrentInstance().addMessage("msj-bean", msg);
+        }
+        return null;
+    }
 
     public String iniciarSesion() {
         try {

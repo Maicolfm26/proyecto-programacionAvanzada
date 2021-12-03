@@ -26,7 +26,8 @@ xml:lang="es" lang="es">
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/" class="nav-link px-2 text-white">Unishop</a></li>
+                <li jsf:rendered="#{!seguridadBean.autenticadoAdmin}"><a href="/" class="nav-link px-2 text-white">Unishop</a></li>
+                <li jsf:rendered="#{seguridadBean.autenticadoAdmin}"><a href="/admin/index.xhtml" class="nav-link px-2 text-white">Unishop</a></li>
                 <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/crear_producto.xhtml"
                                                                    class="nav-link px-2 text-white">Crear producto</a>
                 </li>
@@ -42,7 +43,7 @@ xml:lang="es" lang="es">
             </ul>
 
 
-            <h:form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+            <h:form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" rendered="#{!seguridadBean.autenticadoAdmin}">
                 <p:inputText class="form-control form-control-dark" placeholder="Buscar..."
                              required="true" value="#{busquedaBean.busqueda}"/>
                 <p:commandButton icon="pi pi-search" action="#{busquedaBean.buscar}" update="@form"
@@ -50,13 +51,13 @@ xml:lang="es" lang="es">
             </h:form>
 
             <div class="text-end">
-                <h:form rendered="#{!seguridadBean.autenticado}">
+                <h:form rendered="#{!(seguridadBean.autenticado or seguridadBean.autenticadoAdmin)}">
                     <p:commandButton styleClass="btn btn-light me-2" value="Iniciar sesión"
                                      onclick="PF('login').show()"/>
                     <p:commandButton styleClass="btn btn-primary" value="Registrarse"
                                      action="registro?faces-redirect=true"/>
                 </h:form>
-                <h:form rendered="#{seguridadBean.autenticado}">
+                <h:form rendered="#{seguridadBean.autenticado or seguridadBean.autenticadoAdmin}">
                     <p:commandButton class="btn btn-primary" value="Cerrar sesión"
                                      action="#{seguridadBean.cerrarSesion}"/>
                 </h:form>
@@ -84,7 +85,9 @@ xml:lang="es" lang="es">
                            onclick="PF('login').hide();$('#form-sesion').trigger('reset');PF('email_recup').show();"
                            styleClass="p-text-bold"/>
         </h:panelGrid>
-        <p:commandButton value="Iniciar Sesión" action="#{seguridadBean.iniciarSesion}"
+        <p:commandButton style="text-align: center; display: block;" value="Iniciar Sesión" action="#{seguridadBean.iniciarSesion}"
+                         styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left"/>
+        <p:commandButton value="Iniciar Sesión admin" action="#{seguridadBean.iniciarSesionAdmin}"
                          styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left"/>
     </h:form>
 </p:dialog>
@@ -101,7 +104,9 @@ xml:lang="es" lang="es">
             <p:inputText id="email_recuperar" value="#{recuperarContrasenaBean.email}" required="true"/>
             <p:message for="email_recuperar"/>
         </h:panelGrid>
-        <p:commandButton value="Recuperar" action="#{recuperarContrasenaBean.enviarCodigo}"
+        <p:commandButton style="display: block;" value="Recuperar" action="#{recuperarContrasenaBean.enviarCodigo}"
+                         styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left"/>
+        <p:commandButton value="Recuperar admin" action="#{recuperarContrasenaBean.enviarCodigoAdmin}"
                          styleClass="mt-4" update="@form" icon="pi pi-sign-in" iconPos="left"/>
     </h:form>
 </p:dialog>

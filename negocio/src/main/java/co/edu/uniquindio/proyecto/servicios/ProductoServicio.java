@@ -2,6 +2,8 @@ package co.edu.uniquindio.proyecto.servicios;
 
 import co.edu.uniquindio.proyecto.entidades.Comentario;
 import co.edu.uniquindio.proyecto.entidades.Producto;
+import co.edu.uniquindio.proyecto.filter.ProductoSpecification;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public interface ProductoServicio {
 
     Comentario hacerComentario(Comentario comentario) throws Exception;
 
-    List<Producto> buscarProductos(String busqueda);
+    List<Producto> buscarProductos(Specification<Producto> productoSpecification);
 
     List<Producto> obtenerProductosVendedor(String codigoVendedor) throws Exception;
 

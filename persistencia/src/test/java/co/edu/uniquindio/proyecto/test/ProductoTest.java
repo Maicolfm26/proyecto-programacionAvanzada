@@ -1,9 +1,11 @@
 package co.edu.uniquindio.proyecto.test;
 
+import co.edu.uniquindio.proyecto.dto.ProductoFilter;
 import co.edu.uniquindio.proyecto.entidades.Categoria;
 import co.edu.uniquindio.proyecto.entidades.Ciudad;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
+import co.edu.uniquindio.proyecto.filter.ProductoSpecification;
 import co.edu.uniquindio.proyecto.repositorios.CategoriaRepo;
 import co.edu.uniquindio.proyecto.repositorios.CiudadRepo;
 import co.edu.uniquindio.proyecto.repositorios.ProductoRepo;
@@ -140,7 +142,9 @@ public class ProductoTest {
     @Test
     @Sql("classpath:data.sql")
     public void buscarProductosTest(){
-        List<Producto> productos = productoRepo.buscarProductos("Camisa");
+        ProductoSpecification productoSpecification = new ProductoSpecification(new ProductoFilter());
+        productoSpecification.getProductoFilter().setNombre("Camisa");
+        List<Producto> productos = productoRepo.findAll(productoSpecification);
 
         Assertions.assertEquals(2, productos.size());
 

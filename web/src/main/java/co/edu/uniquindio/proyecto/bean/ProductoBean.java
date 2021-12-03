@@ -27,11 +27,15 @@ public class ProductoBean implements Serializable {
     @Setter
     private Producto producto;
 
+    @Getter @Setter
+    private Subasta subasta;
+
     private final ProductoServicio productoServicio;
     private final UsuarioServicio usuarioServicio;
     private final CiudadServicio ciudadServicio;
     private final CategoriaServicio categoriaServicio;
     private final DepartamentoServicio departamentoServicio;
+    private final SubastaServicio subastaServicio;
 
     private ArrayList<String> imagenes;
 
@@ -58,12 +62,13 @@ public class ProductoBean implements Serializable {
     @Value("${upload.url}")
     private String urlUploads;
 
-    public ProductoBean(ProductoServicio productoServicio, UsuarioServicio usuarioServicio, CiudadServicio ciudadServicio, CategoriaServicio categoriaServicio, DepartamentoServicio departamentoServicio) {
+    public ProductoBean(ProductoServicio productoServicio, UsuarioServicio usuarioServicio, CiudadServicio ciudadServicio, CategoriaServicio categoriaServicio, DepartamentoServicio departamentoServicio, SubastaServicio subastaServicio) {
         this.productoServicio = productoServicio;
         this.usuarioServicio = usuarioServicio;
         this.ciudadServicio = ciudadServicio;
         this.categoriaServicio = categoriaServicio;
         this.departamentoServicio = departamentoServicio;
+        this.subastaServicio = subastaServicio;
     }
 
     @PostConstruct
@@ -102,6 +107,19 @@ public class ProductoBean implements Serializable {
         return null;
     }
 
+    public void crearSubasta() {
+        crearProducto();
+        subasta.setProducto(producto);
+        try {
+            subastaServicio.crearSubasta(subasta);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Subasta creada");
+            FacesContext.getCurrentInstance().addMessage("msj-bean", msg);
+        } catch (Exception e) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", "Debe de subir al menos una imagen del producto");
+            FacesContext.getCurrentInstance().addMessage("msj-bean", msg);
+        }
+    }
+
     public void subirImagenes(FileUploadEvent event) {
         UploadedFile imagen = event.getFile();
         String nombreImagen = copiarImagen(imagen);
@@ -122,4 +140,6 @@ public class ProductoBean implements Serializable {
         }
         return ruta;
     }
+
+
 }
