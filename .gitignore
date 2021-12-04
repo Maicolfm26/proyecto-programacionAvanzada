@@ -8,9 +8,6 @@
 *.iml
 /.idea
 
-/persistencia/src/main/resources/application.properties
 
-/negocio/src/main/resources/application.properties
-
-/web/src/main/resources/application.properties
-/web/src/main/webapp/uploads/
+/web/src/main/webapp/uploads/*
+!avatar.png

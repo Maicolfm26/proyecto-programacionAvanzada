@@ -39,7 +39,7 @@ insert into domicilio values (2, "Genesis", "15", "", "20", "8", 1, "42785998");
 insert into domicilio values (3, "Naranjos", "8", "", "3", "20", 2, "42785998");
 
 --Se insertan algunos productos en la base de datos
-insert into Producto values(1, "Camisa de tela fria", null, "2021-11-11", "esqueleto", 20000.0, 5, 1, "100765489"  );
+insert into Producto values(1, "Camisa de tela fria", null, "2021-11-11", "esqueleto", 20000.0, 5, 1, "100765489");
 insert into Producto values(2, "Jean jogger", null, "2021-10-22", "Jogger", 30000.0, 15, 2, "42785998"  );
 insert into Producto values(3, "Tenis af1 blancos", null, "2021-12-22", "AF1", 130000.0, 3, 3, "13838543"  );
 insert into Producto values(4, "Esqueleto de tela caliente", null, "2021-11-12", "Camisa", 20000.0, 5, 1, "100765489"  );
