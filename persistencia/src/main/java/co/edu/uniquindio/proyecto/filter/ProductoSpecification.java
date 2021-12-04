@@ -42,8 +42,7 @@ public class ProductoSpecification implements Specification<Producto> {
             predicates.add(criteriaBuilder.equal(root.get("ciudad"), productoFilter.getCiudad()));
         }
         if (productoFilter.getCalificacionMinima() != null && productoFilter.getCalificacionMaxima() != null) {
-
-            //predicates.add(criteriaBuilder.between(, productoFilter.getCalificacionMinima(), productoFilter.getCalificacionMaxima()));
+            predicates.add(criteriaBuilder.between(root.get("promedio"), productoFilter.getCalificacionMinima(), productoFilter.getCalificacionMaxima()));
         }
 
         return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));

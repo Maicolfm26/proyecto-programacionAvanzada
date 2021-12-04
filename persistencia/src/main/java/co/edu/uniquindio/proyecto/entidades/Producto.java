@@ -57,6 +57,8 @@ public class Producto implements Serializable {
     @Column(nullable = false)
     private Double precio;
 
+    private int promedio = 0;
+
     @Future
     @Column(nullable = false)
     private LocalDate fechaLimite;

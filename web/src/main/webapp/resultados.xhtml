@@ -90,17 +90,17 @@
 
                         <p:dataViewListItem>
                             <div class="row d-flex item-pro my-5">
-                                <div class="col-lg-2 col-md-1" style="text-align: center">
+                                <div class="col-lg-4 col-md-1" style="text-align: center">
                                     <p:graphicImage url="/uploads/#{producto.imagenPrincipal}"
                                                     styleClass="imagen-producto"/>
                                 </div>
-                                <div class="col-lg-8 col-md-1 align-self-center">
+                                <div class="col-lg-6 col-md-1 align-self-center">
                                     <p:outputPanel>
                                         <h:panelGrid columns="2" cellpadding="5">
                                             <h:outputText value="Nombre:"/>
                                             <h:outputText value="#{producto.nombre}" style="font-weight: bold"/>
-                                            <h:outputText value="#{producto.precio}" style="font-weight: bold"/>
                                             <h:outputText value="Precio:"/>
+                                            <h:outputText value="#{producto.precio}" style="font-weight: bold"/>
                                         </h:panelGrid>
                                     </p:outputPanel>
                                 </div>

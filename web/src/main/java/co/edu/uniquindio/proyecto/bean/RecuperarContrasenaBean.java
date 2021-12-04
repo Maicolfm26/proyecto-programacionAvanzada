@@ -71,8 +71,9 @@ public class RecuperarContrasenaBean {
             admin = adminServicio.buscarPorEmail(email);
             codigo = generateRandomString(8);
             PrimeFaces.current().executeScript("PF('email_recup').hide();$('#form-sesion').trigger('reset');PF('pass_change').show();");
-            senderService.sendEmail(email, "Recuperación de contraseña", "El código para recuperar la contraseña es: " +
-                    codigo);
+            Thread hilo = new Thread(() -> senderService.sendEmail(email, "Recuperación de contraseña", "El código para recuperar la contraseña es: " +
+                    codigo));
+            hilo.run();
         } catch (Exception e) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
             FacesContext.getCurrentInstance().addMessage("msj-recuperar", msg);

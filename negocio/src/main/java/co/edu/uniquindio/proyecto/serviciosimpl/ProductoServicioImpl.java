@@ -67,6 +67,9 @@ public class ProductoServicioImpl implements ProductoServicio {
 
     @Override
     public Comentario hacerComentario(Comentario comentario) throws Exception {
+        Producto producto = comentario.getProducto();
+        producto.setPromedio(producto.getPromedio());
+        productoRepo.save(producto);
         return comentarioRepo.save(comentario);
     }
 

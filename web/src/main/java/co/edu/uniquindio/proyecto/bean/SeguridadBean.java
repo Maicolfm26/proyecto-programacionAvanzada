@@ -128,28 +128,27 @@ public class SeguridadBean implements Serializable {
                 (p.getPrecio() * p.getUnidades()- ((p.getPrecio()*p.getUnidades()*p.getDescuento())/100)));
     }
 
-    public String comprar() {
+    public void comprar() {
         if(usuarioSesion != null && !productosCarrito.isEmpty()) {
            try {
                 compra.setUsuario(usuarioSesion);
                 compra.setTotal(subtotal);
                 compra = compraServicio.hacerCompra(compra, productosCarrito);
-                senderService.sendEmail(usuarioSesion.getEmail(), "Compra éxitosa", "La compra se realizó de manera correcta\n" +
+                Thread hilo = new Thread(() -> senderService.sendEmail(usuarioSesion.getEmail(), "Compra éxitosa", "La compra se realizó de manera correcta\n" +
                         "Medio de pago: "+compra.getMedioPago().name()+"\nDetalles de la compra: \n"+getMensaje()+"Total: "+
-                        subtotal+"\nDirección: "+compra.getDomicilio().getDireccion());
+                        subtotal+"\nDirección: "+compra.getDomicilio().getDireccion()));
+                hilo.run();
                 productosCarrito.clear();
                 subtotal = 0.0;
                 compra = new Compra();
 
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Compra realizada correctamente.");
                 FacesContext.getCurrentInstance().addMessage("msj-bean", msg);
-               return "/index?faces-redirect=true";
             } catch (Exception e) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Alerta", e.getMessage());
                 FacesContext.getCurrentInstance().addMessage("msj-bean", msg);
             }
         }
-        return "";
     }
 
 
