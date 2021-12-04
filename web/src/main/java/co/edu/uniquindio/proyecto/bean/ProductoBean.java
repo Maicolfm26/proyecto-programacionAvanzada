@@ -88,6 +88,8 @@ public class ProductoBean implements Serializable {
         if (codigoProducto != null && !codigoProducto.isEmpty()) {
             try {
                 productoActualizar = productoServicio.obtenerProducto(Integer.parseInt(codigoProducto));
+                departamento = productoActualizar.getCiudad().getDepartamento();
+                actualizarCiudades();
             } catch (Exception e) {
                 e.printStackTrace();
             }
