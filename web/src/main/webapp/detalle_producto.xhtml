@@ -11,6 +11,10 @@
 <ui:composition template="WEB-INF/template.xhtml">
     <ui:define name="title">#{detalleProductoBean.producto.nombre}</ui:define>
     <ui:define name="content">
+        <div id="fb-root"></div>
+        <script async="true" defer="true" crossorigin="anonymous"
+                src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&amp;version=v9.0&amp;appId=406506983855391&amp;autoLogAppEvents=1"
+                nonce="ylDHl59T"></script>
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 col-md-1">
@@ -30,7 +34,8 @@
                     <div class="p-grid">
 
                         <div class="box">
-                            <p:rating value="#{detalleProductoBean.producto.promedio}" readonly="true" rendered="#{!seguridadBean.autenticado}"/>
+                            <p:rating value="#{detalleProductoBean.producto.promedio}" readonly="true"
+                                      rendered="#{!seguridadBean.autenticado}"/>
 
                             <div class="row" jsf:rendered="#{seguridadBean.autenticado}">
                                 <div class="col-4">
@@ -38,7 +43,8 @@
                                     <h:form>
                                         <p:growl showDetail="true" id="msj-detalle"/>
                                         <p:toggleSwitch value="#{detalleProductoBean.favorito}">
-                                            <p:ajax listener="#{detalleProductoBean.actualizarProductoFavorito}" update="msj-detalle"/>
+                                            <p:ajax listener="#{detalleProductoBean.actualizarProductoFavorito}"
+                                                    update="msj-detalle"/>
                                         </p:toggleSwitch>
                                     </h:form>
                                 </div>
@@ -51,7 +57,8 @@
                             <h1 class="mt-4">$#{detalleProductoBean.producto.precio}</h1>
                             <h5 class="mt-4">Descuento: #{detalleProductoBean.producto.descuento}%</h5>
 
-                            <h:form class="mt-4" rendered="#{seguridadBean.autenticado and detalleProductoBean.producto.verificarFecha()}">
+                            <h:form class="mt-4"
+                                    rendered="#{seguridadBean.autenticado and detalleProductoBean.producto.verificarFecha()}">
                                 <p:commandButton value="Añadir al carrito" icon="pi pi-shopping-cart"
                                                  action="#{seguridadBean.agregarAlCarrito(detalleProductoBean.producto.codigo, detalleProductoBean.producto.nombre, detalleProductoBean.producto.imagenPrincipal,
                                                  detalleProductoBean.producto.precio, detalleProductoBean.producto.descuento)}"
@@ -60,8 +67,9 @@
                                 <p:growl for="msj-bean" showDetail="true"/>
                             </h:form>
 
-                            <p jsf:rendered="#{!detalleProductoBean.producto.verificarFecha()}" class="mt-4">Producto inhabilitado por fecha limite
-                            o por falta de unidades</p>
+                            <p jsf:rendered="#{!detalleProductoBean.producto.verificarFecha()}"
+                               class="mt-4">Producto inhabilitado por fecha limite
+                                o por falta de unidades</p>
 
                         </div>
 
@@ -75,6 +83,17 @@
                             <f:facet name="header">Categoria</f:facet>
                             <p>#{categoria.nombre}</p>
                         </p:dataList>
+
+                        <div class="box">
+                            <div class="fb-share-button" style="vertical-align: top;"
+                                 data-href="https://www.uniquindio.edu.co/"
+                                 data-layout="button_count" data-size="large"></div>
+                            <a class="twitter-share-button"
+                               href="https://twitter.com/intent/tweet?text=Producto%20#{detalleProductoBean.producto.nombre}"
+                               data-size="large"
+                               data-url="http://localhost:8080/detalle_producto.xhtml?producto=#{detalleProductoBean.producto.codigo}">
+                                Tweet</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -128,6 +147,23 @@
                 </div>
             </p:panel>
         </div>
+        <script>
+            window.twttr = (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0],
+                    t = window.twttr || {};
+                if (d.getElementById(id)) return t;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+
+                t._e = [];
+                t.ready = function (f) {
+                    t._e.push(f);
+                };
+
+                return t;
+            }(document, "script", "twitter-wjs"));</script>
     </ui:define>
 </ui:composition>
 </html>

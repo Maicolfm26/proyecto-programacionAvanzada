@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyecto.serviciosImpl;
+package co.edu.uniquindio.proyecto.serviciosimpl;
 
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.entidades.Usuario;
@@ -6,6 +6,8 @@ import co.edu.uniquindio.proyecto.repositorios.ProductoRepo;
 import co.edu.uniquindio.proyecto.repositorios.UsuarioRepo;
 import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
 import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
+import org.jasypt.util.password.PasswordEncryptor;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +26,14 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
     @Override
     public Usuario iniciarSesion(String email, String password) throws Exception {
-        return usuarioRepo.findByEmailAndPassword(email, password).orElseThrow(() -> new Exception("Los datos de autenticacion son incorrectos"));
+        Usuario usuario = usuarioRepo.findByEmail(email).orElseThrow(() -> new Exception("Los datos de autenticacion son incorrectos"));
+
+        StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+        if(passwordEncryptor.checkPassword(password, usuario.getPassword())) {
+            return usuario;
+        } else {
+            throw new Exception("Los datos de autenticacion son incorrectos");
+        }
     }
 
     @Override
@@ -46,7 +55,8 @@ public class UsuarioServicioImpl implements UsuarioServicio {
         } catch (NumberFormatException e) {
             throw new Exception("El telefono debe de ser numerico");
         }
-
+        StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+        usuario.setPassword(passwordEncryptor.encryptPassword(usuario.getPassword()));
 
         return usuarioRepo.save(usuario);
     }
