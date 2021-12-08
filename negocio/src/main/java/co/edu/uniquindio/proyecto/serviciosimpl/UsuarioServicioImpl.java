@@ -95,6 +95,9 @@ public class UsuarioServicioImpl implements UsuarioServicio {
             }
         }
 
+        StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+        usuarioActualizado.setPassword(passwordEncryptor.encryptPassword(usuarioActualizado.getPassword()));
+
         return usuarioRepo.save(usuarioActualizado);
     }
 

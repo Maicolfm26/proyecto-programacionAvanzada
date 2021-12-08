@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -78,6 +79,7 @@ public class Producto implements Serializable {
     @ManyToMany()
     @LazyCollection(LazyCollectionOption.FALSE)
     @ToString.Exclude
+    @JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, property = "@id")
     private List<Categoria> categorias;
 
     @ManyToOne
@@ -88,14 +90,17 @@ public class Producto implements Serializable {
     @JoinTable(name = "producto_usuario", joinColumns = @JoinColumn(name = "producto_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
     @LazyCollection(LazyCollectionOption.FALSE)
     @ToString.Exclude
+    @JsonIgnore
     private Set<Usuario> usuariosFavoritos = new HashSet<>();
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.REMOVE)
     @ToString.Exclude
+    @JsonIgnore
     private List<Subasta> subastas;
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.REMOVE)
     @ToString.Exclude
+    @JsonIgnore
     private List<Comentario> comentarios;
 
     @ManyToOne
@@ -104,10 +109,12 @@ public class Producto implements Serializable {
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.REMOVE)
     @ToString.Exclude
+    @JsonIgnore
     private List<DetalleCompra> detalleCompras;
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.REMOVE)
     @ToString.Exclude
+    @JsonIgnore
     private List<Chat> chats;
 
     /*
@@ -139,6 +146,7 @@ public class Producto implements Serializable {
         this.ciudad = ciudad;
     }
 
+    @JsonIgnore
     public String getImagenPrincipal() {
         if (imagenes != null && !imagenes.isEmpty()) {
             return imagenes.get(0);
@@ -146,6 +154,7 @@ public class Producto implements Serializable {
         return "default-producto.jpg";
     }
 
+    @JsonIgnore
     public String getFormatoCategorias() {
         String formato = "";
         for (Categoria categoria : categorias) {

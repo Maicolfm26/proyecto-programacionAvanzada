@@ -107,7 +107,6 @@ public class ProductoBean implements Serializable {
                 try {
                     producto.setVendedor(usuarioSesion);
                     producto.setImagenes(imagenes);
-                    producto.setFechaLimite(LocalDate.now().plusMonths(1));
                     productoServicio.publicarProducto(producto);
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alerta", "Registro exitoso");
                     FacesContext.getCurrentInstance().addMessage("msj-bean", msg);

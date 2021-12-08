@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -36,14 +37,17 @@ public class Ciudad implements Serializable {
 
     @OneToMany(mappedBy = "ciudad", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIgnore
     private List<Producto> productos;
 
     @OneToMany(mappedBy = "ciudad", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIgnore
     private List<Usuario> usuarios;
 
     @OneToMany(mappedBy = "ciudad", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIgnore
     private List<Domicilio> domicilios;
 
     @ManyToOne

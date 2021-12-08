@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -36,6 +37,7 @@ public class Departamento implements Serializable {
 
     @OneToMany(mappedBy = "departamento", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIgnore
     private List<Ciudad> ciudades;
 
     /*

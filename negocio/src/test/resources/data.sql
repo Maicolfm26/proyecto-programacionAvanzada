@@ -39,10 +39,10 @@ insert into domicilio values (2, "Genesis", "15", "", "20", "8", 1, "42785998");
 insert into domicilio values (3, "Naranjos", "8", "", "3", "20", 2, "42785998");
 
 --Se insertan algunos productos en la base de datos
-insert into Producto values(1, "Camisa de tela fria", null, "2021-11-11", "esqueleto", 20000.0, 5, 1, "100765489"  );
-insert into Producto values(2, "Jean jogger", null, "2021-10-22", "Jogger", 30000.0, 15, 2, "42785998"  );
-insert into Producto values(3, "Tenis af1 blancos", null, "2021-12-22", "AF1", 130000.0, 3, 3, "13838543"  );
-insert into Producto values(4, "Esqueleto de tela caliente", null, "2021-11-12", "Camisa", 20000.0, 5, 1, "100765489"  );
+insert into Producto values(1, "Camisa de tela fria", null, "2021-11-11", "esqueleto", 20000.0, 0, 5, 1, "100765489");
+insert into Producto values(2, "Jean jogger", null, "2021-10-22", "Jogger", 30000.0, 0, 15, 2, "42785998"  );
+insert into Producto values(3, "Tenis af1 blancos", null, "2021-12-22", "AF1", 130000.0, 0, 3, 3, "13838543"  );
+insert into Producto values(4, "Esqueleto de tela caliente", null, "2021-11-12", "Camisa", 20000.0, 0, 5, 1, "100765489"  );
 
 --Se insertan algunos productos y categoria en la tabla producto_categorias
 insert into producto_categorias values(1, 1 );
@@ -76,12 +76,12 @@ insert into mensaje values (2,"Juan","2021/10/06","Me interesa el producto",2);
 insert into mensaje values (3,"Juan","2021/10/06","Espero su respuesta muchas gracias.",3);
 
 --Se crean compras como prueba en la base de datos
-insert into compra values (1,"2021/10/06","EFECTIVO", 1, "100765489");
-insert into compra values (2,"2021/10/06","EFECTIVO", 2, "42785998");
-insert into compra values (3,"2021/10/06","EFECTIVO", 3, "13838543");
-insert into compra values (4,"2021/10/06","EFECTIVO", 1, "100765489");
-insert into compra values (5,"2021/10/06","EFECTIVO", 1, "100765489");
-insert into compra values (6,"2021/10/06","EFECTIVO", 1, "100765489");
+insert into compra values (1,"2021/10/06","EFECTIVO", 5000, 1, "100765489");
+insert into compra values (2,"2021/10/06","EFECTIVO", 5000, 2, "42785998");
+insert into compra values (3,"2021/10/06","EFECTIVO", 5000, 3, "13838543");
+insert into compra values (4,"2021/10/06","EFECTIVO", 5000, 1, "100765489");
+insert into compra values (5,"2021/10/06","EFECTIVO", 5000, 1, "100765489");
+insert into compra values (6,"2021/10/06","EFECTIVO", 5000, 1, "100765489");
 
 --Se crean detalles de compras como prueba en la base de datos
 insert into detalle_compra values (1,200000.00,2,1,1);

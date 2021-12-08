@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyecto.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -33,7 +34,6 @@ public class Usuario extends Persona implements Serializable {
     @ElementCollection
     @LazyCollection(LazyCollectionOption.FALSE)
     @Column(nullable = false)
-    @ToString.Exclude
     private List<String> telefonos;
 
      /*
@@ -46,34 +46,42 @@ public class Usuario extends Persona implements Serializable {
 
     @OneToMany(mappedBy = "vendedor", cascade = CascadeType.REMOVE)
     @ToString.Exclude
+    @JsonIgnore
     private List<Producto> listaProductos;
 
     @ManyToMany(mappedBy = "usuariosFavoritos", fetch = FetchType.EAGER, cascade= {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @ToString.Exclude
+    @JsonIgnore
     private Set<Producto> productosFavoritos = new HashSet<>();
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIgnore
     private List<Comentario> comentarios;
 
     @OneToMany(mappedBy = "comprador", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIgnore
     private List<Chat> chats;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIgnore
     private List<Domicilio> domicilios;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIgnore
     private List<Compra> compras;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIgnore
     private List<Subasta_Usuario> subastasUsuario;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonIgnore
     private List<Favor> favoresPedidos;
 
      /*

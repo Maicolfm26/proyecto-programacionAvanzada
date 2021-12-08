@@ -13,6 +13,7 @@ import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,7 @@ public class ProductoServicioImpl implements ProductoServicio {
 
     @Override
     public Producto publicarProducto(Producto producto) throws Exception {
+        producto.setFechaLimite(LocalDate.now().plusMonths(1));
          return  productoRepo.save(producto);
     }
 
