@@ -2,9 +2,11 @@ package co.edu.uniquindio.proyecto.rest;
 
 import co.edu.uniquindio.proyecto.dto.Mensaje;
 import co.edu.uniquindio.proyecto.dto.ProductoFilter;
+import co.edu.uniquindio.proyecto.entidades.Comentario;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import co.edu.uniquindio.proyecto.filter.ProductoSpecification;
 import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
+import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,8 @@ public class ProductoRestController {
 
     @Autowired
     private ProductoServicio productoServicio;
+    @Autowired
+    private UsuarioServicio usuarioServicio;
 
     @GetMapping
     public List<Producto> obtenerProductos() {
@@ -67,5 +71,26 @@ public class ProductoRestController {
     public List<Producto> obtenerProductosFiltro(@RequestBody ProductoFilter productoFilter) {
         return productoServicio.buscarProductos(new ProductoSpecification(productoFilter));
     }
+
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<?> obtenerProductosUsuario(@PathVariable(name = "id") String id) {
+        try {
+            List<Producto> productos = productoServicio.obtenerProductosVendedor(id);
+            return ResponseEntity.status(200).body(productos);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new Mensaje(e.getMessage()));
+        }
+    }
+
+    @GetMapping("/favoritos/{id}")
+    public ResponseEntity<?> obtenerProductosFavoritos(@PathVariable(name = "id") String id) {
+        try {
+            List<Producto> productos = usuarioServicio.listarProductosFavoritos(id);
+            return ResponseEntity.status(200).body(productos);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new Mensaje(e.getMessage()));
+        }
+    }
+
 
 }

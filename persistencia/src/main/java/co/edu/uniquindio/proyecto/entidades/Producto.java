@@ -79,7 +79,9 @@ public class Producto implements Serializable {
     @ManyToMany()
     @LazyCollection(LazyCollectionOption.FALSE)
     @ToString.Exclude
-    @JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class, property = "@id")
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "codigo")
     private List<Categoria> categorias;
 
     @ManyToOne
