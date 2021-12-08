@@ -150,4 +150,11 @@ public class ProductoTest {
 
         productos.forEach(p -> Assertions.assertTrue(p.getNombre().contains("Camisa") || p.getDescripcion().contains("Camisa")));
     }
+
+    @Test
+    @Sql("classpath:data.sql")
+    public void  totalProductosCategoria(){
+        List<Object[]> productos = productoRepo.obtenerTotalProductosPorCategoria();
+        productos.forEach(r->System.out.println(r[0]+","+r[1]));
+    }
 }

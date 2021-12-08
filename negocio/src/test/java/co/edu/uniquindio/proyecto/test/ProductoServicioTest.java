@@ -121,4 +121,12 @@ public class ProductoServicioTest {
         List<Producto> productos = productoServicio.obtenerProductosVendedor("100765489");
         Assertions.assertEquals(2, productos.size());
     }
+
+    @Test
+    public void listarProductosCategorias() throws Exception {
+        List<Object[]> productos = productoServicio.productosPorCategoria();
+        productos.forEach(r->System.out.println(r[0]+","+r[1]));
+    }
+
+
 }

@@ -1,4 +1,5 @@
 package co.edu.uniquindio.proyecto.repositorios;
+import co.edu.uniquindio.proyecto.entidades.Categoria;
 import co.edu.uniquindio.proyecto.entidades.Producto;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,7 @@ public interface ProductoRepo extends JpaRepository<Producto, Integer>, JpaSpeci
 
     @Query("select p from Producto p where p.fechaLimite > current_date")
     List<Producto> listarProductos();
+
+    @Query("select c.nombre,count(p) from Producto p join p.categorias c group by c")
+    List<Object[]> obtenerTotalProductosPorCategoria();
 }

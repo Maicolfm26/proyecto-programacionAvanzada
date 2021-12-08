@@ -140,4 +140,9 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     public List<Usuario> listarUsuarios() {
         return usuarioRepo.findAll();
     }
+
+    @Override
+    public List<Object[]> listarProductosUsuario() {
+        return usuarioRepo.listarUsuariosYProductos();
+    }
 }
