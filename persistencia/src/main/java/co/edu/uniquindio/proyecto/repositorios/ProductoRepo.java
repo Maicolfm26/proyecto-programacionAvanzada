@@ -17,4 +17,7 @@ public interface ProductoRepo extends JpaRepository<Producto, Integer>, JpaSpeci
 
     @Query("select p from Producto p where p.fechaLimite > current_date")
     List<Producto> listarProductos();
+
+    @Query("select d.producto.nombre, sum(d.unidades) from DetalleCompra d  group by d.producto order by sum(d.unidades) desc")
+    List<Object[]> listarProductosVendidos();
 }

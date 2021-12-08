@@ -10,4 +10,6 @@ public interface CiudadServicio {
     List<Ciudad> obtenerCiudades();
 
     Ciudad obtenerCiudad(Integer codigo) throws Exception;
+
+    List<Object[]> listarProductosCiudades();
 }
