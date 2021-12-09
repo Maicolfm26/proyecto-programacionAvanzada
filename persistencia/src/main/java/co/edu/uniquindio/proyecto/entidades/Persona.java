@@ -24,7 +24,7 @@ import java.util.Map;
 /*
     Clase persona que se define como una entidad que tendra una tabla en la base de datos de mysql.
  */
-public class Persona extends DefaultHandshakeHandler implements Serializable {
+public class Persona implements Serializable {
 
     /*
         Se declaran los atributos de la entidad.
@@ -47,10 +47,5 @@ public class Persona extends DefaultHandshakeHandler implements Serializable {
     @Column(nullable = false)
     @NotBlank
     private String password;
-
-    @Override
-    protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler, Map<String, Object> attributes) {
-        return new UserPrincipal(this.codigo);
-    }
 }
 
