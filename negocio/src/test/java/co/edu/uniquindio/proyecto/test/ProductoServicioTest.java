@@ -128,4 +128,10 @@ public class ProductoServicioTest {
         Assertions.assertEquals(5,listaProductosVendidos.size());
         //listaProductosVendidos.forEach(p -> System.out.println(p[0]+"\t"+p[1]));
     }
+    @Test
+    public void listarProductosCategorias() throws Exception {
+        List<Object[]> productos = productoServicio.productosPorCategoria();
+        productos.forEach(r->System.out.println(r[0]+","+r[1]));
+    }
+
 }

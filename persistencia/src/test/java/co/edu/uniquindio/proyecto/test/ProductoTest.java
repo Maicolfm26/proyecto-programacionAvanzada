@@ -159,4 +159,10 @@ public class ProductoTest {
         lista.forEach(p -> System.out.println(p[0]+"\t"+p[1]));
     }
 
+    @Test
+    @Sql("classpath:data.sql")
+    public void  totalProductosCategoria(){
+        List<Object[]> productos = productoRepo.obtenerTotalProductosPorCategoria();
+        productos.forEach(r->System.out.println(r[0]+","+r[1]));
+    }
 }

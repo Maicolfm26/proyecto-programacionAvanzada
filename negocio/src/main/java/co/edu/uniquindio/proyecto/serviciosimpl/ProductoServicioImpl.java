@@ -102,4 +102,9 @@ public class ProductoServicioImpl implements ProductoServicio {
     public List<Object[]> listarProductoVendidos() {
         return productoRepo.listarProductosVendidos();
     }
+
+    @Override
+    public List<Object[]> productosPorCategoria() {
+        return productoRepo.obtenerTotalProductosPorCategoria();
+    }
 }

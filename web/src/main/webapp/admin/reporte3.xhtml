@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xml:lang="es" lang="es"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+<ui:composition template="../WEB-INF/template.xhtml">
+<ui:define name="title">Inicio</ui:define>
+<ui:define name="content">
+    <section class="container">
+        <h2>Reporte de productos por ciudades</h2>
+
+    <div class="mt-lg-auto">
+        <div class="p-col-12 p-lg-6 p-xl-4">
+            <div class="card">
+                <p:pieChart model="#{chartJsView.pieModel}" style="width: 100%; height: 500px;"/>
+            </div>
+        </div>
+    </div>
+    </section>
+</ui:define>
+</ui:composition>
+
+</html>

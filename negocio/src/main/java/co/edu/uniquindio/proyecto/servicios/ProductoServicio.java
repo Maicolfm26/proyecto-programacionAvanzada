@@ -28,4 +28,6 @@ public interface ProductoServicio {
     Producto obtenerProducto(Integer codigo)  throws Exception;
 
     List<Object[]> listarProductoVendidos();
+
+    List<Object[]> productosPorCategoria();
 }

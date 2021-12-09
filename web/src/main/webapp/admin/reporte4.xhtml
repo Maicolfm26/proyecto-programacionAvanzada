@@ -10,16 +10,15 @@
       xml:lang="es" lang="es"
       xmlns:jsf="http://xmlns.jcp.org/jsf">
 <ui:composition template="../WEB-INF/template.xhtml">
-<ui:define name="title">Inicio</ui:define>
-<ui:define name="content">
-    <div class="container mt-lg-auto">
-        <div class="p-col-12 p-lg-6 p-xl-4">
-            <div class="card">
-                <p:pieChart model="#{chartJsView.pieModel}" style="width: 100%; height: 500px;"/>
-            </div>
+    <ui:define name="title">Inicio</ui:define>
+    <ui:define name="content">
+        <section class="container">
+            <h2>Reporte de productos más vendidos</h2>
+        <div class=" mt-lg-auto">
+            <h5>Gráfico</h5>
+            <p:barChart model="#{chartJsView.barModel2}" style="width: 100%; height: 500px;"/>
         </div>
-    </div>
-</ui:define>
+        </section>
+    </ui:define>
 </ui:composition>
-
 </html>
