@@ -1,10 +1,8 @@
 package co.edu.uniquindio.proyecto.bean;
 
 import co.edu.uniquindio.proyecto.entidades.Producto;
-import co.edu.uniquindio.proyecto.servicios.CiudadServicio;
+import co.edu.uniquindio.proyecto.servicios.*;
 import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
-import co.edu.uniquindio.proyecto.servicios.ProductoServicio;
-import co.edu.uniquindio.proyecto.servicios.UsuarioServicio;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.model.charts.ChartData;
@@ -16,6 +14,8 @@ import org.primefaces.model.charts.bar.BarChartModel;
 import org.primefaces.model.charts.bar.BarChartOptions;
 import org.primefaces.model.charts.donut.DonutChartDataSet;
 import org.primefaces.model.charts.donut.DonutChartModel;
+import org.primefaces.model.charts.hbar.HorizontalBarChartDataSet;
+import org.primefaces.model.charts.hbar.HorizontalBarChartModel;
 import org.primefaces.model.charts.optionconfig.animation.Animation;
 import org.primefaces.model.charts.optionconfig.legend.Legend;
 import org.primefaces.model.charts.optionconfig.legend.LegendLabel;
@@ -47,6 +47,9 @@ public class ChartJsView implements Serializable {
     @Getter @Setter
     private PieChartModel pieModel;
 
+    @Getter @Setter
+    private HorizontalBarChartModel hbarModel;
+
 
     @Autowired
     private CiudadServicio ciudadServicio;
@@ -57,12 +60,16 @@ public class ChartJsView implements Serializable {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
+    @Autowired
+    private CompraServicio compraServicio;
+
     @PostConstruct
     public void inicializar(){
         createDonutModel();
         createBarModel();
         createBarModel2();
         createPieModel();
+        createHorizontalBarModel();
     }
 
     private void createPieModel() {
@@ -103,7 +110,7 @@ public class ChartJsView implements Serializable {
 
         List<Number> values = new ArrayList<>();
         List<String> labels = new ArrayList<>();
-        for(int i=0; i<5;i++){
+        for(int i=0; i<5 && i < listaProductos.size();i++){
             Object[] objeto = listaProductos.get(i);
             values.add((Number) objeto[1]);
             labels.add((String) objeto[0]);
@@ -276,5 +283,67 @@ public class ChartJsView implements Serializable {
         options.setAnimation(animation);
 
         barModel.setOptions(options);
+    }
+
+
+    public void createHorizontalBarModel() {
+        List<Object[]> listaCompradoresFrecuentes = compraServicio.listarCompradoresFrecuentes();
+        hbarModel = new HorizontalBarChartModel();
+        ChartData data = new ChartData();
+
+        HorizontalBarChartDataSet hbarDataSet = new HorizontalBarChartDataSet();
+        hbarDataSet.setLabel("Raking de los 5 compradores más frecuentes");
+
+        List<Number> values = new ArrayList<>();
+        List<String> labels = new ArrayList<>();
+        for (int i = 0; i < 5 && i < listaCompradoresFrecuentes.size(); i++) {
+            Object[] objeto = listaCompradoresFrecuentes.get(i);
+            values.add((Number) objeto[1]);
+            labels.add((String) objeto[0]);
+        }
+        hbarDataSet.setData(values);
+        data.setLabels(labels);
+
+        List<String> bgColor = new ArrayList<>();
+        bgColor.add("rgba(255, 99, 132, 0.2)");
+        bgColor.add("rgba(255, 159, 64, 0.2)");
+        bgColor.add("rgba(255, 205, 86, 0.2)");
+        bgColor.add("rgba(75, 192, 192, 0.2)");
+        bgColor.add("rgba(54, 162, 235, 0.2)");
+        bgColor.add("rgba(153, 102, 255, 0.2)");
+        bgColor.add("rgba(201, 203, 207, 0.2)");
+        hbarDataSet.setBackgroundColor(bgColor);
+
+        List<String> borderColor = new ArrayList<>();
+        borderColor.add("rgb(255, 99, 132)");
+        borderColor.add("rgb(255, 159, 64)");
+        borderColor.add("rgb(255, 205, 86)");
+        borderColor.add("rgb(75, 192, 192)");
+        borderColor.add("rgb(54, 162, 235)");
+        borderColor.add("rgb(153, 102, 255)");
+        borderColor.add("rgb(201, 203, 207)");
+        hbarDataSet.setBorderColor(borderColor);
+        hbarDataSet.setBorderWidth(1);
+
+        data.addChartDataSet(hbarDataSet);
+        hbarModel.setData(data);
+
+        //Options
+        BarChartOptions options = new BarChartOptions();
+        CartesianScales cScales = new CartesianScales();
+        CartesianLinearAxes linearAxes = new CartesianLinearAxes();
+        linearAxes.setOffset(true);
+        CartesianLinearTicks ticks = new CartesianLinearTicks();
+        ticks.setBeginAtZero(true);
+        linearAxes.setTicks(ticks);
+        cScales.addXAxesData(linearAxes);
+        options.setScales(cScales);
+
+        Title title = new Title();
+        title.setDisplay(true);
+        title.setText("Compradores frecuentes");
+        options.setTitle(title);
+
+        hbarModel.setOptions(options);
     }
 }
