@@ -1,15 +1,21 @@
 
 package co.edu.uniquindio.proyecto.entidades;
 
+import com.sun.security.auth.UserPrincipal;
 import lombok.*;
+import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.web.socket.WebSocketHandler;
+import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.security.Principal;
+import java.util.Map;
 
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS )
@@ -18,7 +24,7 @@ import java.io.Serializable;
 /*
     Clase persona que se define como una entidad que tendra una tabla en la base de datos de mysql.
  */
-public class Persona implements Serializable {
+public class Persona extends DefaultHandshakeHandler implements Serializable {
 
     /*
         Se declaran los atributos de la entidad.
@@ -41,5 +47,10 @@ public class Persona implements Serializable {
     @Column(nullable = false)
     @NotBlank
     private String password;
+
+    @Override
+    protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler, Map<String, Object> attributes) {
+        return new UserPrincipal(this.codigo);
+    }
 }
 

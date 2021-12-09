@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+xml:lang="es" lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Chat unishop</title>
+    <link href="../resources/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="../resources/js/scripts.js"></script>
+</head>
+<body>
+<header class="fixed-top p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <img src="/resources/img/logo.png" class="bi me-2" width="40" height="40" alt="Logo de unishop"/>
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li jsf:rendered="#{!seguridadBean.autenticadoAdmin}"><a href="/" class="nav-link px-2 text-white">Unishop</a></li>
+                <li jsf:rendered="#{seguridadBean.autenticadoAdmin}"><a href="/admin/index.xhtml" class="nav-link px-2 text-white">Unishop</a></li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/crear_producto.xhtml"
+                                                                   class="nav-link px-2 text-white">Crear producto</a>
+                </li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/misProductos.xhtml"
+                                                                   class="nav-link px-2 text-white">Mis productos</a>
+                </li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/compras.xhtml"
+                                                                   class="nav-link px-2 text-white">Mis compras</a></li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/perfil.xhtml"
+                                                                   class="nav-link px-2 text-white">Perfil</a></li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/carrito.xhtml"
+                                                                   class="nav-link px-2 text-white">Carrito</a></li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/subasta.xhtml" class="nav-link px-2 text-white">Subasta</a></li>
+                <li jsf:rendered="#{seguridadBean.autenticado}"><a href="/usuario/chat.xhtml"
+                                                                   class="nav-link px-2 text-white">Chat</a>
+                </li>
+                <li jsf:rendered="#{seguridadBean.autenticadoAdmin}"><a href="/admin/usuarios.xhtml"
+                                                                        class="nav-link px-2 text-white">Gestionar usuarios</a></li>
+            </ul>
+
+
+            <h:form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" rendered="#{!seguridadBean.autenticadoAdmin}">
+                <p:inputText class="form-control form-control-dark" placeholder="Buscar..."
+                             required="true" value="#{busquedaBean.busqueda}"/>
+                <p:commandButton icon="pi pi-search" action="#{busquedaBean.buscar}" update="@form"
+                                 style="display: none;"/>
+            </h:form>
+
+            <div class="text-end">
+                <h:form rendered="#{!(seguridadBean.autenticado or seguridadBean.autenticadoAdmin)}">
+                    <p:commandButton styleClass="btn btn-light me-2" value="Iniciar sesión"
+                                     onclick="PF('login').show()"/>
+                    <p:commandButton styleClass="btn btn-primary" value="Registrarse"
+                                     action="registro?faces-redirect=true"/>
+                </h:form>
+                <h:form rendered="#{seguridadBean.autenticado or seguridadBean.autenticadoAdmin}">
+                    <p:commandButton class="btn btn-primary" value="Cerrar sesión"
+                                     action="#{seguridadBean.cerrarSesion}"/>
+                </h:form>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container" style="margin-top: 100px; margin-bottom: 100px;">
+    <div class="row mb-5">
+        <div class="col-md-12">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="message">Mensaje</label>
+                    <input type="text" id="message" class="form-control mt-2" placeholder="Ingrese su mensaje aqui..." />
+                </div>
+                <button id="send" class="mt-2 btn btn-primary" type="button">Enviar</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="message-history" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Mensajes
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="messages">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer class="bg-dark fixed-bottom text-center text-white">
+    <!-- Copyright -->
+    <div class="text-center p-3">
+        © 2020 Copyright:
+        <a class="text-white" href="/">unishop.com</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+</body>
+</html>

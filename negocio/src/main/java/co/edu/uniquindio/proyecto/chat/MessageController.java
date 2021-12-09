@@ -16,5 +16,4 @@ public class MessageController {
         Thread.sleep(1000); // simulated delay
         return new MensajeRespuesta(HtmlUtils.htmlEscape(message.getContenido()));
     }
-
 }
