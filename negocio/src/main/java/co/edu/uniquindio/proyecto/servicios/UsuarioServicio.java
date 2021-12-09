@@ -27,4 +27,6 @@ public interface UsuarioServicio {
     public List<Producto> listarProductosFavoritos(String codigoVendedor)throws Exception;
 
     List<Usuario> listarUsuarios();
+
+    List<Object[]> listarProductosUsuario();
 }

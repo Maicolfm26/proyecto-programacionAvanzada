@@ -32,4 +32,9 @@ public class CiudadServicioImpl implements CiudadServicio {
         }
         return buscado.get();
     }
+
+    @Override
+    public List<Object[]> listarProductosCiudades() {
+        return ciudadRepo.listarCiudadesProductos();
+    }
 }

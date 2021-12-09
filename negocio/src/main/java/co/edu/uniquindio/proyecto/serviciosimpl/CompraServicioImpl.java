@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyecto.serviciosImpl;
+package co.edu.uniquindio.proyecto.serviciosimpl;
 
 import co.edu.uniquindio.proyecto.dto.ProductoCarrito;
 import co.edu.uniquindio.proyecto.entidades.*;
@@ -82,5 +82,10 @@ public class CompraServicioImpl implements CompraServicio {
     @Override
     public Compra obtenerCompra(Integer codigoCompra) throws Exception {
         return compraRepo.findById(codigoCompra).orElseThrow(() -> new Exception("La compra no fue encontrada"));
+    }
+
+    @Override
+    public List<Object[]> listarCompradoresFrecuentes() {
+        return compraRepo.listarCompradoresFrecuentes();
     }
 }

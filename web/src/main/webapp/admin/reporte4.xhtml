@@ -7,14 +7,17 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xml:lang="es" lang="es">
-<ui:composition template="/WEB-INF/template.xhtml">
-    <ui:define name="title">Admin</ui:define>
+      xml:lang="es" lang="es"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+<ui:composition template="../WEB-INF/template.xhtml">
+    <ui:define name="title">Inicio</ui:define>
     <ui:define name="content">
         <section class="container">
-            <h2>Bienvenido administrador #{seguridadBean.adminSesion.nombre}</h2>
-            <p>Aqui el administrador podra gestionar los usuarios, generar reportes y muchas cosas mas</p>
-            <img src="/resources/img/inicio-admin.jpg" alt="Imagen de administrador" width="500"/>
+            <h2>Reporte de productos más vendidos</h2>
+        <div class=" mt-lg-auto">
+            <h5>Gráfico</h5>
+            <p:barChart model="#{chartJsView.barModel2}" style="width: 100%; height: 500px;"/>
+        </div>
         </section>
     </ui:define>
 </ui:composition>

@@ -131,4 +131,11 @@ public class CompraTest {
         System.out.println(compraG);
         Assertions.assertNotNull(compraG);
     }
+
+    @Test
+    public void listarCompradoresFrecuentesTest(){
+        List<Object[]> listaCompradoresFrecuentes =  compraRepo.listarCompradoresFrecuentes();
+        listaCompradoresFrecuentes.forEach(p -> System.out.println(p));
+        System.out.println(listaCompradoresFrecuentes.size());
+    }
 }

@@ -97,4 +97,14 @@ public class ProductoServicioImpl implements ProductoServicio {
         }
         return buscado.get();
     }
+
+    @Override
+    public List<Object[]> listarProductoVendidos() {
+        return productoRepo.listarProductosVendidos();
+    }
+
+    @Override
+    public List<Object[]> productosPorCategoria() {
+        return productoRepo.obtenerTotalProductosPorCategoria();
+    }
 }

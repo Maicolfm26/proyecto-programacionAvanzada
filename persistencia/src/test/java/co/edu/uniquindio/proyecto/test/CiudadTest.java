@@ -11,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
-import javax.swing.undo.CannotUndoException;
 import java.util.List;
 
 @DataJpaTest
@@ -82,6 +81,13 @@ public class CiudadTest {
         Assertions.assertEquals(5, ciudades.size());
 
         ciudades.forEach(c -> System.out.println(c));
+    }
+
+    @Test
+    @Sql("classpath:data.sql")
+    public void listarCiudadesProductos(){
+        List<Object[]> lista = ciudadRepo.listarCiudadesProductos();
+        Assertions.assertEquals(5,lista.size());
     }
 
 }

@@ -9,12 +9,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xml:lang="es" lang="es">
 <ui:composition template="/WEB-INF/template.xhtml">
-    <ui:define name="title">Admin</ui:define>
+    <ui:define name="title">Reporte 2</ui:define>
     <ui:define name="content">
         <section class="container">
-            <h2>Bienvenido administrador #{seguridadBean.adminSesion.nombre}</h2>
-            <p>Aqui el administrador podra gestionar los usuarios, generar reportes y muchas cosas mas</p>
-            <img src="/resources/img/inicio-admin.jpg" alt="Imagen de administrador" width="500"/>
+            <h2>Reporte de cantidad de productos por usuario</h2>
+        <br> </br>
+        <div class="card">
+            <p:barChart model="#{chartJsView.barModel}" style="width: 100%; height: 500px;"/>
+        </div>
         </section>
     </ui:define>
 </ui:composition>

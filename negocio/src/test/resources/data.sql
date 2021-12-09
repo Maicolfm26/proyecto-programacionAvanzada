@@ -1,5 +1,5 @@
 --Se crean los departamentos en la base de datos
-insert into departamento values(1, "Quindio");
+/*insert into departamento values(1, "Quindio");
 insert into departamento values(2, "Risaralda");
 insert into departamento values(3, "Antioquia");
 insert into departamento values(4, "Valle del cauca");
@@ -10,14 +10,14 @@ insert into Ciudad values(1, "Armenia", 1);
 insert into Ciudad values(2, "Pereira", 2);
 insert into Ciudad values(3, "Medellin", 3);
 insert into Ciudad values(4, "Bogota", 4);
-insert into Ciudad values(5, "Cali", 5);
+insert into Ciudad values(5, "Cali", 5);*/
 
 --Se crean las categorias en la base de datos como datos de prueba
-insert into Categoria values(1, "Ropa");
+/*insert into Categoria values(1, "Ropa");
 insert into Categoria values(2, "Tenis");
 insert into Categoria values(3, "Jeans");
 insert into Categoria values(4, "Carros");
-insert into Categoria values(5, "Alcohol");
+insert into Categoria values(5, "Alcohol");*/
 
 --Se crean algunos usuarios en la base de datos
 insert into usuario values("100765489", "carlos@gmail.com", "Carlos Florez", "123", 1);
@@ -38,11 +38,28 @@ insert into domicilio values (1, "Zuldemayda", "13", "", "15", "20", 1, "1007654
 insert into domicilio values (2, "Genesis", "15", "", "20", "8", 1, "42785998");
 insert into domicilio values (3, "Naranjos", "8", "", "3", "20", 2, "42785998");
 
+--Se crean compras como prueba en la base de datos
+insert into compra values (1,"2021/10/06","EFECTIVO", 5000, 1, "100765489");
+insert into compra values (2,"2021/10/06","EFECTIVO", 5000, 2, "42785998");
+insert into compra values (3,"2021/10/06","EFECTIVO", 5000, 3, "13838543");
+insert into compra values (4,"2021/10/06","EFECTIVO", 5000, 1, "100765489");
+insert into compra values (5,"2021/10/06","EFECTIVO", 5000, 1, "100765489");
+insert into compra values (6,"2021/10/06","EFECTIVO", 5000, 1, "100765489");
+
 --Se insertan algunos productos en la base de datos
-insert into Producto values(1, "Camisa de tela fria", null, "2021-11-11", "esqueleto", 20000.0, 0, 5, 1, "100765489");
-insert into Producto values(2, "Jean jogger", null, "2021-10-22", "Jogger", 30000.0, 0, 15, 2, "42785998"  );
-insert into Producto values(3, "Tenis af1 blancos", null, "2021-12-22", "AF1", 130000.0, 0, 3, 3, "13838543"  );
-insert into Producto values(4, "Esqueleto de tela caliente", null, "2021-11-12", "Camisa", 20000.0, 0, 5, 1, "100765489"  );
+insert into Producto values(6, "Camisa de tela fria", null, "2021-11-11", "esqueleto", 20000.0, 0, 5, 1, "100765489");
+insert into Producto values(7, "Jean jogger", null, "2021-10-22", "Jogger", 30000.0, 0, 15, 2, "42785998"  );
+insert into Producto values(8, "Tenis af1 blancos", null, "2021-12-22", "AF1", 130000.0, 0, 3, 3, "13838543"  );
+insert into Producto values(9, "Esqueleto de tela caliente", null, "2021-11-12", "Camisa", 20000.0, 0, 5, 1, "100765489"  );
+insert into Producto values(10, "La mejor camiseta", null, "2021-11-12", "Camiseta", 20000.0, 0, 5, 1, "100765489"  );
+
+--Se crean detalles de compras como prueba en la base de datos
+insert into detalle_compra values (1,200000.00,2,1,6);
+insert into detalle_compra values (2,500000.00,5,2,7);
+insert into detalle_compra values (3,800000.00,1,3,8);
+insert into detalle_compra values (4,800000.00,3,3,9);
+insert into detalle_compra values (5,800000.00,6,3,10);
+
 
 --Se insertan algunos productos y categoria en la tabla producto_categorias
 insert into producto_categorias values(1, 1 );
@@ -75,18 +92,7 @@ insert into mensaje values (1,"Juan","2021/10/06","Hola, esta disponible este pr
 insert into mensaje values (2,"Juan","2021/10/06","Me interesa el producto",2);
 insert into mensaje values (3,"Juan","2021/10/06","Espero su respuesta muchas gracias.",3);
 
---Se crean compras como prueba en la base de datos
-insert into compra values (1,"2021/10/06","EFECTIVO", 5000, 1, "100765489");
-insert into compra values (2,"2021/10/06","EFECTIVO", 5000, 2, "42785998");
-insert into compra values (3,"2021/10/06","EFECTIVO", 5000, 3, "13838543");
-insert into compra values (4,"2021/10/06","EFECTIVO", 5000, 1, "100765489");
-insert into compra values (5,"2021/10/06","EFECTIVO", 5000, 1, "100765489");
-insert into compra values (6,"2021/10/06","EFECTIVO", 5000, 1, "100765489");
 
---Se crean detalles de compras como prueba en la base de datos
-insert into detalle_compra values (1,200000.00,2,1,1);
-insert into detalle_compra values (2,500000.00,5,2,2);
-insert into detalle_compra values (3,800000.00,1,3,3);
 
 --Se crean favoritos como prueba en la base de datos
 insert into producto_usuario values(1,"100765489");

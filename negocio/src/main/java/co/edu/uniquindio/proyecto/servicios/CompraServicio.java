@@ -16,4 +16,6 @@ public interface CompraServicio {
     List<MedioPago> listarMedioDePagos();
 
     Compra obtenerCompra(Integer codigoCompra) throws Exception;
+
+    List<Object[]>listarCompradoresFrecuentes();
 }
